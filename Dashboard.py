@@ -162,7 +162,7 @@ logistics_img = CTkImage(light_image=logitics_img_data, dark_image=logitics_img_
 CTkLabel(master=orders_metric, image=logistics_img, text="").grid(row=0, column=0, rowspan=2, padx=(12,5), pady=10)
 
 order_count_data = fetch_orders_data()
-order_count = order_count_data[0][0] if order_count else 0
+order_count = order_count_data[0][0] if order_count_data else 0
 
 
 CTkLabel(master=orders_metric, text="Orders", text_color="#fff", font=("Arial Black", 15)).grid(row=0, column=1, sticky="sw")
