@@ -114,9 +114,9 @@ CTkLabel(master=textframe, text="The Orders Page allows customers to browse avai
 CTkLabel(master=textframe, text="place orders effortlessly. Users can select items, specify quantities", text_color="#207244",font=("Arial", 20)).pack(anchor="center")
 CTkLabel(master=textframe, text=" and view the total cost before confirming their purchase.", text_color="#207244",font=("Arial", 20)).pack(anchor="center")
 CTkLabel(master=textframe, text="A simple, intuitive interface ensures a smooth ordering process, with", text_color="#207244",font=("Arial", 20)).pack(anchor="center")
-CTkLabel(master=textframe, text="options for delivery or pickup. Customers can track their order status", text_color="#207244",font=("Arial", 20)).pack(anchor="center")
+CTkLabel(master=textframe, text="options for orders or returns. Customers can also submit feedback", text_color="#207244",font=("Arial", 20)).pack(anchor="center")
 CTkLabel(master=textframe, text="If you want to Create a new order then.", text_color="#207244",font=("Arial", 20)).pack(anchor="center")
-CTkLabel(master=textframe, text="Create a new order with the button above", text_color="#207244",font=("Arial Bold", 25)).pack(anchor="center", pady=20)
+CTkLabel(master=textframe, text="Create it with the button above", text_color="#207244",font=("Arial Bold", 25)).pack(anchor="center", pady=20)
 
 
 
