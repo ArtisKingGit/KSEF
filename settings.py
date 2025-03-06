@@ -45,14 +45,14 @@ def open_orders():
 def open_feedback():
     app.destroy()
     try:
-        subprocess.Popen(["python", "feedback.py"])
+        subprocess.Popen(["python", "feedback_view.py"])
     except subprocess.CalledProcessError as e:
         print("Error executing Dashboard.py:", e)
     
 def open_returns():
     app.destroy()
     try:
-        subprocess.Popen(["python", "returns.py"])
+        subprocess.Popen(["python", "returns_second.py"])
     except subprocess.CalledProcessError as e:
         print("Error executing Dashboard.py:", e)
     

@@ -285,7 +285,7 @@ section {
 .contact-form .input-box input[type="submit"]
 {
   width: 100%;
-  background: #00bcd4;
+  background:rgb(3, 148, 3);
   color: #FFF;
   border: none;
   cursor: pointer;
@@ -297,8 +297,8 @@ section {
 
 .contact-form .input-box input[type="submit"]:hover
 {
-  background: #FFF;
-  color: #00d40e;
+  background: #000000;
+  color: #008b00;
 }
 
 @media (max-width: 991px) {

@@ -1,4 +1,4 @@
--- Active: 1737536794309@@127.0.0.1@5432@postgres
+-- Active: 1727965205984@@127.0.0.1@5432@postgres@public
 	username VARCHAR(255),
   	pass VARCHAR(255)
 );
@@ -21,5 +21,10 @@ CREATE TABLE returns_(
   	items_name VARCHAR(255),
   	item_quantity VARCHAR(255),
   	address_name VARCHAR(255)
+);
+
+CREATE TABLE admin_(
+	username VARCHAR(255),
+	pass VARCHAR(255)
 );
 	

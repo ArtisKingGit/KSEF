@@ -12,6 +12,28 @@ app.title("School Library")
 
 set_appearance_mode("light") 
 
+def fectch_count_data():
+    try:
+        conn = psycopg.connect("dbname='postgres' user='postgres' password='asdfghj3' host='localhost' port='5432'")
+        cur = conn.cursor()
+        
+        # Query to count rows in orders_
+        cur.execute('SELECT COUNT(*) FROM orders_')
+        
+        order_data = cur.fetchall()
+        
+        print(order_data)  # Debugging output
+        return order_data
+    
+    except (psycopg.DatabaseError) as e:
+        print("Error", f"Database Error: {e}")
+        
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+
 def open_accounts():
     try: 
         subprocess.Popen(["python", "account.py"])
@@ -73,7 +95,8 @@ def open_returns():
         subprocess.Popen(["python", "returns_second.py"])
     except subprocess.CalledProcessError as e:
         print("Error executing Dashboard.py:", e)
-    
+
+fectch_count_data()
 sidebar_frame = CTkFrame(master=app, fg_color="#2A8C55", width=176, height=650, corner_radius=0)
 sidebar_frame.pack_propagate(0)
 sidebar_frame.pack(fill="y", anchor="w", side="left")
@@ -138,8 +161,12 @@ logistics_img = CTkImage(light_image=logitics_img_data, dark_image=logitics_img_
 
 CTkLabel(master=orders_metric, image=logistics_img, text="").grid(row=0, column=0, rowspan=2, padx=(12,5), pady=10)
 
+order_count_data = fetch_orders_data()
+order_count = order_count_data[0][0] if order_count_data else 0
+
+
 CTkLabel(master=orders_metric, text="Orders", text_color="#fff", font=("Arial Black", 15)).grid(row=0, column=1, sticky="sw")
-CTkLabel(master=orders_metric, text="123", text_color="#fff",font=("Arial Black", 15), justify="left").grid(row=1, column=1, sticky="nw", pady=(0,10))
+CTkLabel(master=orders_metric, text=f"{order_count}", text_color="#fff",font=("Arial Black", 15), justify="left").grid(row=1, column=1, sticky="nw", pady=(0,10))
 
 #Shipping Frame
 shipped_metric = CTkFrame(master=metrics_frame, fg_color="#2A8C55", width=200, height=60)

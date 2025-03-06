@@ -14,7 +14,7 @@ set_appearance_mode("light")
 
 def open_dashboard():
     try:
-        subprocess.Popen(["python", "Dashboard.py"])
+        subprocess.Popen(["python", "Dashboard_user.py"])
         app.destroy()
     except subprocess.CalledProcessError as e:
         print("Error executing Dashboard.py", e)
