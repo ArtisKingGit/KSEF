@@ -13,7 +13,7 @@ set_appearance_mode("light")
 
 def open_accounts():
     try: 
-        subprocess.Popen(["python", "account.py"])
+        subprocess.Popen(["python", "account_admin.py"])
         app.destroy()
     except subprocess.CalledProcessError as e:
         print("Error executing account.py", e)
