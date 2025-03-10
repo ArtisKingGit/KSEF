@@ -30,13 +30,15 @@
             align-items: center;
             min-height: 100vh;
             padding: 25px;
-            background: #d6eef1;
+            background: linear-gradient(green, black, grey
+            );
         }
 
         .container form {
             width: 700px;
             padding: 20px;
-            background: #fff;
+            background: linear-gradient(green, black, grey
+  );
             box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
         }
@@ -57,7 +59,8 @@
 
         .col .title {
             font-size: 20px;
-            color: rgb(237, 55, 23);
+            text-align: center;
+            color: rgb(255, 254, 254);
             padding-bottom: 5px;
         }
 
@@ -116,7 +119,8 @@
         }
 
         .container form .submit_btn:hover {
-            background: #3d17fb;
+            background: #000000;
+            color: green;
         }
 
         input::-webkit-inner-spin-button,
@@ -157,14 +161,6 @@
         function goBack() {
             window.history.back();
         }
-
-        let cardNumInput = document.querySelector("#cardNum");
-
-        cardNumInput.addEventListener("input", () => {
-            let cNumber = cardNumInput.value.replace(/\D/g, ""); // Remove non-digits
-            cNumber = cNumber.match(/.{1,4}/g)?.join(" ") || ""; // Group into sets of 4
-            cardNumInput.value = cNumber;
-        });
     </script>
 
 </body>

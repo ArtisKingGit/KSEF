@@ -67,7 +67,7 @@ def fetch_account_name(username):
 def open_settings():
     app.destroy()
     try:
-        subprocess.Popen(["python", "settings.py"])
+        subprocess.Popen(["python", "settings_second.py"])
     except subprocess.CalledProcessError as e:
         print("Error executing Settings.py:", e)
         
@@ -96,7 +96,7 @@ def open_returns():
 def open_dashboard():
     app.destroy()
     try:
-        subprocess.Popen(["python", "Dashboard.py"])
+        subprocess.Popen(["python", "Dashboard_user.py"])
     except subprocess.CalledProcessError as e:
         print("Error", e)
 
