@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGNUP</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<style>
+  
+</style>
+<body>  
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+  </div>
+  <button onclick="goBack()" class="go-back-btn">Go Back</button>
+  <div class="container">
+    <form action="#" method="POST" class="form loginForm active">
+      <h1 class="title">Login</h1>
+      <div class="inputBox">
+        <i class='bx bx-envelope'></i>
+        <input type="email" name="email" placeholder="Enter your email number" required>
+      </div>
+      <div class="inputBox">
+        <i class='bx bx-lock-alt'></i>
+        <input type="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <input type="submit" value="Login" class="submitBtn">
+      <button type="button" id="googleSignIn" class="googleBtn">Sign in with Google</button>
+      <label for="#">Not a member? <span><a href="signup.html" class="signupLink">Create a new Account</a></span></label>
+    </form>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+  
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+      authDomain: "register-f5448.firebaseapp.com",
+      projectId: "register-f5448",
+      storageBucket: "register-f5448.firebasestorage.app",
+      messagingSenderId: "321470396528",
+      appId: "1:321470396528:web:a82520483006d1a56e9cb5",
+      measurementId: "G-4Z3S1GJS6G"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+  
+    // 🔹 Email/Password Login
+    document.querySelector(".loginForm").addEventListener("submit", (e) => {
+      e.preventDefault(); // Prevent form submission
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+  
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Login Successful!");
+          window.location.href = "dashboard.html"; // Redirect to dashboard
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
+  
+    // 🔹 Google Sign-In
+    document.getElementById("googleSignIn").addEventListener("click", () => {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          alert("Google Sign-In Successful!");
+          window.location.href = "dashboard.html"; // Redirect to dashboard
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
+  </script>
+  
+</body>
+</html>
+   

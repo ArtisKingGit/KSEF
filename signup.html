@@ -7,52 +7,98 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="style.css">
 </head>
-<style>
-  
-</style>
 <body>  
   <script>
     function goBack() {
       window.history.back();
     }
   </script>
-  </div>
+
   <button onclick="goBack()" class="go-back-btn">Go Back</button>
+
   <div class="container">
-    <form action="#" method="POST" class="form loginForm active">
-      <h1 class="title">Login</h1>
-      <div class="inputBox">
-        <i class='bx bx-envelope'></i>
-        <input type="email" name="admission_number" placeholder="Enter your admission number" required>
-      </div>
-      <div class="inputBox">
-        <i class='bx bx-lock-alt'></i>
-        <input type="password" name="password" placeholder="Enter your password" required>
-      </div>
-      <input type="submit" value="Login" class="submitBtn">
-      <label for="#" class="notMember">Not a member? <span><a href="#" class="signupLink">Sign Up.</a></span></label>
-    </form>
-    
-    <form action="" method="POST" class="form signupForm inactive">
+    <form action="javascript:void(0)" method="POST" class="form signupForm">
       <h1 class="title">Sign Up</h1>
+
       <div class="inputBox">
         <i class='bx bx-envelope'></i>
-        <input type="email" name="admission_number" placeholder="Enter your admission number" required>
+        <input type="email" name="email" placeholder="Enter your email" required>
       </div>
+
       <div class="inputBox">
         <i class='bx bx-lock-alt'></i>
         <input type="password" name="password" placeholder="Enter your password" required>
       </div>
+
       <div class="inputBox">
         <i class='bx bx-lock-alt'></i>
-        <input type="password" name="confirm_password" placeholder="Re-enter your password" required>
+        <input type="password" name="confirm_password" placeholder="Confirm your password" required>
       </div>
+
       <input type="submit" value="Sign Up" class="submitBtn">
-      <label for="" class="isMember">Is a member? <span><a href="#" class="loginLink">Login.</a></span></label>
+      <button type="button" id="googleSignUp" class="googleBtn">Sign Up with Google</button>
+
+      <label>Already a Member? <span><a href="login.html" class="signupLink">Log In</a></span></label>
     </form>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Firebase Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
+    // 🔹 Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+      authDomain: "register-f5448.firebaseapp.com",
+      projectId: "register-f5448",
+      storageBucket: "register-f5448.appspot.com",
+      messagingSenderId: "321470396528",
+      appId: "1:321470396528:web:a82520483006d1a56e9cb5",
+      measurementId: "G-4Z3S1GJS6G"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    // 🔹 Email/Password Signup
+    document.querySelector(".signupForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      const confirmPassword = e.target.confirm_password.value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Account Created Successfully!");
+          window.location.href = "login.html"; // Redirect to dashboard
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
+
+    // 🔹 Google Signup
+    document.getElementById("googleSignUp").addEventListener("click", () => {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          alert("Google Sign-Up Successful!");
+          window.location.href = "login.html"; // Redirect to dashboard
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
+
+  </script>
+
 </body>
 </html>
-   
