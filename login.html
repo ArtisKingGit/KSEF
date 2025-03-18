@@ -31,52 +31,81 @@
         <input type="password" name="password" placeholder="Enter your password" required>
       </div>
       <input type="submit" value="Login" class="submitBtn">
-      <button type="button" id="googleSignIn" class="googleBtn">Sign in with Google</button>
+      <button type="button" id="googleSignIn" class="submitBtn"><img src="icons8-google-20.png" style="vertical-align: middle; margin: right 5px;"> Sign in with Google</button>
+      <button type="button" id="githubSignIn" class="submitBtn"><img src="github_icon.png" style="vertical-align: middle; margin: right 5px;"> Sign in with Github</button>
+      <button type="button" id="microsoftSignIn" class="submitBtn"><img src="icons8-microsoft-20.png" style="vertical-align: middle; margin: right 5px;"> Sign in with Microsoft</button>
+
       <label for="#">Not a member? <span><a href="signup.html" class="signupLink">Create a new Account</a></span></label>
     </form>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-  
+    import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, OAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
     // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
       authDomain: "register-f5448.firebaseapp.com",
       projectId: "register-f5448",
-      storageBucket: "register-f5448.firebasestorage.app",
+      storageBucket: "register-f5448.appspot.com",
       messagingSenderId: "321470396528",
       appId: "1:321470396528:web:a82520483006d1a56e9cb5",
       measurementId: "G-4Z3S1GJS6G"
     };
-  
+
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth();
-  
+
     // 🔹 Email/Password Login
     document.querySelector(".loginForm").addEventListener("submit", (e) => {
-      e.preventDefault(); // Prevent form submission
+      e.preventDefault();
       const email = e.target.email.value;
       const password = e.target.password.value;
-  
+
       signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(() => {
           alert("Login Successful!");
-          window.location.href = "index.html"; // Redirect to dashboard
+          window.location.href = "index.html"; // Redirect
         })
         .catch((error) => {
           alert("Error: " + error.message);
         });
     });
-  
+
     // 🔹 Google Sign-In
     document.getElementById("googleSignIn").addEventListener("click", () => {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
-        .then((result) => {
+        .then(() => {
           alert("Google Sign-In Successful!");
-          window.location.href = "index.html"; // Redirect to dashboard
+          window.location.href = "index.html"; // Redirect
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
+
+    // 🔹 GitHub Sign-In
+    document.getElementById("githubSignIn").addEventListener("click", () => {
+      const provider = new GithubAuthProvider();
+      signInWithPopup(auth, provider)
+        .then(() => {
+          alert("GitHub Sign-In Successful!");
+          window.location.href = "index.html"; // Redirect
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
+
+    // 🔹 Microsoft Sign-In
+    document.getElementById("microsoftSignIn").addEventListener("click", () => {
+      const provider = new OAuthProvider('microsoft.com');
+      signInWithPopup(auth, provider)
+        .then(() => {
+          alert("Microsoft Sign-In Successful!");
+          window.location.href = "index.html"; // Redirect
         })
         .catch((error) => {
           alert("Error: " + error.message);
