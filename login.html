@@ -3,44 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIGNUP</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Login</title>
   <link rel="stylesheet" href="style.css">
-
 </head>
-<style>
-  
-</style>
 <body>  
   <script>
     function goBack() {
       window.history.back();
     }
   </script>
-  </div>
+
   <button onclick="goBack()" class="go-back-btn">Go Back</button>
+
   <div class="container">
-    <form action="#" method="POST" class="form loginForm active">
+    <form action="#" method="POST" class="form loginForm">
       <h1 class="title">Login</h1>
       <div class="inputBox">
-        <i class='bx bx-envelope'></i>
-        <input type="email" name="email" placeholder="Enter your email number" required>
+        <input type="email" name="email" placeholder="Enter your email" required>
       </div>
       <div class="inputBox">
-        <i class='bx bx-lock-alt'></i>
         <input type="password" name="password" placeholder="Enter your password" required>
       </div>
       <input type="submit" value="Login" class="submitBtn">
-      <button type="button" id="googleSignIn" class="submitBtn"><img src="icons8-google-20.png" style="vertical-align: middle; margin: right 5px;"> Sign in with Google</button>
-      <button type="button" id="githubSignIn" class="submitBtn"><img src="github_icon.png" style="vertical-align: middle; margin: right 5px;"> Sign in with Github</button>
-      <button type="button" id="microsoftSignIn" class="submitBtn"><img src="icons8-microsoft-20.png" style="vertical-align: middle; margin: right 5px;"> Sign in with Microsoft</button>
-
+      <button type="button" id="googleSignIn" class="submitBtn">
+        <img src="icons8-google-20.png" style="vertical-align: middle; margin-right: 5px;">
+        Sign in with Google
+      </button>
+      <button type="button" id="resendVerification" class="submitBtn">Resend Verification Email</button>
       <label for="#">Not a member? <span><a href="signup.html" class="signupLink">Create a new Account</a></span></label>
     </form>
+  </div>
 
+  <!-- Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, OAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
     // Firebase Configuration
     const firebaseConfig = {
@@ -57,62 +54,59 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth();
 
-    // 🔹 Email/Password Login
+    // Email/Password Login with Verification Check
     document.querySelector(".loginForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const email = e.target.email.value;
       const password = e.target.password.value;
 
       signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          alert("Login Successful!");
-          window.location.href = "index.html"; // Redirect
+        .then((userCredential) => {
+          const user = userCredential.user;
+
+          if (user.emailVerified) {
+            alert("Login Successful!");
+            window.location.href = "index2.html"; // Redirect after successful login
+          } else {
+            alert("Please verify your email before logging in.");
+          }
         })
         .catch((error) => {
           alert("Error: " + error.message);
         });
     });
 
-    // 🔹 Google Sign-In
+    // Google Sign-In
     document.getElementById("googleSignIn").addEventListener("click", () => {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
         .then(() => {
           alert("Google Sign-In Successful!");
-          window.location.href = "index.html"; // Redirect
+          window.location.href = "index2.html"; // Redirect
         })
         .catch((error) => {
           alert("Error: " + error.message);
         });
     });
 
-    // 🔹 GitHub Sign-In
-    document.getElementById("githubSignIn").addEventListener("click", () => {
-      const provider = new GithubAuthProvider();
-      signInWithPopup(auth, provider)
-        .then(() => {
-          alert("GitHub Sign-In Successful!");
-          window.location.href = "index.html"; // Redirect
-        })
-        .catch((error) => {
-          alert("Error: " + error.message);
-        });
+    // Resend Verification Email
+    document.getElementById("resendVerification").addEventListener("click", () => {
+      const user = auth.currentUser;
+
+      if (user) {
+        sendEmailVerification(user)
+          .then(() => {
+            alert("Verification email sent again. Please check your inbox.");
+          })
+          .catch((error) => {
+            alert("Error: " + error.message);
+          });
+      } else {
+        alert("No user logged in.");
+      }
     });
 
-    // 🔹 Microsoft Sign-In
-    document.getElementById("microsoftSignIn").addEventListener("click", () => {
-      const provider = new OAuthProvider('microsoft.com');
-      signInWithPopup(auth, provider)
-        .then(() => {
-          alert("Microsoft Sign-In Successful!");
-          window.location.href = "index.html"; // Redirect
-        })
-        .catch((error) => {
-          alert("Error: " + error.message);
-        });
-    });
   </script>
-  
+
 </body>
 </html>
-   

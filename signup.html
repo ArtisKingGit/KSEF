@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIGNUP</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Signup</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>  
@@ -19,25 +18,20 @@
   <div class="container">
     <form action="javascript:void(0)" method="POST" class="form signupForm">
       <h1 class="title">Sign Up</h1>
-
       <div class="inputBox">
-        <i class='bx bx-envelope'></i>
         <input type="email" name="email" placeholder="Enter your email" required>
       </div>
-
       <div class="inputBox">
-        <i class='bx bx-lock-alt'></i>
         <input type="password" name="password" placeholder="Enter your password" required>
       </div>
-
       <div class="inputBox">
-        <i class='bx bx-lock-alt'></i>
         <input type="password" name="confirm_password" placeholder="Confirm your password" required>
       </div>
-
-      <input type="submit" value="Sign Up" class="submitBtn">
-      <button type="button" id="googleSignUp" class="googleBtn">Sign Up with Google</button>
-
+      <input type="submit" value="Sign Up with Email" class="submitBtn">
+      <button type="button" id="googleSignUp" class="submitBtn">
+        <img src="icons8-google-20.png" style="vertical-align: middle; margin-right: 10px;">
+        Sign Up with Google
+      </button>
       <label>Already a Member? <span><a href="login.html" class="signupLink">Log In</a></span></label>
     </form>
   </div>
@@ -45,9 +39,9 @@
   <!-- Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-    // 🔹 Firebase Configuration
+    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
       authDomain: "register-f5448.firebaseapp.com",
@@ -62,10 +56,9 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth();
 
-    // 🔹 Email/Password Signup
+    // Email/Password Signup with Verification
     document.querySelector(".signupForm").addEventListener("submit", (e) => {
       e.preventDefault();
-
       const email = e.target.email.value;
       const password = e.target.password.value;
       const confirmPassword = e.target.confirm_password.value;
@@ -77,21 +70,30 @@
 
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          alert("Account Created Successfully!");
-          window.location.href = "login.html"; // Redirect to dashboard
+          const user = userCredential.user;
+
+          sendEmailVerification(user)
+            .then(() => {
+              alert("Account Created! A verification email has been sent. Please verify before logging in.");
+              window.location.href = "login.html"; // Redirect to login page
+            })
+            .catch((error) => {
+              alert("Error sending verification email: " + error.message);
+            });
+
         })
         .catch((error) => {
           alert("Error: " + error.message);
         });
     });
 
-    // 🔹 Google Signup
+    // Google Signup
     document.getElementById("googleSignUp").addEventListener("click", () => {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
         .then((result) => {
           alert("Google Sign-Up Successful!");
-          window.location.href = "login.html"; // Redirect to dashboard
+          window.location.href = "index2.html";
         })
         .catch((error) => {
           alert("Error: " + error.message);
