@@ -27,6 +27,9 @@
       <div class="inputBox">
         <input type="password" name="confirm_password" placeholder="Confirm your password" required>
       </div>
+      <div class="inputBox">
+        <input type="file" name="profilePicture" accept="image/*" required>
+      </div>
       <input type="submit" value="Sign Up with Email" class="submitBtn">
       <button type="button" id="googleSignUp" class="submitBtn">
         <img src="icons8-google-20.png" style="vertical-align: middle; margin-right: 10px;">
@@ -40,6 +43,8 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
+    import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
     // Firebase Configuration
     const firebaseConfig = {
@@ -55,36 +60,50 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth();
+    const storage = getStorage();
+    const firestore = getFirestore();
 
-    // Email/Password Signup with Verification
-    document.querySelector(".signupForm").addEventListener("submit", (e) => {
+    // Email/Password Signup with Profile Picture and Verification
+    document.querySelector(".signupForm").addEventListener("submit", async (e) => {
       e.preventDefault();
+
       const email = e.target.email.value;
       const password = e.target.password.value;
       const confirmPassword = e.target.confirm_password.value;
+      const profilePicture = e.target.profilePicture.files[0];
 
       if (password !== confirmPassword) {
         alert("Passwords do not match!");
         return;
       }
 
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
+      try {
+        // Create user with email and password
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-          sendEmailVerification(user)
-            .then(() => {
-              alert("Account Created! A verification email has been sent. Please verify before logging in.");
-              window.location.href = "login.html"; // Redirect to login page
-            })
-            .catch((error) => {
-              alert("Error sending verification email: " + error.message);
-            });
+        // Upload profile picture to Firebase Storage
+        let profilePictureUrl = '';
+        if (profilePicture) {
+          const storageRef = ref(storage, `profilePictures/${user.uid}`);
+          await uploadBytes(storageRef, profilePicture);
+          profilePictureUrl = await getDownloadURL(storageRef);
+        }
 
-        })
-        .catch((error) => {
-          alert("Error: " + error.message);
+        // Save user data in Firestore
+        await setDoc(doc(firestore, "users", user.uid), {
+          email: email,
+          profilePicture: profilePictureUrl
         });
+
+        // Send email verification
+        await sendEmailVerification(user);
+        alert("Account Created! A verification email has been sent. Please verify before logging in.");
+
+        window.location.href = "login.html"; // Redirect to login page
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
     });
 
     // Google Signup
@@ -99,7 +118,6 @@
           alert("Error: " + error.message);
         });
     });
-
   </script>
 
 </body>
