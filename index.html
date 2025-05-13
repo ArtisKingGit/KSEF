@@ -131,5 +131,33 @@
     <p>Find a wide range of books, encyclopedias, and more.</p>
   </div>
   
+  <!-- Firebase: Check if user is signed in -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+    authDomain: "register-f5448.firebaseapp.com",
+    projectId: "register-f5448",
+    storageBucket: "register-f5448.appspot.com",
+    messagingSenderId: "321470396528",
+    appId: "1:321470396528:web:a82520483006d1a56e9cb5",
+    measurementId: "G-4Z3S1GJS6G"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // Check if email is verified or it's a Google sign-in
+      if (user.emailVerified || user.providerData[0].providerId === 'google.com') {
+        window.location.href = "index2.html"; // Redirect to dashboard
+      }
+    }
+  });
+</script>
+
 </body>
 </html>
