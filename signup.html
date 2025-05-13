@@ -6,7 +6,8 @@
   <title>Signup</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>  
+<body>
+
   <script>
     function goBack() {
       window.history.back();
@@ -18,6 +19,7 @@
   <div class="container">
     <form action="javascript:void(0)" method="POST" class="form signupForm">
       <h1 class="title">Sign Up</h1>
+
       <div class="inputBox">
         <input type="email" name="email" placeholder="Enter your email" required>
       </div>
@@ -27,19 +29,36 @@
       <div class="inputBox">
         <input type="password" name="confirm_password" placeholder="Confirm your password" required>
       </div>
+
       <input type="submit" value="Sign Up with Email" class="submitBtn">
+
       <button type="button" id="googleSignUp" class="submitBtn">
         <img src="icons8-google-20.png" style="vertical-align: middle; margin-right: 10px;">
-        Sign Up with Google.
+        Sign Up with Google
       </button>
-      <label>Already a Member? <span><a href="login.html" class="signupLink">Log In</a></span></label>
+
+      <button type="button" id="githubSignUp" class="submitBtn">
+        <img src="icons8-github-20.png" style="vertical-align: middle; margin-right: 10px;">
+        Sign Up with GitHub
+      </button>
+
+      <label>Already a Member? 
+        <span><a href="login.html" class="signupLink">Log In</a></span>
+      </label>
     </form>
   </div>
 
   <!-- Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      sendEmailVerification,
+      signInWithPopup,
+      GoogleAuthProvider,
+      GithubAuthProvider
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
     // Firebase Configuration
     const firebaseConfig = {
@@ -56,7 +75,7 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Email/Password Signup with Verification
+    // Email/Password Signup
     document.querySelector(".signupForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const email = e.target.email.value;
@@ -71,19 +90,17 @@
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-
           sendEmailVerification(user)
             .then(() => {
-              alert("Account Created! A verification email has been sent. Please verify before logging in.");
-              window.location.href = "login.html"; // Redirect to login page
+              alert("Account created! Verification email sent. Please verify before logging in.");
+              window.location.href = "login.html";
             })
             .catch((error) => {
-              alert("Error sending verification email: " + error.message);
+              alert("Verification error: " + error.message);
             });
-
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          alert("Signup error: " + error.message);
         });
     });
 
@@ -96,7 +113,20 @@
           window.location.href = "index2.html";
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          alert("Google Sign-Up Error: " + error.message);
+        });
+    });
+
+    // GitHub Signup
+    document.getElementById("githubSignUp").addEventListener("click", () => {
+      const provider = new GithubAuthProvider();
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          alert("GitHub Sign-Up Successful!");
+          window.location.href = "index2.html";
+        })
+        .catch((error) => {
+          alert("GitHub Sign-Up Error: " + error.message);
         });
     });
 
