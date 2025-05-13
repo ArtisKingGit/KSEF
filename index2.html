@@ -125,15 +125,22 @@
       <li><a href="about.html">About</a></li>
       <li><a href="contactus.html">Contact</a></li>
       <li><a href="eduvideos.html">Educational Videos</a></li>
+      <li><a href="eduvideos.html">Profile</a></li>
     </ul>                       
 
     <h1>Welcome to Dawamu School Bookshop</h1>
     <p>Find a wide range of Books, Encyclopedias, and More.</p>
+    <div id="userProfile" style="margin-top: 20px; font-size: 16px;"></div>
+    <button id="logoutBtn" style="margin-top: 10px; padding: 8px 16px; border: none; border-radius: 5px; background-color: crimson; color: white; cursor: pointer;">Logout</button>
   </div>
   
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
   
     const firebaseConfig = {
       apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
@@ -148,14 +155,46 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
   
+    const userProfile = document.getElementById("userProfile");
+    const logoutBtn = document.getElementById("logoutBtn");
+  
     onAuthStateChanged(auth, (user) => {
-      if (!user || (!user.emailVerified && user.providerData[0].providerId !== 'google.com')) {
-        // Not logged in or email not verified
+      if (user) {
+        // Check if email is verified or if it's a Google/GitHub user
+        const isSocialLogin = user.providerData[0].providerId !== "password";
+  
+        if (user.emailVerified || isSocialLogin) {
+          const displayName = user.displayName || "User";
+          const email = user.email;
+  
+          userProfile.innerHTML = `
+            <strong>Signed in as:</strong><br>
+            Welcome ${displayName}<br>
+            Email: ${email}
+          `;
+        } else {
+          alert("You must verify your email before accessing this page.");
+          window.location.href = "login.html";
+        }
+      } else {
         alert("You must be logged in to access this page.");
         window.location.href = "login.html";
       }
     });
+  
+    // Logout functionality
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth)
+        .then(() => {
+          alert("You have been logged out.");
+          window.location.href = "login.html";
+        })
+        .catch((error) => {
+          alert("Error logging out: " + error.message);
+        });
+    });
   </script>
+  
   
 </body>
 </html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>  
   <script>
@@ -18,28 +18,56 @@
   <div class="container">
     <form action="#" method="POST" class="form loginForm">
       <h1 class="title">Login</h1>
+      
       <div class="inputBox">
-        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="email" name="email" placeholder="Enter your email" required />
       </div>
+      
       <div class="inputBox">
-        <input type="password" name="password" placeholder="Enter your password" required>
+        <input type="password" name="password" placeholder="Enter your password" required />
       </div>
-      <input type="submit" value="Login" class="submitBtn">
+
+      <!-- Forgot Password -->
+      <a href="#" id="forgotPasswordLink" class="signupLink">Forgot Password?</a>
+
+      <input type="submit" value="Login" class="submitBtn" />
+
+      <!-- Social Logins -->
       <button type="button" id="googleSignIn" class="submitBtn">
-        <img src="icons8-google-20.png" style="vertical-align: middle; margin-right: 5px;">
+        <img src="icons8-google-50.png" style="vertical-align: middle; margin-right: 5px;" />
         Sign in with Google
       </button>
-      <button type="button" id="resendVerification" class="submitBtn">Resend Verification Email</button>
-      <label for="#">Not a member? <span><a href="signup.html" class="signupLink">Create a new Account</a></span></label>
+
+      <button type="button" id="githubSignIn" class="submitBtn">
+        <img src="icons8-github-50.png" style="vertical-align: middle; margin-right: 5px;" />
+        Sign in with GitHub
+      </button>
+
+      <!-- Resend Email -->
+      <button type="button" id="resendVerification" class="submitBtn">
+        Resend Verification Email
+      </button>
+
+      <label for="#">
+        Not a member?
+        <span><a href="signup.html" class="signupLink">Create a new Account</a></span>
+      </label>
     </form>
   </div>
 
   <!-- Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      sendEmailVerification,
+      signInWithPopup,
+      sendPasswordResetEmail,
+      GoogleAuthProvider,
+      GithubAuthProvider
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
       authDomain: "register-f5448.firebaseapp.com",
@@ -50,11 +78,10 @@
       measurementId: "G-4Z3S1GJS6G"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const auth = getAuth();
+    const auth = getAuth(app);
 
-    // Email/Password Login with Verification Check
+    // Email/Password Login
     document.querySelector(".loginForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const email = e.target.email.value;
@@ -63,10 +90,9 @@
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-
           if (user.emailVerified) {
             alert("Login Successful!");
-            window.location.href = "index2.html"; // Redirect after successful login
+            window.location.href = "index2.html";
           } else {
             alert("Please verify your email before logging in.");
           }
@@ -82,31 +108,55 @@
       signInWithPopup(auth, provider)
         .then(() => {
           alert("Google Sign-In Successful!");
-          window.location.href = "index2.html"; // Redirect
+          window.location.href = "index2.html";
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          alert("Google Sign-In Error: " + error.message);
+        });
+    });
+
+    // GitHub Sign-In
+    document.getElementById("githubSignIn").addEventListener("click", () => {
+      const provider = new GithubAuthProvider();
+      signInWithPopup(auth, provider)
+        .then(() => {
+          alert("GitHub Sign-In Successful!");
+          window.location.href = "index2.html";
+        })
+        .catch((error) => {
+          alert("GitHub Sign-In Error: " + error.message);
         });
     });
 
     // Resend Verification Email
     document.getElementById("resendVerification").addEventListener("click", () => {
       const user = auth.currentUser;
-
       if (user) {
         sendEmailVerification(user)
           .then(() => {
-            alert("Verification email sent again. Please check your inbox.");
+            alert("Verification email resent. Please check your inbox.");
           })
           .catch((error) => {
             alert("Error: " + error.message);
           });
       } else {
-        alert("No user logged in.");
+        alert("No user is currently signed in.");
       }
     });
 
+    // Forgot Password
+    document.getElementById("forgotPasswordLink").addEventListener("click", () => {
+      const email = prompt("Enter your email address to reset your password:");
+      if (email) {
+        sendPasswordResetEmail(auth, email)
+          .then(() => {
+            alert("Password reset email sent. Please check your inbox.");
+          })
+          .catch((error) => {
+            alert("Error: " + error.message);
+          });
+      }
+    });
   </script>
-
 </body>
 </html>
