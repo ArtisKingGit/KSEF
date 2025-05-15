@@ -119,6 +119,8 @@
   <div class="container">
     <a href="#" class="logo"></a>
     <h1>DAWAMU SCHOOL BOOKSHOP</h1>
+    <div id="userProfile" style="margin-top: 20px; font-size: 16px;"></div>
+
   
     <ul class="nav-links">
       <li><a href="shop.html">Books</a></li>
@@ -130,8 +132,6 @@
 
     <h1>Welcome to Dawamu School Bookshop</h1>
     <p>Find a wide range of Books, Encyclopedias, and More.</p>
-    <div id="userProfile" style="margin-top: 20px; font-size: 16px;"></div>
-    <button id="logoutBtn" style="margin-top: 10px; padding: 8px 16px; border: none; border-radius: 5px; background-color: crimson; color: white; cursor: pointer;">Logout</button>
   </div>
   
   <script type="module">
@@ -169,7 +169,6 @@
   
           userProfile.innerHTML = `
             Welcome ${displayName}<br>
-            Email: ${email}
           `;
         } else {
           alert("You must verify your email before accessing this page.");
