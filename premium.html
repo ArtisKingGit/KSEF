@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subscribe - Dawamu School Bookshop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-image: url('af3e75fbd20540d06bca1a3481a68719.jpg');
+      background-size: cover;
+      color: #e0e0e0;
+    }
+
+    header {
+      background: rgba(40, 41, 40, 0.861);
+      backdrop-filter: blur(10px);
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    header h1 {
+      margin-bottom: 10px;
+      font-size: 2.5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+    }
+
+    nav ul li a {
+      color: #e0e0e0;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: scale(1.1);
+    }
+
+    .go-back-btn {
+      background: linear-gradient(90deg, #444, #666);
+      color: #e0e0e0;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .go-back-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 40px;
+    }
+
+    .subscription-box {
+      background: rgba(50, 50, 50, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      width: 300px;
+    }
+
+    .subscription-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    footer {
+      background: rgba(40, 40, 40, 0.8);
+      color: #e0e0e0;
+      text-align: center;
+      padding: 10px;
+      width: 100%;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dawamu School Bookshop</h1>
+    <nav>
+      <button onclick="goBack()" class="go-back-btn">Go Back</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Books</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contactus.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Weekly Subscription -->
+    <div class="subscription-box">
+      <h3>Weekly Subscription</h3>
+      <h3>1.00$ Per Week</h3>
+      <h2>Premiums</h2>
+      <li>Premium Support</li>
+      <li>10% Discount off all books</li>
+      <li>Free Voucher codes per week</li>
+      <li></li>
+      <div id="paypal-button-container-P-65760375DM474464NNAVQBZA"></div>
+    </div>
+
+    <!-- Monthly Subscription -->
+    <div class="subscription-box">
+      <h3>Monthly Subscription</h3>
+      <h3>5.00$ Per Month</h3>
+      <div id="paypal-button-container-P-2CY28568X5268130DNAVP45Q"></div>
+    </div>
+
+    <!-- Annual Subscription -->
+    <div class="subscription-box">
+      <h3>Annual Subscription</h3>
+      <h3>50$ Annualy</h3>
+      <div id="paypal-button-container-P-4MC45281JN2229443NAVQETI"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Dawamu School Bookshop. All rights reserved.</p>
+  </footer>
+    <script src="https://www.paypal.com/sdk/js?client-id=Ach2reMN7sI4Q_dNUO2_-05cKq45cF437Nr7gyOqHWYPor4YqMcBFFEahmx_1rfs4CSE_dSj_sQD1v0i&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+  <script>
+    paypal.Buttons({
+      style: {
+          shape: 'pill',
+          color: 'black',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-4MC45281JN2229443NAVQETI'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+    }).render('#paypal-button-container-P-4MC45281JN2229443NAVQETI'); // Renders the PayPal button
+    </script>
+    <script>
+    paypal.Buttons({
+        style: {
+            shape: 'pill',
+            color: 'silver',
+            layout: 'vertical',
+            label: 'subscribe'
+        },
+        createSubscription: function(data, actions) {
+            return actions.subscription.create({
+            /* Creates the subscription */
+            plan_id: 'P-65760375DM474464NNAVQBZA'
+            });
+        },
+        onApprove: function(data, actions) {
+            alert(data.subscriptionID); // You can add optional success message for the subscriber here
+        }
+    }).render('#paypal-button-container-P-65760375DM474464NNAVQBZA'); // Renders the PayPal button
+    </script>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+            <script>
+            paypal.Buttons({
+                style: {
+                    shape: 'pill',
+                    color: 'gold',
+                    layout: 'vertical',
+                    label: 'subscribe'
+                },
+                createSubscription: function(data, actions) {
+                    return actions.subscription.create({
+                    /* Creates the subscription */
+                    plan_id: 'P-2CY28568X5268130DNAVP45Q'
+                    });
+                },
+                onApprove: function(data, actions) {
+                    alert(data.subscriptionID); // You can add optional success message for the subscriber here
+                }
+            }).render('#paypal-button-container-P-2CY28568X5268130DNAVP45Q'); // Renders the PayPal button
+            </script>
+</body>
+</html>
+
+
+
