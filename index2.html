@@ -15,23 +15,18 @@
       font-family: 'Arial', sans-serif;
       background-color: black;
       color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       background-size: cover;
       background-position: center;
     }
 
     .container {
-      max-width: 800px;
-      width: 90%;
-      text-align: center;
-      padding: 20px;
-      border-radius: 20px;
-      background-color: rgba(0, 128, 0, 0.7); /* green background with transparency */
+      width: 100%;
+      min-height: 100vh;
+      padding: 40px 20px;
+      background-color: rgba(0, 128, 0, 0.7);
       backdrop-filter: blur(5px);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
     .logo {
@@ -44,12 +39,18 @@
       margin: 0 auto;
     }
 
+    h1 {
+      text-align: center;
+      margin-top: 10px;
+    }
+
     .nav-links {
       list-style: none;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 20px;
+      padding: 0;
     }
 
     .nav-links li {
@@ -91,7 +92,8 @@
     }
 
     .logout-btn {
-      margin-top: 20px;
+      display: block;
+      margin: 30px auto 0;
       background: #ff5555;
       border: none;
       color: white;
@@ -105,8 +107,19 @@
       .welcome-section {
         flex-direction: column;
       }
+
       #userPhoto {
-        margin-bottom: 10px;
+        margin: 0 0 10px 0;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-links li {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
@@ -128,6 +141,7 @@
       <li><a href="eduvideos.html">Educational Videos</a></li>
       <li><a href="profile.html">Profile</a></li>
       <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="premium.html">Pricing</a></li>
     </ul>
 
     <button class="logout-btn" id="logoutBtn">Logout</button>
