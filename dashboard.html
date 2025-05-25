@@ -137,6 +137,109 @@
       cursor: not-allowed;
     }
 
+    /* Delivery method & order description */
+    .delivery-method {
+      margin-top: 15px;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .delivery-method label {
+      margin-right: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .order-description {
+      margin-top: 10px;
+      width: 100%;
+      min-height: 50px;
+      font-size: 0.95rem;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1.5px solid #ccc;
+      resize: vertical;
+      font-family: inherit;
+      color: #333;
+      box-sizing: border-box;
+    }
+
+    .order-description:disabled {
+      background: #eee;
+      color: #666;
+      cursor: not-allowed;
+    }
+
+    .confirm-btn {
+      margin-top: 12px;
+      padding: 8px 16px;
+      background-color: #229844;
+      border: none;
+      color: white;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .confirm-btn:hover:not(:disabled) {
+      background-color: #1a6c35;
+    }
+
+    .confirm-btn:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    /* Star rating styling */
+    .star-rating {
+      direction: rtl; /* For CSS sibling logic */
+      font-size: 28px;
+      unicode-bidi: bidi-override;
+      user-select: none;
+      display: inline-block;
+      margin-top: 12px;
+    }
+
+    .star-rating input[type="radio"] {
+      display: none;
+    }
+
+    .star-rating label {
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      display: inline-block;
+      padding: 0 4px;
+      user-select: none;
+      font-weight: bold;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: #ffca28;
+    }
+
+    .star-rating input[type="radio"]:checked ~ label {
+      color: #ffc107;
+    }
+
+    .star-rating input[type="radio"]:checked + label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: #ffb300;
+    }
+
+    .star-rating input[type="radio"]:disabled + label {
+      cursor: default;
+      color: #aaa !important;
+    }
+
+    .star-rating input[type="radio"]:disabled + label:hover,
+    .star-rating input[type="radio"]:disabled + label:hover ~ label {
+      color: #aaa !important;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -194,11 +297,11 @@
     onAuthStateChanged(auth, user => {
       if (user) {
         const userOrdersRef = ref(db, 'orders/' + user.uid);
-        loadingDiv.classList.add("show"); // fade in spinner
+        loadingDiv.classList.add("show"); // show spinner
 
         onValue(userOrdersRef, snapshot => {
           const orders = snapshot.val();
-          loadingDiv.classList.remove("show"); // fade out spinner
+          loadingDiv.classList.remove("show"); // hide spinner
 
           if (orders) {
             let html = '';
@@ -217,57 +320,157 @@
                 });
               }
 
+              const isConfirmed = order.deliveryConfirmed === true;
               const disabled = ["Cancelled", "Completed", "Delivered"].includes(order.status) ? "disabled" : "";
+
+              // Preselect delivery method or default to Delivery
+              const deliveryChecked = order.deliveryMethod === 'Delivery' ? 'checked' : '';
+              const pickupChecked = order.deliveryMethod === 'Manual Pickup' ? 'checked' : '';
+
+              // Disable inputs if confirmed or order completed/cancelled
+              const disabledInput = isConfirmed || disabled ? 'disabled' : '';
+
+              // Get order description or empty
+              const description = order.orderDescription || '';
+
+              // Star rating: preselect rating if exists
+              const rating = order.deliveryRating || 0;
+
+              // Create stars with checked if rating matches
+              const starInputs = [5,4,3,2,1].map(value => {
+                const checked = (rating === value) ? 'checked' : '';
+                return `
+                  <input type="radio" id="${orderId}-star${value}" name="${orderId}-rating" value="${value}" ${checked} ${disabledInput} />
+                  <label for="${orderId}-star${value}">&#9733;</label>
+                `;
+              }).join('');
 
               html += `
                 <div class="order-card">
                   <h3>${order.bookName}</h3>
                   <p><strong>Quantity:</strong> ${order.quantity}</p>
                   <p><strong>Status:</strong> ${order.status}</p>
-                  <p><strong>Ordered On:</strong> ${timeString || 'Unknown'}</p>
-                  <button class="cancel-btn" data-id="${orderId}" ${disabled}>Cancel Order</button>
+                  <p><strong>Order Date:</strong> ${timeString}</p>
+
+                  <div class="delivery-method">
+                    <label>
+                      <input type="radio" name="${orderId}-delivery" value="Delivery" ${deliveryChecked} ${disabledInput} />
+                      Delivery
+                    </label>
+                    <label>
+                      <input type="radio" name="${orderId}-delivery" value="Manual Pickup" ${pickupChecked} ${disabledInput} />
+                      Manual Pickup
+                    </label>
+                  </div>
+
+                  <textarea class="order-description" placeholder="Enter order description (optional)" ${disabledInput}>${description}</textarea>
+
+                  <button class="confirm-btn" ${isConfirmed || disabled ? 'disabled' : ''}>${isConfirmed ? 'Confirmed' : 'Confirm'}</button>
+
+                  <div class="star-rating" aria-label="Rate delivery from 1 to 5 stars" role="radiogroup">
+                    ${starInputs}
+                  </div>
                 </div>
               `;
             });
 
             orderList.innerHTML = html;
 
-            // Animate in order cards
-            const cards = document.querySelectorAll(".order-card");
-            cards.forEach((card, index) => {
-              setTimeout(() => card.classList.add("show"), index * 100);
-            });
+            // Add event listeners after rendering
+            addListeners(user.uid);
 
-            // Add cancel logic
-            const cancelButtons = document.querySelectorAll(".cancel-btn");
-            cancelButtons.forEach(btn => {
-              btn.addEventListener("click", () => {
-                const orderId = btn.getAttribute("data-id");
-                if (confirm("Are you sure you want to cancel this order?")) {
-                  const orderStatusRef = ref(db, `orders/${user.uid}/${orderId}`);
-                  update(orderStatusRef, { status: "Cancelled" })
-                    .then(() => alert("Order cancelled successfully."))
-                    .catch(error => alert("Failed to cancel order: " + error.message));
-                }
-              });
+            // Animate order cards in
+            const cards = document.querySelectorAll('.order-card');
+            cards.forEach((card, idx) => {
+              setTimeout(() => {
+                card.classList.add('show');
+              }, idx * 150);
             });
 
           } else {
-            orderList.innerHTML = `<p style="text-align:center;">You haven't placed any orders yet.</p>`;
+            orderList.innerHTML = '<p>No orders found.</p>';
           }
         });
 
       } else {
-        orderList.innerHTML = `<p style="text-align:center;">Please log in to view your orders.</p>`;
+        // User not logged in
+        orderList.innerHTML = '<p>Please log in to see your orders.</p>';
+        loadingDiv.classList.remove("show");
       }
     });
-  </script>
 
-  <script>
+    // Handle "Go Back" button
     function goBack() {
       window.history.back();
     }
+
+    // Add event listeners for confirm buttons and inputs
+    function addListeners(userId) {
+      const orderCards = document.querySelectorAll('.order-card');
+
+      orderCards.forEach(card => {
+        const confirmBtn = card.querySelector('.confirm-btn');
+        const deliveryRadios = card.querySelectorAll('input[type="radio"][name$="-delivery"]');
+        const descriptionInput = card.querySelector('textarea.order-description');
+        const starInputs = card.querySelectorAll('input[type="radio"][name$="-rating"]');
+
+        // Confirm button event
+        confirmBtn.addEventListener('click', () => {
+          const orderId = getOrderIdFromCard(card);
+          if (!orderId) return;
+
+          // Find selected delivery method
+          let selectedDelivery = null;
+          deliveryRadios.forEach(radio => {
+            if (radio.checked) selectedDelivery = radio.value;
+          });
+
+          const description = descriptionInput.value.trim();
+
+          // Find selected rating
+          let selectedRating = 0;
+          starInputs.forEach(radio => {
+            if (radio.checked) selectedRating = parseInt(radio.value);
+          });
+
+          // Disable inputs and button after confirming
+          deliveryRadios.forEach(r => r.disabled = true);
+          descriptionInput.disabled = true;
+          confirmBtn.disabled = true;
+          starInputs.forEach(r => r.disabled = true);
+
+          confirmBtn.textContent = 'Confirmed';
+
+          // Update in Firebase
+          const orderRef = ref(db, `orders/${userId}/${orderId}`);
+          update(orderRef, {
+            deliveryConfirmed: true,
+            deliveryMethod: selectedDelivery,
+            orderDescription: description,
+            deliveryRating: selectedRating
+          }).then(() => {
+            console.log(`Order ${orderId} updated with delivery info and rating.`);
+          }).catch(error => {
+            alert('Failed to update order: ' + error.message);
+          });
+        });
+      });
+    }
+
+    // Utility: Get orderId from order card DOM
+    function getOrderIdFromCard(card) {
+      // We can extract from the first radio's name attribute (e.g. orderId-delivery)
+      const firstRadio = card.querySelector('input[type="radio"][name$="-delivery"]');
+      if (!firstRadio) return null;
+      const name = firstRadio.name; // e.g. "order123-delivery"
+      return name.replace('-delivery', '');
+    }
   </script>
 
+<script>
+  function goBack() {
+      window.history.back();
+    }
+</script>
 </body>
 </html>
