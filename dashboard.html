@@ -2,167 +2,272 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard - Dawamu School Bookshop</title>
-  <link rel="icon" href="bookshop logo.png" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School Bookshop Dashboard</title>
+  <link rel="icon" href="bookshop logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
+    * {
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+      color: #2c3e50;
+    }
+
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      background: #229844;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 2rem;
+    }
+
+    .go-back-btn {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, #444, #666);
+      color: #e0e0e0;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .go-back-btn:hover {
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    }
+
+    .orders-section {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .orders-section h2 {
+      text-align: center;
+      font-size: 2rem;
       margin-bottom: 30px;
     }
-    h1 {
-      font-size: 24px;
+
+    #loading {
+      text-align: center;
+      margin-bottom: 30px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
-    #userGreeting {
-      font-weight: bold;
+
+    #loading.show {
+      opacity: 1;
     }
-    button#logout {
-      background-color: #2ecc71;
+
+    .order-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .order-card {
+      background-color: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      border-left: 6px solid #279a59;
+      transition: transform 0.3s ease, opacity 0.6s ease;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .order-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .order-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #34495e;
+    }
+
+    .order-card p {
+      font-size: 0.95rem;
+      margin: 4px 0;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    .order-card p strong {
+      color: #2c3e50;
+    }
+
+    .cancel-btn {
+      margin-top: 15px;
+      padding: 8px 15px;
+      background-color: #ff5555;
       border: none;
-      padding: 10px 15px;
-      color: black;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button#logout:hover {
-      background-color: #27ae60;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
       color: white;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-    th, td {
-      padding: 10px;
-      border-bottom: 1px solid #444;
-      text-align: left;
+
+    .cancel-btn:hover:not(:disabled) {
+      background-color: #cc4444;
     }
-    th {
-      background-color: #2c3e50;
+
+    .cancel-btn:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
     }
-    tr:hover {
-      background-color: #34495e;
-    }
-    #noOrders {
-      margin-top: 20px;
-      font-style: italic;
-      color: #888;
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Welcome, <span id="userGreeting">User</span></h1>
-  <button id="logout">Logout</button>
-</header>
+  <header>
+    <h1>Welcome to Your Dashboard</h1>
+    <button onclick="goBack()" class="go-back-btn" aria-label="Go Back">← Go Back</button>
+  </header>
 
-<section>
-  <h2>Your Orders</h2>
-  <table id="ordersTable" hidden>
-    <thead>
-      <tr>
-        <th>Book Name</th>
-        <th>Quantity</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="ordersBody">
-      <!-- Orders will be inserted here -->
-    </tbody>
-  </table>
-  <p id="noOrders">Loading your orders...</p>
-</section>
+  <section class="orders-section">
+    <h2>Your Orders 📚</h2>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-  import {
-    getAuth,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-  import {
-    getDatabase,
-    ref,
-    onValue
-  } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+    <!-- Spinner -->
+    <div id="loading" class="show">
+      <i class="fas fa-spinner fa-spin fa-2x" style="color:#229844;"></i>
+    </div>
 
-  // Your original Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
-    authDomain: "register-f5448.firebaseapp.com",
-    projectId: "register-f5448",
-    storageBucket: "register-f5448.appspot.com",
-    messagingSenderId: "321470396528",
-    appId: "1:321470396528:web:a82520483006d1a56e9cb5",
-    measurementId: "G-4Z3S1GJS6G"
-  };
+    <!-- Orders -->
+    <div id="order-list" class="order-list"></div>
+  </section>
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const database = getDatabase(app);
+  <footer>
+    &copy; 2025 School Bookshop. All rights reserved.
+  </footer>
 
-  const userGreeting = document.getElementById("userGreeting");
-  const logoutBtn = document.getElementById("logout");
-  const ordersTable = document.getElementById("ordersTable");
-  const ordersBody = document.getElementById("ordersBody");
-  const noOrders = document.getElementById("noOrders");
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      userGreeting.textContent = user.displayName || user.email || "User";
+    const firebaseConfig = {
+      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+      authDomain: "register-f5448.firebaseapp.com",
+      databaseURL: "https://register-f5448-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "register-f5448",
+      storageBucket: "register-f5448.appspot.com",
+      messagingSenderId: "321470396528",
+      appId: "1:321470396528:web:a82520483006d1a56e9cb5",
+      measurementId: "G-4Z3S1GJS6G"
+    };
 
-      const ordersRef = ref(database, 'orders/' + user.uid);
-      onValue(ordersRef, snapshot => {
-        const orders = snapshot.val();
-        ordersBody.innerHTML = "";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
 
-        if (orders) {
-          noOrders.style.display = "none";
-          ordersTable.hidden = false;
+    const orderList = document.getElementById("order-list");
+    const loadingDiv = document.getElementById("loading");
 
-          Object.values(orders).forEach(order => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-              <td>${order.bookName}</td>
-              <td>${order.quantity}</td>
-              <td>${order.status}</td>
-            `;
-            ordersBody.appendChild(tr);
-          });
-        } else {
-          ordersTable.hidden = true;
-          noOrders.style.display = "block";
-          noOrders.textContent = "You have no orders yet.";
-        }
-      });
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        const userOrdersRef = ref(db, 'orders/' + user.uid);
+        loadingDiv.classList.add("show"); // fade in spinner
 
-    } else {
-      alert("You must be logged in to view the dashboard.");
-      window.location.href = "login.html";
-    }
-  });
+        onValue(userOrdersRef, snapshot => {
+          const orders = snapshot.val();
+          loadingDiv.classList.remove("show"); // fade out spinner
 
-  logoutBtn.addEventListener("click", () => {
-    signOut(auth).then(() => {
-      alert("Logged out successfully.");
-      window.location.href = "login.html";
-    }).catch(err => {
-      alert("Error logging out: " + err.message);
+          if (orders) {
+            let html = '';
+
+            Object.entries(orders).forEach(([orderId, order]) => {
+              let timeString = '';
+              if (order.timestamp) {
+                const dateObj = new Date(order.timestamp);
+                timeString = dateObj.toLocaleString(undefined, {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit'
+                });
+              }
+
+              const disabled = ["Cancelled", "Completed", "Delivered"].includes(order.status) ? "disabled" : "";
+
+              html += `
+                <div class="order-card">
+                  <h3>${order.bookName}</h3>
+                  <p><strong>Quantity:</strong> ${order.quantity}</p>
+                  <p><strong>Status:</strong> ${order.status}</p>
+                  <p><strong>Ordered On:</strong> ${timeString || 'Unknown'}</p>
+                  <button class="cancel-btn" data-id="${orderId}" ${disabled}>Cancel Order</button>
+                </div>
+              `;
+            });
+
+            orderList.innerHTML = html;
+
+            // Animate in order cards
+            const cards = document.querySelectorAll(".order-card");
+            cards.forEach((card, index) => {
+              setTimeout(() => card.classList.add("show"), index * 100);
+            });
+
+            // Add cancel logic
+            const cancelButtons = document.querySelectorAll(".cancel-btn");
+            cancelButtons.forEach(btn => {
+              btn.addEventListener("click", () => {
+                const orderId = btn.getAttribute("data-id");
+                if (confirm("Are you sure you want to cancel this order?")) {
+                  const orderStatusRef = ref(db, `orders/${user.uid}/${orderId}`);
+                  update(orderStatusRef, { status: "Cancelled" })
+                    .then(() => alert("Order cancelled successfully."))
+                    .catch(error => alert("Failed to cancel order: " + error.message));
+                }
+              });
+            });
+
+          } else {
+            orderList.innerHTML = `<p style="text-align:center;">You haven't placed any orders yet.</p>`;
+          }
+        });
+
+      } else {
+        orderList.innerHTML = `<p style="text-align:center;">Please log in to view your orders.</p>`;
+      }
     });
-  });
-</script>
+  </script>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
 
 </body>
 </html>

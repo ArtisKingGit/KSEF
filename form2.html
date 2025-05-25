@@ -1,91 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOOKS</title>
-    <link rel="stylesheet" href="form2.css">
-    <link rel="icon" href="bookshop logo.png" type="image/svg+xml">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BOOKS</title>
+  <link rel="stylesheet" href="form2.css" />
+  <link rel="icon" href="bookshop logo.png" type="image/svg+xml" />
 </head>
 <body>
-        <header>
-            <h1>Books Available</h1>
-            <button onclick="goBack()" class="go-back-btn">Go Back</button>
-        </header>
-    <div class="card-container">
-        
-        <div class="card">
-            <img src="50TPH01103.jpg" alt="Murray Reeve" class="profile-img">
-            <h2>Secondary Physics Form 2</h2>
-            
-            <div class="social-icons">
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-heart"></i>
-                <i class="fab fa-linkedin"></i>
-                <i class="fab fa-share-alt"></i>
-            </div>
-            <a href="https://www.paypal.com/ncp/payment/Q8DFGQPA49SSG"><button class="btn follow">Take book</button></a>
-        </div>
+  <header>
+    <h1>Books Available</h1>
+    <button onclick="goBack()" class="go-back-btn">Go Back</button>
+  </header>
 
-      
-        <div class="card">
-            <img src="book image.jpeg" alt="KLB COMPUTER FORM 2
-            " class="profile-img">
-            <h2>Log On Computer Form 2</h2>
-           
-            <div class="social-icons">
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-heart"></i>
-                <i class="fab fa-linkedin"></i>
-                <i class="fab fa-share-alt"></i>
-            </div>
-            <a href="https://www.paypal.com/ncp/payment/RQLASP64J7SVS"><button class="btn follow">Take book</button></a>
-        </div>
-
-        <div class="card">
-            <img src="images.jpeg" alt="Murray Reeve" class="profile-img">
-            <h2>Secondary Biology 2</h2>
-            
-            <div class="social-icons">
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-heart"></i>
-                <i class="fab fa-linkedin"></i>
-                <i class="fab fa-share-alt"></i>
-            </div>
-            <div id="paypal-container-7Z3QVFJM3E2KY"></div>
-            <a href="https://www.paypal.com/ncp/payment/7Z3QVFJM3E2KY"><button class="btn follow">Take book</button></a>
-        </div>
-
-        <div class="card">
-            <img src="images (9).jpeg" alt="Murray Reeve" class="profile-img">
-            <h2>Evolving World Form 2</h2>
-            
-            <div class="social-icons">
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-heart"></i>
-                <i class="fab fa-linkedin"></i>
-                <i class="fab fa-share-alt"></i>
-            </div>
-            <a href="https://www.paypal.com/ncp/payment/6U5JABA6LBSVY"><button class="btn follow">Take book</button></a>
-        </div>
-
-        <div class="card">
-            <img src="images (10).jpeg" alt="Murray Reeve" class="profile-img">
-            <h2>Kiswahili Kitukuzwe Kidato Cha 2</h2>
-            
-            <div class="social-icons">
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-heart"></i>
-                <i class="fab fa-linkedin"></i>
-                <i class="fab fa-share-alt"></i>
-            </div>
-            <a href="https://www.paypal.com/ncp/payment/HJ7T47A2LECZA"><button class="btn follow">Take book</button></a>
-        </div>
+  <div class="card-container">
+    <div class="card">
+      <img src="50TPH01103.jpg" alt="Secondary Physics Form 2" class="profile-img" />
+      <h2>Secondary Physics Form 2</h2>
+      <div class="social-icons">
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-heart"></i>
+        <i class="fab fa-linkedin"></i>
+        <i class="fab fa-share-alt"></i>
+      </div>
+      <button class="btn follow" onclick="placeOrder('Secondary Physics Form 2')">Take book</button>
     </div>
-    <script>
-        function goBack() {
-            window.history.back();
+
+    <div class="card">
+      <img src="book image.jpeg" alt="Log On Computer Form 2" class="profile-img" />
+      <h2>Log On Computer Form 2</h2>
+      <div class="social-icons">
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-heart"></i>
+        <i class="fab fa-linkedin"></i>
+        <i class="fab fa-share-alt"></i>
+      </div>
+      <button class="btn follow" onclick="placeOrder('Log On Computer Form 2')">Take book</button>
+    </div>
+
+    <div class="card">
+      <img src="images.jpeg" alt="Secondary Biology 2" class="profile-img" />
+      <h2>Secondary Biology 2</h2>
+      <div class="social-icons">
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-heart"></i>
+        <i class="fab fa-linkedin"></i>
+        <i class="fab fa-share-alt"></i>
+      </div>
+      <button class="btn follow" onclick="placeOrder('Secondary Biology 2')">Take book</button>
+    </div>
+
+    <div class="card">
+      <img src="images (9).jpeg" alt="Evolving World Form 2" class="profile-img" />
+      <h2>Evolving World Form 2</h2>
+      <div class="social-icons">
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-heart"></i>
+        <i class="fab fa-linkedin"></i>
+        <i class="fab fa-share-alt"></i>
+      </div>
+      <button class="btn follow" onclick="placeOrder('Evolving World Form 2')">Take book</button>
+    </div>
+
+    <div class="card">
+      <img src="images (10).jpeg" alt="Kiswahili Kitukuzwe Kidato Cha 2" class="profile-img" />
+      <h2>Kiswahili Kitukuzwe Kidato Cha 2</h2>
+      <div class="social-icons">
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-heart"></i>
+        <i class="fab fa-linkedin"></i>
+        <i class="fab fa-share-alt"></i>
+      </div>
+      <button class="btn follow" onclick="placeOrder('Kiswahili Kitukuzwe Kidato Cha 2')">Take book</button>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import {
+      getDatabase,
+      ref,
+      push
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+      authDomain: "register-f5448.firebaseapp.com",
+      databaseURL: "https://register-f5448-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "register-f5448",
+      storageBucket: "register-f5448.appspot.com",
+      messagingSenderId: "321470396528",
+      appId: "1:321470396528:web:a82520483006d1a56e9cb5",
+      measurementId: "G-4Z3S1GJS6G"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    window.placeOrder = function (bookName) {
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          const ordersRef = ref(db, 'orders/' + user.uid);
+          push(ordersRef, {
+            bookName: bookName,
+            quantity: 1,
+            status: 'Pending',
+            timestamp: new Date().toISOString()
+          }).then(() => {
+            alert("Order placed for " + bookName + "!");
+            console.log("Order placed!");
+          }).catch(err => {
+            console.error("Order error: ", err.message);
+          });
+        } else {
+          alert("You must be logged in to place an order.");
+          window.location.href = "login.html";
         }
-    </script>
+      });
+    };
+  </script>
 </body>
 </html>

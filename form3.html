@@ -24,7 +24,7 @@
                 <i class="fab fa-linkedin"></i>
                 <i class="fab fa-share-alt"></i>
             </div>
-            <a href="paymentchosing.html"><button class="btn follow">Take book</button></a>
+            <button class="btn follow" onclick="placeOrder('Secondary Physics Form 3')">Take book</button>
         </div>
 
       
@@ -39,7 +39,7 @@
                 <i class="fab fa-linkedin"></i>
                 <i class="fab fa-share-alt"></i>
             </div>
-            <a href="paymentchosing.html"><button class="btn follow">Take book</button></a>
+            <button class="btn follow" onclick="placeOrder('Log On Computer Form 3')">Take book</button>
         </div>
 
         <div class="card">
@@ -52,7 +52,7 @@
                 <i class="fab fa-linkedin"></i>
                 <i class="fab fa-share-alt"></i>
             </div>
-            <a href="paymentchosing.html"><button class="btn follow">Take book</button></a>
+            <button class="btn follow" onclick="placeOrder('Biology Today Form 3')">Take book</button>
         </div>
 
         <div class="card">
@@ -65,7 +65,7 @@
                 <i class="fab fa-linkedin"></i>
                 <i class="fab fa-share-alt"></i>
             </div>
-            <a href="paymentchosing.html"><button class="btn follow">Take book</button></a>
+            <button class="btn follow" onclick="placeOrder('Evolving World Form 3')">Take book</button>
         </div>
 
         <div class="card">
@@ -78,7 +78,7 @@
                 <i class="fab fa-linkedin"></i>
                 <i class="fab fa-share-alt"></i>
             </div>
-            <a href="paymentchosing.html"><button class="btn follow">Take book</button></a>
+            <button class="btn follow" onclick="placeOrder('Kiswahili Kitukuzwe Kidato Cha 3')">Take book</button>
         </div>
     </div>
     <script>
@@ -86,5 +86,56 @@
             window.history.back();
         }
     </script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import {
+      getDatabase,
+      ref,
+      push
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+      authDomain: "register-f5448.firebaseapp.com",
+      databaseURL: "https://register-f5448-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "register-f5448",
+      storageBucket: "register-f5448.appspot.com",
+      messagingSenderId: "321470396528",
+      appId: "1:321470396528:web:a82520483006d1a56e9cb5",
+      measurementId: "G-4Z3S1GJS6G"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    window.placeOrder = function (bookName) {
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          const ordersRef = ref(db, 'orders/' + user.uid);
+          push(ordersRef, {
+            bookName: bookName,
+            quantity: 1,
+            status: 'Pending',
+            timestamp: new Date().toISOString()
+          }).then(() => {
+            alert("Order placed for " + bookName + "!");
+            console.log("Order placed!");
+          }).catch(err => {
+            console.error("Order error: ", err.message);
+          });
+        } else {
+          alert("You must be logged in to place an order.");
+          window.location.href = "login.html";
+        }
+      });
+    };
+  </script>
 </body>
+
 </html>
