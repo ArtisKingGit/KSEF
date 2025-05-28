@@ -93,7 +93,7 @@
           const user = userCredential.user;
           if (user.emailVerified) {
             alert("Login Successful!");
-            window.location.href = "index2.html";
+            window.location.href = "home.html";
           } else {
             alert("Please verify your email before logging in.");
           }
@@ -109,7 +109,7 @@
       signInWithPopup(auth, provider)
         .then(() => {
           alert("Google Sign-In Successful!");
-          window.location.href = "index2.html";
+          window.location.href = "home.html";
         })
         .catch((error) => {
           alert("Google Sign-In Error: " + error.message);
@@ -122,7 +122,7 @@
       signInWithPopup(auth, provider)
         .then(() => {
           alert("GitHub Sign-In Successful!");
-          window.location.href = "index2.html";
+          window.location.href = "home.html";
         })
         .catch((error) => {
           alert("GitHub Sign-In Error: " + error.message);
