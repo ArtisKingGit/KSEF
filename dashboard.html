@@ -274,7 +274,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-    import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+    import { getDatabase, ref, onValue, update, remove } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
@@ -366,6 +366,7 @@
                   <textarea class="order-description" placeholder="Enter order description (optional)" ${disabledInput}>${description}</textarea>
 
                   <button class="confirm-btn" ${isConfirmed || disabled ? 'disabled' : ''}>${isConfirmed ? 'Confirmed' : 'Confirm'}</button>
+                  <button class="cancel-btn" ${disabled} data-id="${orderId}">Cancel</button>     
 
                   <div class="star-rating" aria-label="Rate delivery from 1 to 5 stars" role="radiogroup">
                     ${starInputs}
@@ -375,6 +376,26 @@
             });
 
             orderList.innerHTML = html;
+            // Select all cancel buttons and attach click listeners
+            document.querySelectorAll('.cancel-btn').forEach(button => {
+              button.addEventListener('click', () => {
+                const orderId = button.getAttribute('data-id');
+                if (orderId) {
+                  const confirmDelete = confirm("Are you sure you want to cancel and delete this order?");
+                  if (confirmDelete) {
+                    const orderRef = ref(db, 'orders/' + user.uid + '/' + orderId);
+                    remove(orderRef)
+                      .then(() => {
+                        alert("Order cancelled and deleted successfully.");
+                      })
+                      .catch(error => {
+                        console.error("Error deleting order:", error);
+                        alert("Something went wrong while deleting the order.");
+                      });
+                  }
+                }
+              });
+            });
 
             // Add event listeners after rendering
             addListeners(user.uid);
