@@ -191,6 +191,27 @@
       cursor: not-allowed;
     }
 
+    .ebook-btn {
+      margin-top: 12px;
+      padding: 8px 16px;
+      background-color: #229844;
+      border: none;
+      color: white;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .ebook-btn:hover:not(:disabled) {
+      background-color: #1a6c35;
+    }
+
+    .ebook-btn:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
     /* Star rating styling */
     .star-rating {
       direction: rtl; /* For CSS sibling logic */
@@ -252,7 +273,7 @@
 
   <header>
     <h1>Welcome to Your Dashboard</h1>
-    <button onclick="goBack()" class="go-back-btn" aria-label="Go Back">xGo Back</button>
+    <button onclick="goBack()" class="go-back-btn" aria-label="Go Back">Go Back</button>
   </header>
 
   <section class="orders-section">
@@ -364,7 +385,8 @@
                   </div>
 
                   <textarea class="order-description" placeholder="Enter order description (optional)" ${disabledInput}>${description}</textarea>
-
+                  
+                  
                   <button class="confirm-btn" ${isConfirmed || disabled ? 'disabled' : ''}>${isConfirmed ? 'Confirmed' : 'Confirm'}</button>
                   <button class="cancel-btn" ${disabled} data-id="${orderId}">Cancel</button>     
 
