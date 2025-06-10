@@ -17,6 +17,12 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f4f6f8;
       color: #2c3e50;
+      background-image: url('ChatGPT Image Jun 9, 2025, 03_07_07 PM.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      min-height: 100vh;
     }
 
     header {
@@ -194,7 +200,7 @@
     .ebook-btn {
       margin-top: 12px;
       padding: 8px 16px;
-      background-color: #229844;
+      background-color: #d6721b;
       border: none;
       color: white;
       font-size: 14px;
@@ -386,7 +392,8 @@
 
                   <textarea class="order-description" placeholder="Enter order description (optional)" ${disabledInput}>${description}</textarea>
                   
-                  
+                  <button class="ebook-btn" ${disabledInput} onclick="window.open('${order.ebookLink}', '_blank')">
+                    Open eBook</button>
                   <button class="confirm-btn" ${isConfirmed || disabled ? 'disabled' : ''}>${isConfirmed ? 'Confirmed' : 'Confirm'}</button>
                   <button class="cancel-btn" ${disabled} data-id="${orderId}">Cancel</button>     
 
