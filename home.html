@@ -1,260 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dawamu - School Bookshop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dawamu Bookshop</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="bookshop logo.png" type="image/svg+xml" />
   <style>
+    /* Global Styles */
     body {
+      margin: 0;
+      background-color: #111;
       font-family: 'Roboto', sans-serif;
-      background-color: #111827;
-      color: #d1d5db;
+      color: #ccc;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      color: #d6e8d6;
       margin: 0;
     }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    /* Header */
     header {
-      background-color: #1f2937;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      background-color: #222;
+      padding: 15px 0;
+      box-shadow: 0 2px 5px rgba(109, 179, 109, 0.15);
       position: sticky;
       top: 0;
-      z-index: 50;
-      padding: 1rem 2rem;
+      z-index: 1000;
     }
-    header .top-bar {
+    .header-top {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
     .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #007b00;
+    }
+    nav {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .logo img {
-      height: 56px;
-    }
-    .logo span {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #10b981;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 1rem;
     }
     nav a {
-      color: #d1d5db;
-      margin-left: 1rem;
-      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+      color: #ccc;
     }
     nav a:hover {
-      color: #34d399;
+      background-color: #333;
+      color: #089d08;
+    }
+    .header-icons {
+      display: flex;
+      gap: 15px;
+      font-size: 1.2rem;
+    }
+    .header-icons i {
+      transition: color 0.3s;
+      color: #ccc;
+      cursor: pointer;
+    }
+    .header-icons i:hover {
+      color: #6db36d;
     }
     .search-bar {
-      margin-top: 1rem;
-      display: flex;
-    }
-    .search-bar input {
-      flex: 1;
-      padding: 0.5rem 1rem;
-      border-radius: 9999px 0 0 9999px;
-      border: 1px solid #374151;
-      background-color: #374151;
-      color: white;
-    }
-    .search-bar button {
-      padding: 0.5rem 1rem;
-      border-radius: 0 9999px 9999px 0;
-      background-color: #059669;
-      border: none;
-      color: white;
-    }
-    .hero {
-      height: 24rem;
-      background: linear-gradient(rgba(17,24,39,0.8), rgba(17,24,39,0.8)), url("library.jpg") center center/cover no-repeat;
+      margin-top: 15px;
       display: flex;
       justify-content: center;
+    }
+    .search-bar input {
+      width: 100%;
+      max-width: 500px;
+      padding: 10px 15px;
+      border: 1px solid #444;
+      border-right: none;
+      border-radius: 25px 0 0 25px;
+      background-color: #222;
+      color: #ccc;
+      font-size: 1rem;
+    }
+    .search-bar button {
+      padding: 10px 15px;
+      border: 1px solid #444;
+      border-left: none;
+      border-radius: 0 25px 25px 0;
+      background-color: #017f01;
+      color: #111;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 1rem;
+    }
+    .search-bar button:hover {
+      background-color:#028602;
+    }
+    /* Banner Section */
+    #banner {
+      background: url('library.jpg') center/cover no-repeat;
+      background-color: #222;
+      height: 70vh;
+      display: flex;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      color: white;
-      padding: 0 2rem;
+      position: relative;
+      color: #fff;
     }
-    .hero .welcoming {
+    #banner::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    #banner .banner-content {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+    }
+    #banner h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    #banner p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    #banner a {
+      padding: 12px 30px;
+      background-color: #105d10;
+      color: #111;
+      border-radius: 30px;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    #banner a:hover {
+      background-color:#008900;
+    }
+    /* Featured Books Section */
+    #featured-books {
+      background-color: #333;
+      padding: 50px 0;
+    }
+    #featured-books h2 {
+      text-align: center;
+      margin-bottom: 40px;
       font-size: 2.5rem;
-      margin-bottom: 0.5rem;
     }
-    .hero p {
-      max-width: 800px;
-      margin: 1rem auto;
-      font-size: 1.125rem;
-    }
-    .hero a {
-      background-color: #10b981;
-      padding: 0.75rem 2rem;
-      border-radius: 9999px;
-      font-weight: bold;
-      color: white;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.2s;
-    }
-    .hero a:hover {
-      background-color: #059669;
-      transform: scale(1.05);
-    }
-    section {
-      padding: 5rem 2rem;
-    }
-    h2 {
-      text-align: center;
-      font-size: 2rem;
-      color: #10b981;
-      font-weight: bold;
-      margin-bottom: 3rem;
-    }
-    .grid {
+    .books-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
     }
     .book-item {
-      background-color: #374151;
-      border-radius: 0.5rem;
+      background: #444;
+      border-radius: 8px;
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .book-item:hover {
-      transform: translateY(-0.5rem);
-      box-shadow: 0 10px 15px rgba(16, 185, 129, 0.2);
+      transform: translateY(-30px);
+      box-shadow: 0 4px 12px rgba(118, 118, 118, 0.797);
     }
-    .book-item img {
+    .book-cover {
       width: 100%;
-      height: 256px;
+      height: 390px;
       object-fit: cover;
     }
-    .book-item h3 {
-      color: #34d399;
-      font-size: 1.125rem;
-      margin: 0.5rem 0;
-    }
-    .book-item p {
-      color: #9ca3af;
-      font-size: 0.875rem;
-      margin-bottom: 0.5rem;
-    }
-    .book-item a {
-      color: #d1d5db;
-      text-decoration: none;
-    }
-    .book-item a:hover {
-      color: #34d399;
-    }
-    footer {
-      background-color: #1f2937;
-      color: #9ca3af;
+    .book-info {
+      padding: 15px;
       text-align: center;
-      padding: 2rem 1rem;
     }
-    footer .socials a {
-      color: #9ca3af;
-      margin: 0 0.75rem;
-      font-size: 1.5rem;
+    .book-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      color: #1b9c1b;
     }
-    footer .socials a:hover {
-      color: #10b981;
+    .book-info p {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    /* Footer */
+    footer {
+      background-color: #222;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .social-icons {
+      margin: 10px 0;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    .social-icons a {
+      font-size: 1.2rem;
+      transition: color 0.3s;
+      color: #ccc;
+    }
+    .social-icons a:hover {
+      color: #097809;
+    }
+    .welcome-section{
+      font-size: 40px;
+    }
+    @media (max-width: 768px) {
+      #banner h1 {
+        font-size: 2.5rem;
+      }
+      #banner p {
+        font-size: 1rem;
+      }
+      nav {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <div class="top-bar">
-      <div class="logo">
-        <img src="bookshop logo.png" alt="Logo">
-        <span>Dawamu Bookshop</span>
+    <div class="container">
+      <div class="header-top">
+        <div class="logo">Dawamu Bookshop</div>
+        <nav>
+          <a href="#">Home</a>
+          <a href="shop.html">Shop</a>
+          <!--<a href="categories.html">Categories</a>-->
+          <a href="about.html"About-us>About-us</a>
+          <a href="contactus.html">Contact</a>
+          <a href="premium.html">Membership</a>
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+        <div class="header-icons">
+          <a href="profile.html"><i class="fas fa-user"></i></a>
+          <a href="contactus.html"><i class="fas fa-heart"></i></a>
+          <a href="shop.html"><i class="fas fa-shopping-cart"></i></a>
+        </div>
       </div>
-      <nav>
-        <a href="#">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="categories.html">Categories</a>
-        <a href="about.html">About Us</a>
-        <a href="contactus.html">Contact</a>
-        <a href="profile.html">Profile</a>
-      </nav>
-    </div>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search for books...">
-      <button onclick="searchBooks()"><i class="fas fa-search"></i></button>
+      <div class="search-bar">
+        <input type="text" placeholder="Search for books..." />
+        <button><i class="fas fa-search"></i></button>
+      </div>
     </div>
   </header>
-  <main>
-    <section class="hero">
-      <div>
-        <div class="welcoming">Welcome, <strong>User</strong></div>
-        <p>Immerse yourself in a world where technology meets literature.</p>
-        <a href="shop.html">Explore Now</a>
-      </div>
-    </section>
-    <section>
+
+  <!-- Banner Section -->
+  <section id="banner">
+    <div class="banner-content container">
+      <div class="welcome-section">
+          <div id="userProfile">Loading user...</div>
+        </div>
+      <p>Immerse yourself in a world where technology meets literature.</p>
+      <a href="shop.html">Explore Now</a>
+    </div>
+  </section>
+
+  <!-- Featured Books Section -->
+  <section id="featured-books">
+    <div class="container">
       <h2>Featured Books</h2>
-      <div class="grid">
-        <div class="book-item">
-          <img src="tom-sawyer.html.jpeg" alt="The Adventures of Tom Sawyer">
-          <div class="text-center">
-            <h3>The Adventures of Tom Sawyer</h3>
-            <p>By Mark Twain</p>
+        <div class="books-grid">
+          <div class="book-item">
+            <img src="46-Evolving-World-History-SB2-scaled.jpg" alt="The Adventures of Tom Sawyer" class="book-cover">
+            <div class="book-info">
+              <h3>Evolving World Form 2</h3>
+              <p>A revision book with notes for History Students in Form 2.<br>By Jacinta Kapiyo <br>Maina Muma <br>Felix Kiruthu</p>
+            </div>
+          </div>
+
+          <div class="book-item">
+            <img src="50TPH01103.jpg" alt="Secondary Physics Form 2" class="book-cover">
+            <div class="book-info">
+              <h3>Secondary Physics Form 2</h3>
+              <p>A course book for Form 2 students By Kenya literature Bereau.</p>
+            </div>
+          </div>
+
+          <div class="book-item">
+            <img src="alice_in_wonderland.jpeg" alt="Alice in Wonderland" class="book-cover">
+            <div class="book-info">
+              <h3>Alice in Wonderland</h3>
+              <p>By Lewis Carroll - A whimsical adventure in a magical land.</p>
+            </div>
+          </div>
+
+          <div class="book-item">
+            <img src="peter_pan.jpeg" alt="Peter Pan" class="book-cover">
+            <div class="book-info">
+              <h3>Peter Pan</h3>
+              <p>By J.M. Barrie - The enchanting tale of Neverland.</p>
+            </div>
+          </div>
+
+          <div class="book-item">
+            <img src="harry_potter_and_the_goblet_of_fire.jpg" alt="Harry Potter And The Goblet Of Fire" class="book-cover">
+            <div class="book-info">
+              <h3>Harry Potter And The Goblet Of Fire</h3>
+              <p>By J.K.Rowling - Harry Potter is a wizard, the only child of James and Lily Potter.</p>
+            </div>
+          </div>
+
+          <div class="book-item">
+            <img src="32725143.jpg" alt="Biology KLB Form 2" class="book-cover">
+            <div class="book-info">
+              <h3>Secondary Biology Form 2</h3>
+              <p>A revision Book for Biology for Form 2 students.<br>By the Kenya Literature Bereau.</p>
           </div>
         </div>
-        <div class="book-item">
-          <img src="jungle-book.jpeg" alt="The Jungle Book">
-          <div class="text-center">
-            <h3>The Jungle Book</h3>
-            <p>By Rudyard Kipling</p>
-            <a href="junglebook.html">Read-Now</a>
-          </div>
         </div>
-        <div class="book-item">
-          <img src="alice in wonderland.jpeg" alt="Alice in Wonderland">
-          <div class="text-center">
-            <h3>Alice in Wonderland</h3>
-            <p>By Lewis Carroll</p>
-            <a href="alice in wonderland.html">Read-Now</a>
-          </div>
-        </div>
-        <div class="book-item">
-          <img src="peter-pan.jpeg" alt="Peter Pan">
-          <div class="text-center">
-            <h3>Peter Pan</h3>
-            <p>By J.M. Barrie</p>
-            <a href="peter-pan.html">Read-Now</a>
-          </div>
-        </div>
-        <div class="book-item">
-          <img src="harry potter and the goblet of fire.jpg" alt="Harry Potter And The Goblet Of Fire">
-          <div class="text-center">
-            <h3>Harry Potter And The Goblet Of Fire</h3>
-            <p>By J.K. Rowling</p>
-            <a href="harrypotter.html">Read-Now</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Dawamu Bookstore. All rights reserved.</p>
-    <div class="socials">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://x.com/Dls_bk_5hp"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
+    <div class="container">
+      <p>&copy; 2025 Dawamu BookShop. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/ArtisKingOf"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/arthurs_dzn/"><i class="fab fa-instagram"></i></a>
+      </div>
     </div>
   </footer>
-  <script>
-    function searchBooks() {
-      const query = document.getElementById("searchInput").value.toLowerCase();
-      const books = document.querySelectorAll(".book-item");
-      books.forEach(book => {
+
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+      authDomain: "register-f5448.firebaseapp.com",
+      projectId: "register-f5448",
+      storageBucket: "register-f5448.appspot.com",
+      messagingSenderId: "321470396528",
+      appId: "1:321470396528:web:a82520483006d1a56e9cb5",
+      measurementId: "G-4Z3S1GJS6G"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const userPhoto = document.getElementById("userPhoto");
+    const userProfile = document.getElementById("userProfile");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const displayName = user.displayName || "User";
+        const email = user.email;
+        const photoURL = user.photoURL || "https://via.placeholder.com/60";
+
+       
+        userProfile.innerHTML = `
+          Welcome, <strong>${displayName}</strong><br>
+        `;
+      } else {
+        alert("You must be logged in to access this page.");
+        window.location.href = "login.html";
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth)
+        .then(() => {
+          alert("You have been logged out.");
+          window.location.href = "login.html";
+        })
+        .catch((error) => {
+          alert("Error logging out: " + error.message);
+        });
+    });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.querySelector(".search-bar input");
+    const searchButton = document.querySelector(".search-bar button");
+    const bookItems = document.querySelectorAll(".book-item");
+
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      bookItems.forEach(book => {
         const title = book.querySelector("h3").textContent.toLowerCase();
-        const author = book.querySelector("p").textContent.toLowerCase();
-        book.style.display = title.includes(query) || author.includes(query) ? "block" : "none";
+        const description = book.querySelector("p").textContent.toLowerCase();
+        const match = title.includes(query) || description.includes(query);
+
+        book.style.display = match ? "block" : "none";
       });
     }
-  </script>
+
+    searchInput.addEventListener("input", performSearch);
+    searchButton.addEventListener("click", performSearch);
+  });
+</script>
+
 </body>
 </html>
