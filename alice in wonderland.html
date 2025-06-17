@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alice's Adventures in Wonderland - E-Book</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Playfair Display & Lora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #FBF3E9; /* A warm, sepia background */
+            font-family: 'Lora', serif;
+            color: #5A4735; /* A dark brown text color */
+        }
+        /* Disable text selection */
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard syntax */
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: #43382B;
+        }
+        .info-box {
+            background-color: #F8EFE4; /* A slightly lighter sepia for the box */
+            border: 1px solid #EAE0D3;
+        }
+        .chapter-link {
+            border-bottom: 1px solid #EAE0D3;
+            transition: background-color 0.2s;
+        }
+        .chapter-link:hover {
+            background-color: #F5E9DA;
+        }
+        .chapter-link a {
+            color: #2a5db0; /* Classic blue for links */
+            text-decoration: none;
+        }
+        .story-content p {
+            margin-bottom: 1.25em;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        .story-content h4 {
+            font-family: 'Lora', serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+        }
+        .poem {
+            margin-left: 10%;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="py-12 md:py-20 no-select">
+
+    <main class="container mx-auto max-w-4xl px-6">
+        
+        <!-- Book Title Section -->
+        <section class="text-center mb-16">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4">Alice's Adventures in Wonderland</h1>
+            <p class="text-xl tracking-widest">[ALICE IN WONDERLAND]</p>
+            <h2 class="text-2xl mt-6">by Lewis Carroll</h2>
+        </section>
+
+        <!-- Information Box -->
+        <section class="info-box p-6 text-center text-sm mb-16">
+            <p>
+                A Millennium Fulcrum Edition. This text, which matches the 1865 original publication, is in the public domain in the US. This digital version is for personal and educational use.
+            </p>
+        </section>
+        
+        <hr class="border-t border-gray-300 w-1/4 mx-auto mb-16">
+
+        <!-- Table of Contents -->
+        <section id="contents">
+            <h3 class="text-4xl text-center mb-12">Contents</h3>
+            
+            <div class="space-y-2">
+                <div class="chapter-link"><a href="#chap01" class="block py-3 px-2">Chapter I. Down the Rabbit-Hole</a></div>
+                <div class="chapter-link"><a href="#chap02" class="block py-3 px-2">Chapter II. The Pool of Tears</a></div>
+                <div class="chapter-link"><a href="#chap03" class="block py-3 px-2">Chapter III. A Caucus-Race and a Long Tale</a></div>
+                <div class="chapter-link"><a href="#chap04" class="block py-3 px-2">Chapter IV. The Rabbit Sends in a Little Bill</a></div>
+                <div class="chapter-link"><a href="#chap05" class="block py-3 px-2">Chapter V. Advice from a Caterpillar</a></div>
+                <div class="chapter-link"><a href="#chap06" class="block py-3 px-2">Chapter VI. Pig and Pepper</a></div>
+                <div class="chapter-link"><a href="#chap07" class="block py-3 px-2">Chapter VII. A Mad Tea-Party</a></div>
+                <div class="chapter-link"><a href="#chap08" class="block py-3 px-2">Chapter VIII. The Queen’s Croquet-Ground</a></div>
+                <div class="chapter-link"><a href="#chap09" class="block py-3 px-2">Chapter IX. The Mock Turtle’s Story</a></div>
+                <div class="chapter-link"><a href="#chap10" class="block py-3 px-2">Chapter X. The Lobster Quadrille</a></div>
+                <div class="chapter-link"><a href="#chap11" class="block py-3 px-2">Chapter XI. Who Stole the Tarts?</a></div>
+                <div class="chapter-link"><a href="#chap12" class="block py-3 px-2">Chapter XII. Alice’s Evidence</a></div>
+            </div>
+        </section>
+        
+        <!-- Story Content Section -->
+        <section class="story-content mt-24">
+            <div id="chap01">
+                <h4>CHAPTER I.<br> Down the Rabbit-Hole</h4>
+                <p>Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversations?”</p>
+                <p>So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.</p>
+                <p>There was nothing so <i>very</i> remarkable in that; nor did Alice think it so <i>very</i> much out of the way to hear the Rabbit say to itself, “Oh dear! Oh dear! I shall be late!” (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually <i>took a watch out of its waistcoat-pocket</i>, and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and fortunately was just in time to see it pop down a large rabbit-hole under the hedge.</p>
+                <p>In another moment down went Alice after it, never once considering how in the world she was to get out again.</p>
+            </div>
+            
+            <div id="chap02">
+                <h4>CHAPTER II.<br> The Pool of Tears</h4>
+                <p>“Curiouser and curiouser!” cried Alice (she was so much surprised, that for the moment she quite forgot how to speak good English); “now I’m opening out like the largest telescope that ever was! Good-bye, feet!” (for when she looked down at her feet, they seemed to be almost out of sight, they were getting so far off). “Oh, my poor little feet, I wonder who will put on your shoes and stockings for you now, dears? I’m sure <i>I</i> shan’t be able! I shall be a great deal too far off to trouble myself about you: you must manage the best way you can;—but I must be kind to them,” thought Alice, “or perhaps they won’t walk the way I want to go! Let me see: I’ll give them a new pair of boots every Christmas.”</p>
+                <p>And she went on planning to herself how she would manage it. “They must go by the carrier,” she thought; “and how funny it’ll seem, sending presents to one’s own feet! And how odd the directions will look!</p>
+            </div>
+            
+            <div id="chap03">
+                <h4>CHAPTER III.<br> A Caucus-Race and a Long Tale</h4>
+                <p>They were indeed a queer-looking party that assembled on the bank—the birds with draggled feathers, the animals with their fur clinging close to them, and all dripping wet, cross, and uncomfortable.</p>
+                <p>The first question of course was, how to get dry again: they had a consultation about this, and after a few minutes it seemed quite natural to Alice to find herself talking familiarly with them, as if she had known them all her life. Indeed, she had quite a long argument with the Lory, who at last turned sulky, and would only say, “I am older than you, and must know better;” and this Alice would not allow without knowing how old it was, and, as the Lory positively refused to tell its age, there was no more to be said.</p>
+            </div>
+
+            <div id="chap04">
+                <h4>CHAPTER IV.<br> The Rabbit Sends in a Little Bill</h4>
+                <p>It was the White Rabbit, trotting slowly back again, and looking anxiously about as it went, as if it had lost something; and she heard it muttering to itself “The Duchess! The Duchess! Oh my dear paws! Oh my fur and whiskers! She’ll get me executed, as sure as ferrets are ferrets! Where <i>can</i> I have dropped them, I wonder?” Alice guessed in a moment that it was looking for the fan and the pair of white kid gloves, and she very good-naturedly began hunting about for them, but they were nowhere to be seen—everything seemed to have changed since her swim in the pool, and the great hall, with the glass table and the little door, had vanished completely.</p>
+            </div>
+
+            <div id="chap05">
+                <h4>CHAPTER V.<br> Advice from a Caterpillar</h4>
+                <p>The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are <i>you?</i>” said the Caterpillar.</p>
+                <p>This was not an encouraging opening for a conversation. Alice replied, rather shyly, “I—I hardly know, sir, just at present—at least I know who I <i>was</i> when I got up this morning, but I think I must have been changed several times since then.”</p>
+            </div>
+
+            <div id="chap06">
+                <h4>CHAPTER VI.<br> Pig and Pepper</h4>
+                <p>For a minute or two she stood looking at the house, and wondering what to do next, when suddenly a footman in livery came running out of the wood—(she considered him to be a footman because he was in livery: otherwise, judging by his face only, she would have called him a fish)—and rapped loudly at the door with his knuckles. It was opened by another footman in livery, with a round face, and large eyes like a frog; and both footmen, Alice noticed, had powdered hair that curled all over their heads. She felt very curious to know what it was all about, and crept a little way out of the wood to listen.</p>
+            </div>
+
+            <div id="chap07">
+                <h4>CHAPTER VII.<br> A Mad Tea-Party</h4>
+                <p>There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Dormouse,” thought Alice; “only, as it’s asleep, I suppose it doesn’t mind.”</p>
+            </div>
+
+            <div id="chap08">
+                <h4>CHAPTER VIII.<br> The Queen’s Croquet-Ground</h4>
+                <p>A large rose-tree stood near the entrance of the garden: the roses growing on it were white, but there were three gardeners at it, busily painting them red. Alice thought this a very curious thing, and she went nearer to watch them, and just as she came up to them she heard one of them say, “Look out now, Five! Don’t go splashing paint over me like that!”</p>
+            </div>
+
+            <div id="chap09">
+                <h4>CHAPTER IX.<br> The Mock Turtle’s Story</h4>
+                <p>“You can’t think how glad I am to see you again, you dear old thing!” said the Duchess, as she tucked her arm affectionately into Alice’s, and they walked off together.</p>
+                <p>Alice was very glad to find her in such a pleasant temper, and thought to herself that perhaps it was only the pepper that had made her so savage when they met in the kitchen.</p>
+            </div>
+            
+            <div id="chap10">
+                <h4>CHAPTER X.<br> The Lobster Quadrille</h4>
+                <p>The Mock Turtle sighed deeply, and drew the back of one flapper across his eyes. He looked at Alice, and tried to speak, but for a minute or two sobs choked his voice. “Same as if he had a bone in his throat,” said the Gryphon: and it set to work shaking him and punching him in the back. At last the Mock Turtle recovered his voice, and, with tears running down his cheeks, he went on again:—</p>
+            </div>
+
+            <div id="chap11">
+                <h4>CHAPTER XI.<br> Who Stole the Tarts?</h4>
+                <p>The King and Queen of Hearts were seated on their throne when they arrived, with a great crowd assembled about them—all sorts of little birds and beasts, as well as the whole pack of cards: the Knave was standing before them, in chains, with a soldier on each side to guard him; and near the King was the White Rabbit, with a trumpet in one hand, and a scroll of parchment in the other. In the very middle of the court was a table, with a large dish of tarts upon it: they looked so good, that it made Alice quite hungry to look at them—“I wish they’d get the trial done,” she thought, “and hand round the refreshments!” But there seemed to be no chance of this, so she began looking at everything about her, to pass away the time.</p>
+            </div>
+
+            <div id="chap12">
+                <h4>CHAPTER XII.<br> Alice’s Evidence</h4>
+                <p>“Here!” cried Alice, quite forgetting in the flurry of the moment how large she had grown in the last few minutes, and she jumped up in such a hurry that she tipped over the jury-box with the edge of her skirt, upsetting all the jurymen on to the heads of the crowd below, and there they lay sprawling about, reminding her very much of a globe of goldfish she had accidentally upset the week before.</p>
+            </div>
+        </section>
+        
+        <div class="text-center mt-20">
+            <a href="#contents" class="text-blue-600 hover:underline">Back to Contents</a>
+        </div>
+
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="fixed bottom-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none">
+        This content cannot be saved or printed.
+    </div>
+
+    <script>
+        // --- Content Protection Script ---
+
+        // 1. Disable Right-Click Context Menu
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 2. Disable Keyboard Shortcuts (Ctrl+S, Ctrl+P)
+        document.addEventListener('keydown', event => {
+            // Check for Ctrl key on Windows/Linux or Cmd key on Mac
+            if ((event.ctrlKey || event.metaKey) && (event.key === 's' || event.key === 'p')) {
+                event.preventDefault();
+                showNotification();
+            }
+        });
+
+        // Function to show the notification toast
+        function showNotification() {
+            const toast = document.getElementById('notification-toast');
+            // Make it visible
+            toast.classList.remove('opacity-0');
+            // Hide it after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

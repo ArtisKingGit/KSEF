@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Jungle Book - E-Book</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Playfair Display & Lora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #FBF3E9; /* A warm, sepia background */
+            font-family: 'Lora', serif;
+            color: #5A4735; /* A dark brown text color */
+        }
+        /* Disable text selection */
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard syntax */
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: #43382B;
+        }
+        .info-box {
+            background-color: #F8EFE4;
+            border: 1px solid #EAE0D3;
+        }
+        .chapter-link {
+            border-bottom: 1px solid #EAE0D3;
+            transition: background-color 0.2s;
+        }
+        .chapter-link:hover {
+            background-color: #F5E9DA;
+        }
+        .chapter-link a {
+            color: #2a5db0;
+            text-decoration: none;
+        }
+        .story-content p {
+            margin-bottom: 1.25em;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        .story-content h4 {
+            font-family: 'Lora', serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+        }
+        .poem {
+            margin-left: 10%;
+            margin-right: 10%;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            font-style: italic;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="py-12 md:py-20 no-select">
+
+    <main class="container mx-auto max-w-4xl px-6">
+        
+        <!-- Book Title Section -->
+        <section class="text-center mb-16">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4">The Jungle Book</h1>
+            <h2 class="text-2xl mt-6">By Rudyard Kipling</h2>
+        </section>
+
+        <!-- Information Box -->
+        <section class="info-box p-6 text-center text-sm mb-16">
+            <p>
+               This text, which matches the 1894 original publication, is in the public domain in the US. This digital version is for personal and educational use.
+            </p>
+        </section>
+        
+        <hr class="border-t border-gray-300 w-1/4 mx-auto mb-16">
+
+        <!-- Table of Contents -->
+        <section id="contents">
+            <h3 class="text-4xl text-center mb-12">Contents</h3>
+            
+            <div class="space-y-2">
+                <div class="chapter-link"><a href="#chap01" class="block py-3 px-2">Mowgli’s Brothers</a></div>
+                <div class="chapter-link"><a href="#chap02" class="block py-3 px-2">Hunting-Song of the Seeonee Pack</a></div>
+                <div class="chapter-link"><a href="#chap03" class="block py-3 px-2">Kaa’s Hunting</a></div>
+                <div class="chapter-link"><a href="#chap04" class="block py-3 px-2">Road-Song of the Bandar-Log</a></div>
+                <div class="chapter-link"><a href="#chap05" class="block py-3 px-2">“Tiger! Tiger!”</a></div>
+            </div>
+        </section>
+        
+        <!-- Story Content Section -->
+        <section class="story-content mt-24">
+            
+            <div id="chap01">
+                <h4>Mowgli’s Brothers</h4>
+                <div class="poem">
+                    <p>Now Rann the Kite brings home the night<br>That Mang the Bat sets free—<br>The herds are shut in byre and hut<br>For loosed till dawn are we.<br>This is the hour of pride and power,<br>Talon and tush and claw.<br>Oh, hear the call!—Good hunting all<br>That keep the Jungle Law!</p>
+                    <p><i>Night-Song in the Jungle</i></p>
+                </div>
+                <p>It was seven o’clock of a very warm evening in the Seeonee hills when Father Wolf woke up from his day’s rest, scratched himself, yawned, and spread out his paws one after the other to get rid of the sleepy feeling in their tips. Mother Wolf lay with her big gray nose dropped across her four tumbling, squealing cubs, and the moon shone into the mouth of the cave where they all lived. “Augrh!” said Father Wolf. “It is time to hunt again.” He was going to spring down hill when a little shadow with a bushy tail crossed the threshold and whined: “Good luck go with you, O Chief of the Wolves. And good luck and strong white teeth go with noble children that they may never forget the hungry in this world.”</p>
+                <p>It was the jackal—Tabaqui, the Dish-licker—and the wolves of India despise Tabaqui because he runs about making mischief, and telling tales, and eating rags and pieces of leather from the village rubbish-heaps. But they are afraid of him too, because Tabaqui, more than anyone else in the jungle, is apt to go mad, and then he forgets that he was ever afraid of anyone, and runs through the forest biting everything in his way. Even the tiger runs and hides when little Tabaqui goes mad, for madness is the most disgraceful thing that can overtake a wild creature. We call it hydrophobia, but they call it dewanee—the madness—and run.</p>
+                <p>“Enter, then, and look,” said Father Wolf stiffly, “but there is no food here.”</p>
+                <p>“For a wolf, no,” said Tabaqui, “but for so mean a person as myself a dry bone is a good feast. Who are we, the Gidur-log [the jackal people], to pick and choose?” He scuttled to the back of the cave, where he found the bone of a buck with some meat on it, and sat cracking the end merrily.</p>
+            </div>
+            
+            <div id="chap02">
+                <h4>Hunting-Song of the Seeonee Pack</h4>
+                <div class="poem">
+                    <p>As the dawn was breaking the Sambhur belled<br> Once, twice and again!<br>And a doe leaped up, and a doe leaped up<br>From the pond in the wood where the wild deer sup.<br>This I, scouting alone, beheld,<br> Once, twice and again!</p>
+                    <p>As the dawn was breaking the Sambhur belled<br> Once, twice and again!<br>And a wolf stole back, and a wolf stole back<br>To carry the word to the waiting pack,<br>And we sought and we found and we bayed on his track<br> Once, twice and again!</p>
+                    <p>As the dawn was breaking the Wolf Pack yelled<br> Once, twice and again!<br>Feet in the jungle that leave no mark!<br>Eyes that can see in the dark—the dark!<br>Tongue—give tongue to it! Hark! O hark!<br> Once, twice and again!</p>
+                </div>
+            </div>
+            
+            <div id="chap03">
+                <h4>Kaa’s Hunting</h4>
+                <div class="poem">
+                    <p>His spots are the joy of the Leopard: his horns are the Buffalo’s pride.<br>Be clean, for the strength of the hunter is known by the gloss of his hide.<br>If ye find that the Bullock can toss you, or the heavy-browed Sambhur can gore;<br>Ye need not stop work to inform us: we knew it ten seasons before.</p>
+                    <p>Oppress not the cubs of the stranger, but hail them as Sister and Brother,<br>For though they are little and fubsy, it may be the Bear is their mother.<br>“There is none like to me!” says the Cub in the pride of his earliest kill;<br>But the jungle is large and the Cub he is small. Let him think and be still.</p>
+                    <p><i>Maxims of Baloo</i></p>
+                </div>
+                <p>All that is told here happened some time before Mowgli was turned out of the Seeonee Wolf Pack, or revenged himself on Shere Khan the tiger. It was in the days when Baloo was teaching him the Law of the Jungle. The big, serious, old brown bear was delighted to have so quick a pupil, for the young wolves will only learn as much of the Law of the Jungle as applies to their own pack and tribe, and run away as soon as they can repeat the Hunting Verse—“Feet that make no noise; eyes that can see in the dark; ears that can hear the winds in their lairs, and sharp white teeth, all these things are the marks of our brothers except Tabaqui the Jackal and the Hyaena whom we hate.” But Mowgli, as a man-cub, had to learn a great deal more than this. Sometimes Bagheera the Black Panther would come lounging through the jungle to see how his pet was getting on, and would purr with his head against a tree while Mowgli recited the day’s lesson to Baloo. The boy could climb almost as well as he could swim, and swim almost as well as he could run. So Baloo, the Teacher of the Law, taught him the Wood and Water Laws: how to tell a rotten branch from a sound one; how to speak politely to the wild bees when he came upon a hive of them fifty feet above ground; what to say to Mang the Bat when he disturbed him in the branches at midday; and how to warn the water-snakes in the pools before he splashed down among them. None of the Jungle People like being disturbed, and all are very ready to fly at an intruder. Then, too, Mowgli was taught the Strangers’ Hunting Call, which must be repeated aloud till it is answered, whenever one of the Jungle-People hunts outside his own grounds. It means, translated, “Give me leave to hunt here because I am hungry.” And the answer is, “Hunt then for food, but not for pleasure.”</p>
+            </div>
+            
+            <div id="chap04">
+                <h4>Road-Song of the Bandar-Log</h4>
+                <div class="poem">
+                    <p>Here we go in a flung festoon,<br>Half-way up to the jealous moon!<br>Don’t you envy our pranceful bands?<br>Don’t you wish you had extra hands?<br>Wouldn’t you like if your tails were—so—<br>Curved in the shape of a Cupid’s bow?<br> Now you’re angry, but—never mind,<br> <i>Brother, thy tail hangs down behind!</i></p>
+                    <p>Here we sit in a branchy row,<br>Thinking of beautiful things we know;<br>Dreaming of deeds that we mean to do,<br>All complete, in a minute or two—<br>Something noble and wise and good,<br>Done by merely wishing we could.<br> We’ve forgotten, but—never mind,<br> <i>Brother, thy tail hangs down behind!</i></p>
+                </div>
+            </div>
+
+            <div id="chap05">
+                <h4>“Tiger! Tiger!”</h4>
+                <div class="poem">
+                    <p>What of the hunting, hunter bold?<br> <i>Brother, the watch was long and cold.</i><br>What of the quarry ye went to kill?<br> <i>Brother, he crops in the jungle still.</i><br>Where is the power that made your pride?<br> <i>Brother, it ebbs from my flank and side.</i><br>Where is the haste that ye hurry by?<br> <i>Brother, I go to my lair—to die.</i></p>
+                </div>
+                 <p>Now we must go back to the first tale. When Mowgli left the wolf’s cave after the fight with the Pack at the Council Rock, he went down to the plowed lands where the villagers lived, but he would not stop there because it was too near to the jungle, and he knew that he had made at least one bad enemy at the Council. So he hurried on, keeping to the rough road that ran down the valley, and followed it at a steady jog-trot for nearly twenty miles, till he came to a country that he did not know. The valley opened out into a great plain dotted over with rocks and cut up by ravines. At one end stood a little village, and at the other the thick jungle came down in a sweep to the grazing-grounds, and stopped there as though it had been cut off with a hoe. All over the plain, cattle and buffaloes were grazing, and when the little boys in charge of the herds saw Mowgli they shouted and ran away, and the yellow pariah dogs that hang about every Indian village barked. Mowgli walked on, for he was feeling hungry, and when he came to the village gate he saw the big thorn-bush that was drawn up before the gate at twilight, pushed to one side.</p>
+            </div>
+
+        </section>
+        
+        <div class="text-center mt-20">
+            <a href="#contents" class="text-blue-600 hover:underline">Back to Contents</a>
+        </div>
+
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="fixed bottom-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none">
+        This function is disabled.
+    </div>
+
+    <script>
+        // --- Content Protection Script ---
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', event => {
+            if ((event.ctrlKey || event.metaKey) && (event.key === 's' || event.key === 'p')) {
+                event.preventDefault();
+                showNotification();
+            }
+        });
+        function showNotification() {
+            const toast = document.getElementById('notification-toast');
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

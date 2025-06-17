@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Books</title>
+    <link rel="stylesheet" href="shop2.css">
+    <style>
+        /* Sidebar Animation */
+        #cart-sidebar {
+            position: fixed;
+            right: -300px;
+            transition: right 0.3s ease-in-out;
+        }
+        .open {
+            right: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Explore Our Story Books</h1>
+        <button onclick="goBack()" class="go-back-btn">Go Back</button>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <div id="cart-sidebar">
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <div id="cart-total">Total: Ksh 0.00</div>
+        <button onclick="checkout()" class="checkout-btn">Checkout</button>
+    </div>
+
+    <div class="card-container">
+        <div class="card">
+            <img src="tom-sawyer.html.jpeg" alt="The Adventures of Tom Sawyer" class="profile-img">
+            <h2>The Adventures of Tom Sawyer</h2>
+            <p>By Mark Twain - A classic tale of youthful adventure.</p>
+            <button class="btn add-to-cart" onclick="addToCart('tom-sawyer', 'The Adventures of Tom Sawyer', 500, 'tom-sawyer.jpeg')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="jungle-book.jpeg" alt="The Jungle Book" class="profile-img">
+            <h2>The Jungle Book</h2>
+            <p>By Rudyard Kipling - A journey through the wild with Mowgli.</p>
+            <button class="btn add-to-cart" onclick="addToCart('jungle-book', 'The Jungle Book', 300, 'jungle-book.jpeg')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="alice in wonderland.jpeg" alt="Alice in Wonderland" class="profile-img">
+            <h2>Alice in Wonderland</h2>
+            <p>By Lewis Carroll - A whimsical adventure in a magical land.</p>
+            <button class="btn add-to-cart" onclick="addToCart('alice-in-wonderland', 'Alice in Wonderland', 250, 'alice-in-wonderland.jpeg')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="peter-pan.jpeg" alt="Peter Pan" class="profile-img">
+            <h2>Peter Pan</h2>
+            <p>By J.M. Barrie - The enchanting tale of Neverland.</p>
+            <button class="btn add-to-cart" onclick="addToCart('peter-pan', 'Peter Pan', 300, 'peter-pan.jpeg')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="harry potter and the goblet of fire.jpeg" alt="harry potter and the goblet of fire.jpeg" class="profile-img">
+            <h2>Harry Potter And The Goblet Of Fire</h2>
+            <p>By J.K.Rowling - Harry Potter is a wizard, the only child of James and Lily Potter.</p>
+            <button class="btn add-to-cart" onclick="addToCart('harry potter and the goblet of fire.jpeg', 'Harry Potter And The Goblet Of Fire', 1500, 'harry potter and the goblet of fire.jpeg')">Add to Cart</button>
+        </div>
+    </div>
+
+    <script>
+        // Go Back Functionality
+        function goBack() {
+            window.history.back();
+        }
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCart() {
+            document.getElementById('cart-count').textContent = cart.length;
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <span>${item.name}</span>
+                    <span>Ksh ${item.price.toFixed(2)}</span>
+                    <button onclick="removeFromCart('${item.id}')">×</button>
+                `;
+                cartItems.appendChild(itemElement);
+                total += item.price;
+            });
+
+            document.getElementById('cart-total').textContent = `Total: Ksh ${total.toFixed(2)}`;
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-sidebar').classList.toggle('open');
+        }
+
+        function addToCart(id, name, price, image) {
+            if (!cart.some(item => item.id === id)) {
+                cart.push({ id, name, price: Number(price), image });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        function checkout() {
+            alert('Proceeding to checkout...');
+            // Redirect to a payment page or other functionality
+        }
+
+        // Initialize the cart on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCart();
+        });
+    </script>
+</body>
+</html>
+
