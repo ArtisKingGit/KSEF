@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agriculture eBook</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background: #007B5E;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    nav#chapters {
+      padding: 1rem;
+      background: #e0f2f1;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+    #pdf-controls {
+      margin-top: 10px;
+    }
+    .go-back-btn {
+            background: linear-gradient(90deg, #444, #666);
+            color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .go-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+        }
+  </style>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+      authDomain: "register-f5448.firebaseapp.com",
+      projectId: "register-f5448",
+      storageBucket: "register-f5448.appspot.com",
+      messagingSenderId: "321470396528",
+      appId: "1:321470396528:web:a82520483006d1a56e9cb5"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        alert("Please log in to access this eBook.");
+        window.location.href = "index.html";
+      }
+    });
+
+    window.logout = () => {
+      signOut(auth).then(() => window.location.href = "index.html");
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <button onclick="goBack()" class="go-back-btn">Go Back</button>
+    <h1>Agriculture eBook 📘</h1>
+    <button onclick="logout()">Log out</button>
+  </header>
+
+  <nav id="chapters">
+    <button onclick="loadPDF('Agriculture-Form-1-Notes-Teacher.co_.ke_.pdf')">Form 1</button>
+    <button onclick="loadPDF('Agriculture-Form-2-Notes-Teacher.co_.ke_.pdf')">Form 2</button>
+    <button onclick="loadPDF('Agriculture-Form-3-Notes-Teacher.co_.ke_.pdf')">Form 3</button>
+    <button onclick="loadPDF('Agriculture-Form-4-Notes-Teacher.co_.ke_.pdf')">Form 4</button>
+  </nav>
+
+  <main>
+    <canvas id="pdf-render"></canvas>
+    <div id="pdf-controls">
+      <button onclick="prevPage()">⬅️ Prev</button>
+      <span id="page-info">Page 1</span>
+      <button onclick="nextPage()">Next ➡️</button>
+    </div>
+  </main>
+
+  <!-- 👇 Add PDF.js here -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    let pdfDoc = null, pageNum = 1, pageRendering = false, canvas = document.getElementById('pdf-render'), ctx = canvas.getContext('2d');
+
+    function loadPDF(url) {
+      pdfjsLib.getDocument(url).promise.then(pdf => {
+        pdfDoc = pdf;
+        pageNum = 1;
+        renderPage();
+      });
+    }
+
+    function renderPage() {
+      pageRendering = true;
+      pdfDoc.getPage(pageNum).then(page => {
+        const viewport = page.getViewport({ scale: 1.5 });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderContext = { canvasContext: ctx, viewport: viewport };
+        page.render(renderContext).promise.then(() => {
+          pageRendering = false;
+          document.getElementById('page-info').textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
+        });
+      });
+    }
+
+    function prevPage() {
+      if (pageNum <= 1) return;
+      pageNum--;
+      renderPage();
+    }
+
+    function nextPage() {
+      if (pageNum >= pdfDoc.numPages) return;
+      pageNum++;
+      renderPage();
+    }
+
+    loadPDF('Agriculture-Form-1-Notes-Teacher.co_.ke_.pdf'); // default PDF
+  </script>
+  <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
