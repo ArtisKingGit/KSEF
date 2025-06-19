@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>About Us - Dawamu School Bookshop</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="bookshop logo.png" type="image/svg+xml">
@@ -15,13 +15,15 @@
 
         html, body {
             height: 100%;
-            overflow-x: hidden; /* Prevents horizontal scrolling */
+            overflow-x: hidden;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
             background-image: url('thingy.jpg');
             background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: #e0e0e0;
         }
 
@@ -105,21 +107,22 @@
         section.about p {
             margin-bottom: 20px;
             font-size: 1.1rem;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .team {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             flex-wrap: wrap;
+            margin-top: 30px;
         }
 
         .team-member {
             background: rgba(100, 100, 100, 0.8);
             border-radius: 15px;
             padding: 20px;
-            width: 220px;
+            width: 250px;
             text-align: center;
             backdrop-filter: blur(10px);
             transition: transform 0.3s;
@@ -132,7 +135,10 @@
 
         .team-member img {
             width: 100%;
-            border-radius: 50%;
+            height: auto;
+            max-width: 180px;
+            border-radius: 1000px;
+            margin-bottom: 15px;
             transition: transform 0.3s;
         }
 
@@ -166,14 +172,33 @@
     <div class="container">
         <section class="about">
             <h2>About Us</h2>
-            <p>The Dawamu School Bookshop was founded with a clear purpose: to solve real challenges faced by school libraries. The idea was sparked by a simple but frustrating moment — a lost book caused by outdated, handwritten records. This experience inspired Arthur Gichuki, a 15-year-old student and software developer at Dawamu School, to build a smarter, more reliable system for managing school book inventories.
-                With a vision to create a network of digital bookshops across schools in Kenya, Arthur began developing the platform to help institutions access their book databases both online and offline, reducing human error and improving accessibility.
-                He is supported by Patrick Gichui, a fllow developer and friend, in bringing this project to life. Together, they are committed to improving how schools across the country handle and interact with their learning resources.</p>
+            <p>
+                The Dawamu School Bookshop was founded with a clear purpose: to solve real challenges faced by school libraries.
+                The idea was sparked by a simple but frustrating moment — a lost book caused by outdated, handwritten records.
+                This experience inspired two students and developers at Dawamu School, Arthur Gichuki and Patrick Gichui, to build a smarter,
+                more reliable system for managing school book inventories.
+            </p>
+            <p>
+                Arthur, a 15-year-old with a keen interest in software development, began designing the platform to help schools manage their book databases with better accuracy and accessibility.
+                Patrick, equally passionate about tech and problem-solving, joined the effort as a co-developer, bringing valuable insight and functionality to the system.
+            </p>
+            <p>
+                With a shared vision of creating a network of digital bookshops across Kenyan schools, the duo has focused on enabling both online and offline access,
+                reducing human error, and making learning resources easier to manage. Together, Arthur and Patrick are reshaping how schools handle their academic materials.
+            </p>
+
             <div class="team">
                 <div class="team-member">
-                    <h3>Arthur Gichuki & Patrick Gichui</h3>
-                    <p>Founders & Developers</p>
-                    
+                    <img src="arthur3.jpg" alt="Arthur Gichuki">
+                    <h3>Arthur Gichuki</h3>
+                    <p>Co-founder & Developer</p>
+                    <p>A 14 year old developer form Dawamu School focused on building the platform's core features and database access. Arthur plays a key role and leads most of the frontend and backend integrations.</p>
+                </div>
+                <div class="team-member">
+                    <img src="patrick.jpg" alt="Patrick Gichui">
+                    <h3>Patrick Gichui</h3>
+                    <p>Co-founder & Developer</p>
+                    <p>A 16 year old developer plays a role in adding functionality, and ensuring the user experience is intuitive and smooth. Patrick leads mostly frontend integrations and website designing.</p>
                 </div>
             </div>
         </section>

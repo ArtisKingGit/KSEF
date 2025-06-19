@@ -391,9 +391,6 @@
                   </div>
 
                   <textarea class="order-description" placeholder="Enter order description (optional)" ${disabledInput}>${description}</textarea>
-                  
-                  <button class="ebook-btn" ${disabledInput} onclick="window.open('${order.ebookLink}', '_blank')">
-                    Open eBook</button>
                   <button class="confirm-btn" ${isConfirmed || disabled ? 'disabled' : ''}>${isConfirmed ? 'Confirmed' : 'Confirm'}</button>
                   <button class="cancel-btn" ${disabled} data-id="${orderId}">Cancel</button>     
 
@@ -445,6 +442,7 @@
       } else {
         // User not logged in
         orderList.innerHTML = '<p>Please log in to see your orders.</p>';
+        window.location.href = 'index.html'; // Redirect to login
         loadingDiv.classList.remove("show");
       }
     });
