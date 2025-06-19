@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Geography eBook</title>
+  <title>Geography eBook - Dawamu School Bookshop</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -11,20 +11,25 @@
       padding: 0;
       background: #f4f4f4;
     }
+
     header {
       background: #007B5E;
       color: white;
       padding: 1rem;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
+
     nav#chapters {
       padding: 1rem;
       background: #e0f2f1;
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
+      justify-content: center;
     }
+
     button {
       padding: 0.5rem 1rem;
       border: none;
@@ -32,33 +37,87 @@
       color: white;
       cursor: pointer;
       border-radius: 5px;
+      font-size: 1rem;
     }
+
+    button:disabled {
+      background: #a5d6a7;
+      cursor: not-allowed;
+    }
+
+    .go-back-btn {
+      background: linear-gradient(90deg, #444, #666);
+      color: #e0e0e0;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .go-back-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    }
+
     main {
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 1rem;
+      position: relative;
     }
+
+    canvas {
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 100%;
+    }
+
     #pdf-controls {
       margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
-    .go-back-btn {
-            background: linear-gradient(90deg, #444, #666);
-            color: #e0e0e0;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
 
-        .go-back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
-        }
+    #loading {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1rem;
+      background: #007B5E;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      font-weight: bold;
+      cursor: wait;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 3px solid white;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
+
+  <!-- Firebase Auth -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
@@ -86,7 +145,7 @@
       signOut(auth).then(() => window.location.href = "index.html");
     }
   </script>
-</head> 
+</head>
 <body>
   <header>
     <button onclick="goBack()" class="go-back-btn">Go Back</button>
@@ -102,23 +161,34 @@
   </nav>
 
   <main>
+    <button id="loading" disabled>
+      <span class="spinner"></span> Loading: eBook
+    </button>
     <canvas id="pdf-render"></canvas>
     <div id="pdf-controls">
-      <button onclick="prevPage()">⬅️ Prev</button>
+      <button id="prevBtn" onclick="prevPage()">⬅️ Prev</button>
       <span id="page-info">Page 1</span>
-      <button onclick="nextPage()">Next ➡️</button>
+      <button id="nextBtn" onclick="nextPage()">Next ➡️</button>
     </div>
   </main>
 
-  <!-- 👇 Add PDF.js here -->
+  <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
   <script>
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    let pdfDoc = null, pageNum = 1, pageRendering = false, canvas = document.getElementById('pdf-render'), ctx = canvas.getContext('2d');
+    let pdfDoc = null, pageNum = 1;
+    const canvas = document.getElementById('pdf-render');
+    const ctx = canvas.getContext('2d');
+
+    function showLoading(show) {
+      const loadingBtn = document.getElementById("loading");
+      loadingBtn.style.display = show ? "flex" : "none";
+      document.querySelectorAll("#chapters button, #pdf-controls button").forEach(btn => btn.disabled = show);
+    }
 
     function loadPDF(url) {
+      showLoading(true);
       pdfjsLib.getDocument(url).promise.then(pdf => {
         pdfDoc = pdf;
         pageNum = 1;
@@ -127,15 +197,18 @@
     }
 
     function renderPage() {
-      pageRendering = true;
       pdfDoc.getPage(pageNum).then(page => {
         const viewport = page.getViewport({ scale: 1.5 });
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
-        const renderContext = { canvasContext: ctx, viewport: viewport };
+        const renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+
         page.render(renderContext).promise.then(() => {
-          pageRendering = false;
+          showLoading(false);
           document.getElementById('page-info').textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
         });
       });
@@ -153,12 +226,12 @@
       renderPage();
     }
 
-    loadPDF('Form-1-Geography-Teacher.co_.ke_.pdf'); // default PDF
+    function goBack() {
+      window.history.back();
+    }
+
+    // Load the default Form 1 book
+    loadPDF('Form-1-Geography-Teacher.co_.ke_.pdf');
   </script>
-  <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
 </body>
 </html>
