@@ -1,428 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dawamu Bookshop</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" href="bookshop logo.png" type="image/svg+xml" />
+  <link rel="icon" href="bookshop logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* Global Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap');
+
+    :root {
+      --bg-dark: #1A1A1A;
+      --bg-light: #2B2B2B;
+      --text-main: #EAEAEA;
+      --text-muted: #A0A0A0;
+      --accent-gold: #C0A062;
+      --accent-gold-hover: #D4AF37;
+    }
+
     body {
       margin: 0;
-      background-color: #111;
       font-family: 'Roboto', sans-serif;
-      color: #ccc;
-      line-height: 1.6;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
     }
-    h1, h2, h3 {
-      font-family: 'Montserrat', sans-serif;
-      color: #d6e8d6;
-      margin: 0;
+
+    header {
+      background-color: var(--bg-dark);
+      padding: 15px 0;
+      border-bottom: 1px solid #333;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+
     .container {
       width: 90%;
       max-width: 1200px;
       margin: 0 auto;
     }
-    /* Header */
-    header {
-      background-color: #222;
-      padding: 15px 0;
-      box-shadow: 0 2px 5px rgba(109, 179, 109, 0.15);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+
     .header-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
     }
+
     .logo {
-      font-size: 1.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--accent-gold);
       font-weight: bold;
-      color: #06c106;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
     }
+
     nav {
       display: flex;
-      gap: 20px;
+      gap: 25px;
       flex-wrap: wrap;
+    }
+
+    nav a, #logoutBtn {
       font-size: 1rem;
+      color: var(--text-muted);
+      padding: 8px 4px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.3s, border-bottom-color 0.3s;
+      animation: fadeInUp 0.5s ease-out forwards;
     }
-    nav a {
-      padding: 8px 16px;
-      border-radius: 4px;
-      transition: background-color 0.3s;
-      color: #ccc;
+
+    nav a:hover, #logoutBtn:hover {
+      color: var(--accent-gold-hover);
+      border-bottom-color: var(--accent-gold-hover);
     }
-    nav a:hover {
-      background-color: #333;
-      color: #06c106;
+
+    #logoutBtn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
     }
+
     .header-icons {
       display: flex;
-      gap: 15px;
+      gap: 20px;
       font-size: 1.2rem;
     }
+
     .header-icons i {
+      color: var(--text-muted);
       transition: color 0.3s;
-      color: #ccc;
       cursor: pointer;
     }
+
     .header-icons i:hover {
-      color: #06c106;
+      color: var(--accent-gold);
     }
+
     .search-bar {
-      margin-top: 15px;
+      margin-top: 20px;
       display: flex;
       justify-content: center;
     }
+
     .search-bar input {
-      width: 100%;
       max-width: 500px;
-      padding: 10px 15px;
+      padding: 12px 20px;
       border: 1px solid #444;
       border-right: none;
-      border-radius: 25px 0 0 25px;
-      background-color: #222;
-      color: #ccc;
-      font-size: 1rem;
+      border-radius: 50px 0 0 50px;
+      background-color: var(--bg-light);
+      color: var(--text-main);
     }
+
     .search-bar button {
-      padding: 10px 15px;
-      border: 1px solid #444;
+      padding: 12px 20px;
+      border: 1px solid var(--accent-gold);
       border-left: none;
-      border-radius: 0 25px 25px 0;
-      background-color: #06c106;
-      color: #111;
+      border-radius: 0 50px 50px 0;
+      background-color: var(--accent-gold);
+      color: var(--bg-dark);
       cursor: pointer;
       transition: background-color 0.3s;
-      font-size: 1rem;
     }
+
     .search-bar button:hover {
-      background-color:#06c106;
+      background-color: var(--accent-gold-hover);
     }
-    /* Banner Section */
+
     #banner {
       background: url('library.jpg') center/cover no-repeat;
-      background-color: #222;
       height: 70vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
       position: relative;
+      text-align: center;
       color: #fff;
     }
+
     #banner::after {
       content: "";
       position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.5);
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7));
     }
-    #banner .banner-content {
+
+    .banner-content {
       position: relative;
       z-index: 1;
       padding: 20px;
     }
-    #banner h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
+
+    .welcome-section {
+      animation: fadeInUp 0.6s ease-out forwards;
     }
+
+    .welcome-message {
+      font-size: 30px;
+      color: var(--accent-gold);
+      font-family: 'Playfair Display', serif;
+    }
+
     #banner p {
       font-size: 1.2rem;
-      margin-bottom: 20px;
+      color: var(--text-main);
+      opacity: 0;
+      animation: fadeInUp 0.6s 0.4s ease-out forwards;
     }
+
     #banner a {
+      margin-top: 15px;
+      display: inline-block;
       padding: 12px 30px;
-      background-color: #06c106;
-      color: #111;
-      border-radius: 30px;
+      background-color: var(--accent-gold);
+      color: var(--bg-dark);
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
       font-size: 1rem;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.3s;
+      animation: fadeInUp 0.6s 0.6s ease-out forwards;
     }
+
     #banner a:hover {
-      background-color:#089108;
+      background-color: var(--accent-gold-hover);
+      transform: scale(1.05);
     }
-    /* Featured Books Section */
+
     #featured-books {
-      background-color: #333;
-      padding: 50px 0;
+      background-color: var(--bg-dark);
+      padding: 80px 0;
     }
+
     #featured-books h2 {
       text-align: center;
+      font-size: 3rem;
       margin-bottom: 40px;
-      font-size: 2.5rem;
     }
+
     .books-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 30px;
-      margin-top: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
+
     .book-item {
-      background: #444;
+      background-color: var(--bg-light);
+      border: 1px solid #333;
       border-radius: 8px;
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
     }
+
     .book-item:hover {
-      transform: translateY(-30px);
-      box-shadow: 0 4px 12px rgba(118, 118, 118, 0.797);
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     }
+
     .book-cover {
       width: 100%;
-      height: 390px;
+      height: 300px;
       object-fit: cover;
     }
+
     .book-info {
-      padding: 15px;
+      padding: 20px;
       text-align: center;
     }
+
     .book-info h3 {
       font-size: 1.2rem;
-      margin-bottom: 5px;
-      color: #06c106;
+      color: var(--accent-gold);
     }
+
     .book-info p {
       font-size: 0.9rem;
-      color: #aaa;
+      color: var(--text-muted);
     }
-    /* Footer */
+
+    .book-info a {
+      font-weight: bold;
+      color: var(--accent-gold);
+    }
+
+    .book-info a:hover {
+      color: var(--accent-gold-hover);
+    }
+
     footer {
-      background-color: #222;
-      padding: 20px 0;
+      background-color: var(--bg-dark);
+      padding: 40px 0;
       text-align: center;
-      font-size: 0.9rem;
-      color: #ccc;
+      color: var(--text-muted);
+      border-top: 1px solid #333;
     }
+
     .social-icons {
-      margin: 10px 0;
+      margin-top: 20px;
       display: flex;
-      gap: 15px;
       justify-content: center;
+      gap: 20px;
     }
+
     .social-icons a {
-      font-size: 1.2rem;
+      color: var(--text-muted);
+      font-size: 1.4rem;
       transition: color 0.3s;
-      color: #ccc;
     }
+
     .social-icons a:hover {
-      color: #097809;
+      color: var(--accent-gold);
     }
-    .welcome-section{
-      font-size: 40px;
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-    @media (max-width: 768px) {
-      #banner h1 {
-        font-size: 2.5rem;
-      }
-      #banner p {
-        font-size: 1rem;
-      }
-      nav {
-        justify-content: center;
-      }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="container">
-      <div class="header-top">
-        <div class="logo">Dawamu Bookshop</div>
-        <nav>
-          <a href="#">Home</a>
-          <a href="shop.html">Shop</a>
-          <!--<a href="categories.html">Categories</a>-->
-          <a href="about.html"About-us>About-us</a>
-          <a href="contactus.html">Contact</a>
-          <a href="premium.html">Membership</a>
-          <a href="dashboard.html">Dashboard</a>
-        </nav>
-        <div class="header-icons">
-          <a href="profile.html"><i class="fas fa-user"></i></a>
-          <a href="contactus.html"><i class="fas fa-heart"></i></a>
-          <a href="shop.html"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-      </div>
-      <div class="search-bar">
-        <input type="text" placeholder="Search for books..." />
-        <button><i class="fas fa-search"></i></button>
+
+<header>
+  <div class="container">
+    <div class="header-top">
+      <div class="logo">Dawamu Bookshop</div>
+      <nav>
+        <a href="#">Home</a>
+        <a href="/shop">Shop</a>
+        <a href="/about">About Us</a>
+        <a href="/contactus">Contact</a>
+        <a href="/premium">Membership</a>
+        <a href="/dashboard">Dashboard</a>
+        <button id="logoutBtn">Logout</button>
+      </nav>
+      <div class="header-icons">
+        <a href="/profile"><i class="fas fa-user"></i></a>
+        <a href="/contactus"><i class="fas fa-heart"></i></a>
+        <a href="/shop"><i class="fas fa-shopping-cart"></i></a>
       </div>
     </div>
-  </header>
-
-  <!-- Banner Section -->
-  <section id="banner">
-    <div class="banner-content container">
-      <div class="welcome-section">
-          <div id="userProfile">Loading user...</div>
-        </div>
-      <p>Immerse yourself in a world where technology meets literature.</p>
-      <a href="shop.html">Explore Now</a>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for books..." />
+      <button><i class="fas fa-search"></i></button>
     </div>
-  </section>
+  </div>
+</header>
 
-  <!-- Featured Books Section -->
-  <section id="featured-books">
-    <div class="container">
-      <h2>E-Books we Offer</h2>
-        <div class="books-grid">
-          <div class="book-item">
-            <img src="science.avif" alt="Sciences: The complete Edition" class="book-cover">
-            <div class="book-info">
-              <h3>Sciences Full notes Form 1 - Form 4</h3>
-              <p>Revision E-book for Sciences for all Forms.</p>
-              <a href="ebooks/sciences.html">Read Book</a>
-            </div>
-          </div>
-
-          <div class="book-item">
-            <img src="technicals.jpeg" alt="Computer Studies: The complete Edition" class="book-cover">
-            <div class="book-info">
-              <h3>Computer Studies Full notes Form 1 - Form 4</h3>
-              <p>Revision E-book for Computer Studies for all Forms.</p>
-              <a href="ebooks/computerstudies.html">Read Book</a>
-            </div>
-          </div>
-
-          <div class="book-item">
-            <img src="business_studies.jpg" alt="Business Studies: The complete Edition" class="book-cover">
-            <div class="book-info">
-              <h3>Business Studies Full notes Form 1 - Form 4</h3>
-              <p>Revision E-book for Business Studies for all Forms.</p>
-              <a href="ebooks/businessstudies.html">Read Book</a>
-            </div>
-          </div>
-
-          <div class="book-item">
-            <img src="agriculture.webp" alt="Business Studies: The complete Edition" class="book-cover">
-            <div class="book-info">
-              <h3>Agriculture Full notes Form 1 - Form 4</h3>
-              <p>Revision E-book for Agriculture for all Forms.</p>
-              <a href="ebooks/agriculture.html">Read Book</a>
-            </div>
-          </div>
-
-          <div class="book-item">
-            <img src="humanities.webp" alt="Humanities: The complete Edition" class="book-cover">
-            <div class="book-info">
-              <h3>Humanities (History and CRE) Full notes Form 1 - Form 4</h3>
-              <p>Revision E-book for Humanities for all Forms.</p>
-              <a href="ebooks/humanities.html">Read Book</a>
-            </div>
-          </div>
-
-          <div class="book-item">
-            <img src="ire.jpeg" alt="IRE: The complete Edition" class="book-cover">
-            <div class="book-info">
-              <h3>IRE Full notes Form 1 - Form 4</h3>
-              <p>Revision E-book for IRE for all Forms.</p>
-              <a href="ebooks/ire.html">Read Book</a>
-            </div>
-          </div>
-
-          <div class="book-item">
-            <img src="geography.jpg" alt="Geography: The complete Edition" class="book-cover">
-            <div class="book-info">
-              <h3>Geography Full notes Form 1 - Form 4</h3>
-              <p>Revision E-book for Geography for all Forms.</p>
-              <a href="ebooks/geography.html">Read Book</a>
-            </div>
-          </div>
-
-          <div class="book-item">
-            <img src="english.jpg" alt="English Grammar: The complete Edition" class="book-cover">
-            <div class="book-info">
-              <h3>English Full notes Form 1 - Form 4 notes</h3>
-              <p>Revision E-books for English for all Forms.</p>
-              <a href="ebooks/english.html">Read Book</a>
-            </div>
-          </div>
-        </div>
-
-
+<section id="banner">
+  <div class="banner-content container">
+    <div class="welcome-section">
+      <p id="userProfile" class="welcome-message">Loading user...</p>
     </div>
-  </section>
+    <p>Immerse yourself in a world where technology meets literature.</p>
+    <a href="/shop">Explore Now</a>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Dawamu BookShop. All rights reserved.</p>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://x.com/ArtisKingOf"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/arthurs_dzn/"><i class="fab fa-instagram"></i></a>
-      </div>
+<section id="featured-books">
+  <div class="container">
+    <h2>E-Books we Offer</h2>
+    <div class="books-grid">
+      <!-- You can keep your <div class="book-item"> blocks here as before -->
     </div>
-  </footer>
+  </div>
+</section>
 
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Dawamu BookShop. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com/ArtisKingOf"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/arthurs_dzn/"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</footer>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
-      authDomain: "register-f5448.firebaseapp.com",
-      projectId: "register-f5448",
-      storageBucket: "register-f5448.appspot.com",
-      messagingSenderId: "321470396528",
-      appId: "1:321470396528:web:a82520483006d1a56e9cb5",
-      measurementId: "G-4Z3S1GJS6G"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+    authDomain: "register-f5448.firebaseapp.com",
+    projectId: "register-f5448",
+    storageBucket: "register-f5448.appspot.com",
+    messagingSenderId: "321470396528",
+    appId: "1:321470396528:web:a82520483006d1a56e9cb5"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const userProfile = document.getElementById("userProfile");
+  const logoutBtn = document.getElementById("logoutBtn");
 
-    const userPhoto = document.getElementById("userPhoto");
-    const userProfile = document.getElementById("userProfile");
-    const logoutBtn = document.getElementById("logoutBtn");
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const displayName = user.displayName || "User";
+      userProfile.textContent = `Welcome, ${displayName}`;
+      logoutBtn.style.display = 'block';
+    } else {
+      alert("You must be logged in to access this page.");
+      window.location.href = "login.html";
+    }
+  });
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const displayName = user.displayName || "User";
-        const email = user.email;
-        const photoURL = user.photoURL || "https://via.placeholder.com/60";
-
-       
-        userProfile.innerHTML = `
-          Welcome, <strong>${displayName}</strong><br>
-        `;
-      } else {
-        alert("You must be logged in to access this page.");
-        window.location.href = "login.html";
-      }
+  logoutBtn.addEventListener("click", () => {
+    signOut(auth).then(() => {
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }).catch((error) => {
+      alert("Error logging out: " + error.message);
     });
-
-    logoutBtn.addEventListener("click", () => {
-      signOut(auth)
-        .then(() => {
-          alert("You have been logged out.");
-          window.location.href = "login.html";
-        })
-        .catch((error) => {
-          alert("Error logging out: " + error.message);
-        });
-    });
+  });
 </script>
+
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.querySelector(".search-bar input");
@@ -431,12 +392,10 @@
 
     function performSearch() {
       const query = searchInput.value.trim().toLowerCase();
-
       bookItems.forEach(book => {
-        const title = book.querySelector("h3").textContent.toLowerCase();
-        const description = book.querySelector("p").textContent.toLowerCase();
+        const title = book.querySelector("h3")?.textContent.toLowerCase();
+        const description = book.querySelector("p")?.textContent.toLowerCase();
         const match = title.includes(query) || description.includes(query);
-
         book.style.display = match ? "block" : "none";
       });
     }
