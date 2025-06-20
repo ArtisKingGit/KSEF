@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dawamu Bookshop</title>
-  <link rel="icon" href="bookshop logo.png" type="image/png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="bookshop logo.png" type="image/svg+xml" />
+
   <style>
+    /* --- Import Classic Font --- */
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap');
 
+    /* --- New Color Palette --- */
     :root {
       --bg-dark: #1A1A1A;
       --bg-light: #2B2B2B;
@@ -18,13 +22,69 @@
       --accent-gold-hover: #D4AF37;
     }
 
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
+    /* ========================================
+    --- 1. ANIMATION KEYFRAMES & CLASSES ---
+    ========================================
+    */
+
+    /* Keyframes for animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Base state for elements that will animate on scroll */
+    .animate-on-scroll {
+      opacity: 0;
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in-up {
+        transform: translateY(30px);
+    }
+
+    /* The state of the element once it becomes visible */
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- End of Animation CSS --- */
+
+    /* Global Styles */
+    body {
+      margin: 0;
+      background-color: var(--bg-dark);
+      font-family: 'Arial', sans-serif;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+    h1, h2, h3, .logo {
+      font-family: 'Arial', serif;
+      color: var(--text-main);
+      margin: 0;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
     header {
       background-color: var(--bg-dark);
       padding: 15px 0;
@@ -34,13 +94,6 @@
       top: 0;
       z-index: 1000;
     }
-
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
     .header-top {
       display: flex;
       align-items: center;
@@ -48,65 +101,74 @@
       flex-wrap: wrap;
     }
 
+    /* Page load animation for the logo */
     .logo {
-      font-family: 'Playfair Display', serif;
       font-size: 2rem;
-      color: var(--accent-gold);
       font-weight: bold;
-      opacity: 0;
-      animation: fadeIn 0.8s ease-out forwards;
+      color: var(--accent-gold);
+      opacity: 0; /* Start hidden */
+      animation: fadeIn 0.8s 0.2s ease-in-out forwards;
     }
 
     nav {
       display: flex;
       gap: 25px;
       flex-wrap: wrap;
-    }
-
-    nav a, #logoutBtn {
       font-size: 1rem;
-      color: var(--text-muted);
+      align-items: center;
+    }
+    nav a, #logoutBtn {
       padding: 8px 4px;
-      border-bottom: 2px solid transparent;
+      border-radius: 0;
       transition: color 0.3s, border-bottom-color 0.3s;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      opacity: 0; /* Start hidden */
       animation: fadeInUp 0.5s ease-out forwards;
     }
+    /* Staggered delay for nav links animation */
+    nav a:nth-child(1) { animation-delay: 0.4s; }
+    nav a:nth-child(2) { animation-delay: 0.5s; }
+    nav a:nth-child(3) { animation-delay: 0.6s; }
+    nav a:nth-child(4) { animation-delay: 0.7s; }
+    nav a:nth-child(5) { animation-delay: 0.8s; }
+    #logoutBtn { animation-delay: 0.9s; }
+
 
     nav a:hover, #logoutBtn:hover {
       color: var(--accent-gold-hover);
       border-bottom-color: var(--accent-gold-hover);
     }
-
     #logoutBtn {
+      cursor: pointer;
       background: none;
       border: none;
-      cursor: pointer;
       font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
     }
-
+    #logoutBtn:hover {
+      color: var(--accent-gold-hover);
+    }
     .header-icons {
       display: flex;
       gap: 20px;
       font-size: 1.2rem;
     }
-
     .header-icons i {
-      color: var(--text-muted);
       transition: color 0.3s;
+      color: var(--text-muted);
       cursor: pointer;
     }
-
     .header-icons i:hover {
       color: var(--accent-gold);
     }
-
     .search-bar {
       margin-top: 20px;
       display: flex;
       justify-content: center;
     }
-
     .search-bar input {
+      width: 100%;
       max-width: 500px;
       padding: 12px 20px;
       border: 1px solid #444;
@@ -114,8 +176,12 @@
       border-radius: 50px 0 0 50px;
       background-color: var(--bg-light);
       color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
     }
-
+    .search-bar input:focus {
+      border-color: var(--accent-gold);
+    }
     .search-bar button {
       padding: 12px 20px;
       border: 1px solid var(--accent-gold);
@@ -125,67 +191,61 @@
       color: var(--bg-dark);
       cursor: pointer;
       transition: background-color 0.3s;
+      font-size: 1rem;
     }
-
     .search-bar button:hover {
       background-color: var(--accent-gold-hover);
     }
-
     #banner {
       background: url('library.jpg') center/cover no-repeat;
+      background-color: #222;
       height: 70vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
       text-align: center;
+      position: relative;
       color: #fff;
     }
-
     #banner::after {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
       background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7));
     }
-
-    .banner-content {
+    #banner .banner-content {
       position: relative;
       z-index: 1;
       padding: 20px;
     }
-
-    .welcome-section {
-      animation: fadeInUp 0.6s ease-out forwards;
+    /* Page load animation for banner content */
+    #banner .welcome-section {
+      opacity: 0;
+      animation: fadeInUp 0.6s 1s ease-out forwards;
+      font-size: 40px;
     }
-
-    .welcome-message {
-      font-size: 30px;
-      color: var(--accent-gold);
-      font-family: 'Playfair Display', serif;
-    }
-
     #banner p {
       font-size: 1.2rem;
+      margin-bottom: 30px;
       color: var(--text-main);
       opacity: 0;
-      animation: fadeInUp 0.6s 0.4s ease-out forwards;
+      animation: fadeInUp 0.6s 1.2s ease-out forwards;
     }
-
     #banner a {
-      margin-top: 15px;
-      display: inline-block;
-      padding: 12px 30px;
+      padding: 15px 35px;
       background-color: var(--accent-gold);
       color: var(--bg-dark);
       border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
       font-size: 1rem;
+      font-weight: bold;
       transition: background-color 0.3s, transform 0.3s;
-      animation: fadeInUp 0.6s 0.6s ease-out forwards;
+      display: inline-block;
+      opacity: 0;
+      animation: fadeInUp 0.6s 1.4s ease-out forwards;
     }
-
     #banner a:hover {
       background-color: var(--accent-gold-hover);
       transform: scale(1.05);
@@ -195,213 +255,692 @@
       background-color: var(--bg-dark);
       padding: 80px 0;
     }
-
     #featured-books h2 {
       text-align: center;
+      margin-bottom: 60px;
       font-size: 3rem;
-      margin-bottom: 40px;
     }
-
     .books-grid {
       display: grid;
-      gap: 30px;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      margin-top: 20px;
     }
-
     .book-item {
-      background-color: var(--bg-light);
-      border: 1px solid #333;
+      background: var(--bg-light);
       border-radius: 8px;
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid #333;
     }
+    /* Staggered delay for book cards on scroll */
+    .book-item:nth-child(1) { transition-delay: 0.1s; }
+    .book-item:nth-child(2) { transition-delay: 0.2s; }
+    .book-item:nth-child(3) { transition-delay: 0.3s; }
+    .book-item:nth-child(4) { transition-delay: 0.4s; }
+    .book-item:nth-child(5) { transition-delay: 0.5s; }
+    .book-item:nth-child(6) { transition-delay: 0.6s; }
+    .book-item:nth-child(7) { transition-delay: 0.7s; }
+    .book-item:nth-child(8) { transition-delay: 0.8s; }
 
     .book-item:hover {
       transform: translateY(-10px);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     }
-
     .book-cover {
       width: 100%;
-      height: 300px;
+      height: 350px;
       object-fit: cover;
     }
-
     .book-info {
       padding: 20px;
       text-align: center;
     }
-
     .book-info h3 {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
       color: var(--accent-gold);
     }
-
     .book-info p {
       font-size: 0.9rem;
       color: var(--text-muted);
+      min-height: 50px;
     }
-
     .book-info a {
-      font-weight: bold;
       color: var(--accent-gold);
+      font-weight: bold;
+      transition: color 0.3s;
     }
-
     .book-info a:hover {
       color: var(--accent-gold-hover);
     }
-
     footer {
       background-color: var(--bg-dark);
       padding: 40px 0;
       text-align: center;
+      font-size: 0.9rem;
       color: var(--text-muted);
       border-top: 1px solid #333;
     }
-
     .social-icons {
       margin-top: 20px;
       display: flex;
-      justify-content: center;
       gap: 20px;
+      justify-content: center;
     }
-
     .social-icons a {
-      color: var(--text-muted);
       font-size: 1.4rem;
-      transition: color 0.3s;
+      transition: color 0.3s, transform 0.3s;
+      color: var(--text-muted);
     }
-
     .social-icons a:hover {
       color: var(--accent-gold);
+      transform: scale(1.2);
+    }
+    .welcome-section p {
+      font-size: 40px;
+      font-family: 'Roboto', sans-serif;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+      #banner h1 {
+        font-size: 3rem;
+      }
+      #banner p {
+        font-size: 1.1rem;
+      }
+      nav {
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+      }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* --- Tutorial Styles --- */
+    .tutorial-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      pointer-events: none; /* Allows clicks through when hidden */
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .tutorial-overlay.active {
+      opacity: 1;
+      pointer-events: all; /* Blocks clicks when active */
+    }
+
+    .tutorial-step {
+      position: absolute;
+      background: var(--bg-light);
+      border: 1px solid var(--accent-gold);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      max-width: 300px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+      z-index: 2001;
+    }
+
+    .tutorial-step.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .tutorial-step h3 {
+      color: var(--accent-gold);
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .tutorial-controls {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .tutorial-controls button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .tutorial-controls .next-btn, .tutorial-controls .finish-btn {
+      background-color: var(--accent-gold);
+      color: var(--bg-dark);
+    }
+
+    .tutorial-controls .next-btn:hover, .tutorial-controls .finish-btn:hover {
+      background-color: var(--accent-gold-hover);
+    }
+
+    .tutorial-controls .skip-btn {
+      background-color: var(--bg-dark);
+      color: var(--text-muted);
+      border: 1px solid var(--text-muted);
+    }
+
+    .tutorial-controls .skip-btn:hover {
+      color: var(--accent-gold);
+      border-color: var(--accent-gold);
+    }
+
+    /* Pointer styling - the glowing circle */
+    .tutorial-pointer {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--accent-gold);
+      border-radius: 50%;
+      z-index: 2002;
+      box-shadow: 0 0 15px var(--accent-gold);
+      animation: pulse 1.5s infinite alternate;
+      pointer-events: none; /* Make sure it doesn't block clicks on the element it points to */
+      display: none; /* Hidden by default */
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); opacity: 1; }
+      to { transform: scale(1.2); opacity: 0.7; }
     }
   </style>
 </head>
 <body>
-
-<header>
-  <div class="container">
-    <div class="header-top">
-      <div class="logo">Dawamu Bookshop</div>
-      <nav>
-        <a href="#">Home</a>
-        <a href="/shop">Shop</a>
-        <a href="/about">About Us</a>
-        <a href="/contactus">Contact</a>
-        <a href="/premium">Membership</a>
-        <a href="/dashboard">Dashboard</a>
-        <button id="logoutBtn">Logout</button>
-      </nav>
-      <div class="header-icons">
-        <a href="/profile"><i class="fas fa-user"></i></a>
-        <a href="/contactus"><i class="fas fa-heart"></i></a>
-        <a href="/shop"><i class="fas fa-shopping-cart"></i></a>
+  <header>
+    <div class="container">
+      <div class="header-top">
+        <div class="logo" id="logo-tutorial-target">Dawamu Bookshop</div>
+        <nav>
+          <a href="#" id="home-nav-tutorial-target">Home</a>
+          <a href='/shop' id="shop-nav-tutorial-target">Shop</a>
+          <a href='/about'>About Us</a>
+          <a href='/contactus'>Contact</a>
+          <a href='/premium'>Membership</a>
+          <a href='/dashboard'>Dashboard</a>
+          <button id="logoutBtn">Logout</button>
+        </nav>
+        <div class="header-icons">
+          <a href='/profile' id="profile-icon-tutorial-target"><i class="fas fa-user"></i></a>
+          <a href='/contactus'><i class="fas fa-heart"></i></a>
+          <a href='/shop'><i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </div>
+      <div class="search-bar" id="search-bar-tutorial-target">
+        <input type="text" placeholder="Search for Ebooks Available..." />
+        <button><i class="fas fa-search"></i></button>
       </div>
     </div>
-    <div class="search-bar">
-      <input type="text" placeholder="Search for books..." />
-      <button><i class="fas fa-search"></i></button>
-    </div>
-  </div>
-</header>
+  </header>
 
-<section id="banner">
-  <div class="banner-content container">
-    <div class="welcome-section">
-      <p id="userProfile" class="welcome-message">Loading user...</p>
+  <section id="banner">
+    <div class="banner-content container">
+      <div class="welcome-section">
+          <div id="userProfile">Loading user...</div>
+      </div>
+      <p>Immerse yourself in a world where technology meets literature.</p>
+      <a href='/shop' id="explore-btn-tutorial-target">Explore Now</a>
     </div>
-    <p>Immerse yourself in a world where technology meets literature.</p>
-    <a href="/shop">Explore Now</a>
-  </div>
-</section>
+  </section>
 
-<section id="featured-books">
-  <div class="container">
-    <h2>E-Books we Offer</h2>
-    <div class="books-grid">
-      <!-- You can keep your <div class="book-item"> blocks here as before -->
+  <section id="featured-books">
+    <div class="container">
+      <h2 class="animate-on-scroll fade-in-up" id="featured-books-tutorial-target">E-Books we Offer</h2>
+        <div class="books-grid">
+          <div class="book-item animate-on-scroll fade-in-up">
+            <img src="science.avif" alt="Sciences: The complete Edition" class="book-cover">
+            <div class="book-info">
+              <h3>Sciences Full notes Form 1 - Form 4</h3>
+              <p>Revision E-book for Sciences for all Forms.</p>
+              <a href='/ebooks/sciences'>Read Book</a>
+            </div>
+          </div>
+          <div class="book-item animate-on-scroll fade-in-up">
+            <img src="technicals.jpeg" alt="Computer Studies: The complete Edition" class="book-cover">
+            <div class="book-info">
+              <h3>Computer Studies Full notes Form 1 - Form 4</h3>
+              <p>Revision E-book for Computer Studies for all Forms.</p>
+              <a href='/ebooks/computerstudies'>Read Book</a>
+            </div>
+          </div>
+          <div class="book-item animate-on-scroll fade-in-up">
+            <img src="business_studies.jpg" alt="Business Studies: The complete Edition" class="book-cover">
+            <div class="book-info">
+              <h3>Business Studies Full notes Form 1 - Form 4</h3>
+              <p>Revision E-book for Business Studies for all Forms.</p>
+              <a href='/ebooks/businessstudies'>Read Book</a>
+            </div>
+          </div>
+          <div class="book-item animate-on-scroll fade-in-up">
+            <img src="agriculture.webp" alt="Business Studies: The complete Edition" class="book-cover">
+            <div class="book-info">
+              <h3>Agriculture Full notes Form 1 - Form 4</h3>
+              <p>Revision E-book for Agriculture for all Forms.</p>
+              <a href='/ebooks/agriculture'>Read Book</a>
+            </div>
+          </div>
+          <div class="book-item animate-on-scroll fade-in-up">
+            <img src="humanities.png" alt="Humanities: The complete Edition" class="book-cover">
+            <div class="book-info">
+              <h3>Humanities (History and CRE) Full notes Form 1 - Form 4</h3>
+              <p>Revision E-book for Humanities for all Forms.</p>
+              <a href='/ebooks/humanities'>Read Book</a>
+            </div>
+          </div>
+          <div class="book-item animate-on-scroll fade-in-up">
+            <img src="ire.jpeg" alt="IRE: The complete Edition" class="book-cover">
+            <div class="book-info">
+              <h3>IRE Full notes Form 1 - Form 4</h3>
+              <p>Revision E-book for IRE for all Forms.</p>
+              <a href='/ebooks/ire'>Read Book</a>
+            </div>
+          </div>
+          <div class="book-item animate-on-scroll fade-in-up">
+            <img src="geography.jpg" alt="Geography: The complete Edition" class="book-cover">
+            <div class="book-info">
+              <h3>Geography Full notes Form 1 - Form 4</h3>
+              <p>Revision E-book for Geography for all Forms.</p>
+              <a href='/ebooks/geography'>Read Book</a>
+            </div>
+          </div>
+          <div class="book-item animate-on-scroll fade-in-up">
+            <img src="english.jpg" alt="English Grammar: The complete Edition" class="book-cover">
+            <div class="book-info">
+              <h3>English Full notes Form 1 - Form 4 notes</h3>
+              <p>Revision E-books for English for all Forms.</p>
+              <a href='/ebooks/english'>Read Book</a>
+            </div>
+          </div>
+        </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <div class="container">
-    <p>&copy; 2025 Dawamu BookShop. All rights reserved.</p>
-    <div class="social-icons">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://x.com/ArtisKingOf"><i class="fab fa-twitter"></i></a>
-      <a href="https://www.instagram.com/arthurs_dzn/"><i class="fab fa-instagram"></i></a>
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Dawamu BookShop. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/ArtisKingOf"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/arthurs_dzn/"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="tutorial-overlay" id="tutorialOverlay">
+    <div class="tutorial-pointer" id="tutorialPointer"></div>
+    <div class="tutorial-step" id="tutorialStep">
+      <h3 id="tutorialTitle"></h3>
+      <p id="tutorialContent"></p>
+      <div class="tutorial-controls">
+        <button class="skip-btn" id="skipTutorialBtn">Skip</button>
+        <button class="next-btn" id="nextTutorialBtn">Next</button>
+        <button class="next-btn finish-btn" id="finishTutorialBtn" style="display: none;">Finish</button>
+      </div>
     </div>
   </div>
-</footer>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+      authDomain: "register-f5448.firebaseapp.com",
+      projectId: "register-f5448",
+      storageBucket: "register-f5448.appspot.com",
+      messagingSenderId: "321470396528",
+      appId: "1:321470396528:web:a82520483006d1a56e9cb5",
+      measurementId: "G-4Z3S1GJS6G"
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    // Get elements from the DOM
+    const userProfile = document.getElementById("userProfile");
+    const logoutBtn = document.getElementById("logoutBtn");
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
-    authDomain: "register-f5448.firebaseapp.com",
-    projectId: "register-f5448",
-    storageBucket: "register-f5448.appspot.com",
-    messagingSenderId: "321470396528",
-    appId: "1:321470396528:web:a82520483006d1a56e9cb5"
-  };
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        const displayName = user.displayName || "User";
+        userProfile.innerHTML = `Welcome, <strong>${displayName}</strong>`;
+        // Show the logout button only when the user is logged in
+        logoutBtn.style.display = 'block';
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const userProfile = document.getElementById("userProfile");
-  const logoutBtn = document.getElementById("logoutBtn");
+        // --- Tutorial Logic Start (moved inside onAuthStateChanged for user context) ---
+        // Check if the user is new (based on a simple local storage flag)
+        const hasSeenTutorial = localStorage.getItem('dawamuTutorialSeen');
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const displayName = user.displayName || "User";
-      userProfile.textContent = `Welcome, ${displayName}`;
-      logoutBtn.style.display = 'block';
-    } else {
-      alert("You must be logged in to access this page.");
-      window.location.href = "login.html";
-    }
-  });
+        if (!hasSeenTutorial) {
+          // If the user hasn't seen the tutorial, show it
+          showTutorial();
+        }
+        // --- Tutorial Logic End ---
 
-  logoutBtn.addEventListener("click", () => {
-    signOut(auth).then(() => {
-      alert("You have been logged out.");
-      window.location.href = "login.html";
-    }).catch((error) => {
-      alert("Error logging out: " + error.message);
+      } else {
+        // User is signed out
+        alert("You must be logged in to access this page.");
+        window.location.href = "login.html"; // Redirect to login page
+      }
     });
+    // Add event listener for the logout button
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth)
+        .then(() => {
+          // Sign-out successful.
+          alert("You have been logged out.");
+          window.location.href = "login.html";
+          // Optionally clear tutorial flag on logout if you want it to show again for this user on next login
+          localStorage.removeItem('dawamuTutorialSeen');
+        })
+        .catch((error) => {
+          // An error happened.
+          alert("Error logging out: " + error.message);
+        });
+    });
+</script>
+<script>
+  // This script handles the client-side search functionality
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.querySelector(".search-bar input");
+    const searchButton = document.querySelector(".search-bar button");
+    const bookItems = document.querySelectorAll(".book-item");
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      bookItems.forEach(book => {
+        const title = book.querySelector("h3").textContent.toLowerCase();
+        const description = book.querySelector("p").textContent.toLowerCase();
+        const match = title.includes(query) || description.includes(query);
+        book.style.display = match ? "block" : "none";
+      });
+    }
+    // Perform search on button click or as user types
+    searchInput.addEventListener("input", performSearch);
+    searchButton.addEventListener("click", performSearch);
   });
 </script>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.querySelector(".search-bar input");
-    const searchButton = document.querySelector(".search-bar button");
-    const bookItems = document.querySelectorAll(".book-item");
+    // Select all elements that should be animated on scroll
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
-    function performSearch() {
-      const query = searchInput.value.trim().toLowerCase();
-      bookItems.forEach(book => {
-        const title = book.querySelector("h3")?.textContent.toLowerCase();
-        const description = book.querySelector("p")?.textContent.toLowerCase();
-        const match = title.includes(query) || description.includes(query);
-        book.style.display = match ? "block" : "none";
+    // The Intersection Observer watches for elements entering the viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // If the element is intersecting (visible on screen)
+        if (entry.isIntersecting) {
+          // Add the .is-visible class to trigger the CSS transition
+          entry.target.classList.add('is-visible');
+          // Optional: Stop observing the element after it has animated once
+          observer.unobserve(entry.target);
+        }
       });
+    }, {
+      // Optional: Start the animation when the element is 10% visible
+      threshold: 0.1
+    });
+
+    // Tell the observer to watch each of our animated elements
+    animatedElements.forEach(element => {
+      observer.observe(element);
+    });
+  });
+
+  // --- New Tutorial JavaScript ---
+  const tutorialOverlay = document.getElementById('tutorialOverlay');
+  const tutorialStep = document.getElementById('tutorialStep');
+  const tutorialTitle = document.getElementById('tutorialTitle');
+  const tutorialContent = document.getElementById('tutorialContent');
+  const nextTutorialBtn = document.getElementById('nextTutorialBtn');
+  const skipTutorialBtn = document.getElementById('skipTutorialBtn');
+  const finishTutorialBtn = document.getElementById('finishTutorialBtn');
+  const tutorialPointer = document.getElementById('tutorialPointer');
+
+  let currentStep = 0;
+  const padding = 20; // Padding from viewport edges and between elements
+
+  // Define your tutorial steps
+  // target: The ID of the element this step points to
+  // placement: 'top', 'bottom', 'left', 'right', 'bottom-left', 'bottom-right', 'center'
+  const tutorialSteps = [
+    {
+      title: "Welcome to Dawamu Bookshop!",
+      content: "Let's take a quick tour to help you get started.",
+      target: null, // No specific target for the first step (intro)
+      placement: 'center' // Center of the screen
+    },
+    {
+      title: "Our Logo",
+      content: "This is our brand new logo. Click it to return to the homepage anytime!",
+      target: 'logo-tutorial-target',
+      placement: 'bottom-left'
+    },
+    {
+      title: "Navigation Bar",
+      content: "Quickly access different sections of the site like Shop, About Us, and your Dashboard.",
+      target: 'home-nav-tutorial-target', // Points to the first nav item, but encompasses the nav
+      placement: 'bottom'
+    },
+    {
+      title: "Profile & Cart",
+      content: "Manage your profile or view your shopping cart here.",
+      target: 'profile-icon-tutorial-target',
+      placement: 'bottom-right'
+    },
+    {
+      title: "Search for Books",
+      content: "Looking for something specific? Use our powerful search bar!",
+      target: 'search-bar-tutorial-target',
+      placement: 'bottom'
+    },
+    {
+      title: "Explore E-Books",
+      content: "Click this button to dive right into our collection of digital books.",
+      target: 'explore-btn-tutorial-target',
+      placement: 'top'
+    },
+    {
+      title: "Featured E-Books",
+      content: "Scroll down to browse through our popular e-book categories and find your next read.",
+      target: 'featured-books-tutorial-target',
+      placement: 'bottom'
+    }
+  ];
+
+  function showTutorial() {
+    tutorialOverlay.classList.add('active');
+    updateTutorialStep();
+  }
+
+  function hideTutorial() {
+    tutorialOverlay.classList.remove('active');
+    tutorialStep.classList.remove('active');
+    tutorialPointer.style.display = 'none';
+    // Set a flag in local storage so the tutorial doesn't show again
+    localStorage.setItem('dawamuTutorialSeen', 'true');
+  }
+
+  function updateTutorialStep() {
+    const step = tutorialSteps[currentStep];
+
+    tutorialTitle.textContent = step.title;
+    tutorialContent.textContent = step.content;
+
+    // Reset visibility of buttons
+    nextTutorialBtn.style.display = 'inline-block';
+    finishTutorialBtn.style.display = 'none';
+
+    if (currentStep === tutorialSteps.length - 1) {
+      nextTutorialBtn.style.display = 'none';
+      finishTutorialBtn.style.display = 'inline-block';
     }
 
-    searchInput.addEventListener("input", performSearch);
-    searchButton.addEventListener("click", performSearch);
+    // Hide tutorial step temporarily for accurate measurement and smooth transition
+    tutorialStep.classList.remove('active');
+    tutorialPointer.style.display = 'none';
+
+    // Small delay to allow element hiding before repositioning, making it smoother
+    setTimeout(() => {
+        positionTutorialElement(step.target, step.placement);
+        tutorialStep.classList.add('active'); // Make step visible after positioning
+    }, 50);
+  }
+
+  function positionTutorialElement(targetId, placement) {
+    // If no target, center the tutorial step
+    if (!targetId) {
+      tutorialStep.style.top = `50%`;
+      tutorialStep.style.left = `50%`;
+      tutorialStep.style.transform = `translate(-50%, -50%)`;
+      return;
+    }
+
+    const targetElement = document.getElementById(targetId);
+    if (!targetElement) {
+      console.warn(`Tutorial target element not found: ${targetId}`);
+      // Fallback to centering if target isn't found
+      tutorialStep.style.top = `50%`;
+      tutorialStep.style.left = `50%`;
+      tutorialStep.style.transform = `translate(-50%, -50%)`;
+      return;
+    }
+
+    // Scroll to the target element if it's not fully in view
+    // Using 'nearest' to prevent unnecessary large scrolls
+    targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+
+    // Give some time for the scroll to complete before getting rects
+    // This is crucial for elements that are initially off-screen
+    setTimeout(() => {
+        const targetRect = targetElement.getBoundingClientRect();
+        const stepRect = tutorialStep.getBoundingClientRect(); // Get current step dimensions
+
+        let stepTop = 0;
+        let stepLeft = 0;
+        let pointerTop = 0;
+        let pointerLeft = 0;
+
+        // Calculate position based on placement
+        switch (placement) {
+            case 'bottom':
+                stepTop = targetRect.bottom + padding;
+                stepLeft = targetRect.left + (targetRect.width / 2) - (stepRect.width / 2);
+                pointerTop = targetRect.bottom + window.scrollY;
+                pointerLeft = targetRect.left + (targetRect.width / 2) - (tutorialPointer.offsetWidth / 2);
+                break;
+            case 'top':
+                stepTop = targetRect.top - stepRect.height - padding;
+                stepLeft = targetRect.left + (targetRect.width / 2) - (stepRect.width / 2);
+                pointerTop = targetRect.top + window.scrollY - tutorialPointer.offsetHeight;
+                pointerLeft = targetRect.left + (targetRect.width / 2) - (tutorialPointer.offsetWidth / 2);
+                break;
+            case 'left':
+                stepTop = targetRect.top + (targetRect.height / 2) - (stepRect.height / 2);
+                stepLeft = targetRect.left - stepRect.width - padding;
+                pointerTop = targetRect.top + window.scrollY + (targetRect.height / 2) - (tutorialPointer.offsetHeight / 2);
+                pointerLeft = targetRect.left + window.scrollX - tutorialPointer.offsetWidth;
+                break;
+            case 'right':
+                stepTop = targetRect.top + (targetRect.height / 2) - (stepRect.height / 2);
+                stepLeft = targetRect.right + padding;
+                pointerTop = targetRect.top + window.scrollY + (targetRect.height / 2) - (tutorialPointer.offsetHeight / 2);
+                pointerLeft = targetRect.right + window.scrollX;
+                break;
+            case 'bottom-left': // Specific for Logo
+                stepTop = targetRect.bottom + padding;
+                stepLeft = targetRect.left;
+                pointerTop = targetRect.bottom + window.scrollY;
+                pointerLeft = targetRect.left + (targetRect.width / 2) - (tutorialPointer.offsetWidth / 2);
+                break;
+            case 'bottom-right': // Specific for Profile Icon
+                stepTop = targetRect.bottom + padding;
+                stepLeft = targetRect.right - stepRect.width;
+                pointerTop = targetRect.bottom + window.scrollY;
+                pointerLeft = targetRect.right - (tutorialPointer.offsetWidth / 2);
+                break;
+            default: // Center as fallback or if placement is invalid
+                stepTop = window.innerHeight / 2 - stepRect.height / 2;
+                stepLeft = window.innerWidth / 2 - stepRect.width / 2;
+                pointerTop = targetRect.top + window.scrollY + (targetRect.height / 2) - (tutorialPointer.offsetHeight / 2);
+                pointerLeft = targetRect.left + (targetRect.width / 2) - (tutorialPointer.offsetWidth / 2);
+        }
+
+        // --- Viewport boundary adjustments ---
+        // Ensure step is within horizontal bounds
+        if (stepLeft + stepRect.width > window.innerWidth - padding) {
+            stepLeft = window.innerWidth - stepRect.width - padding;
+        }
+        if (stepLeft < padding) {
+            stepLeft = padding;
+        }
+
+        // Ensure step is within vertical bounds
+        if (stepTop + stepRect.height > window.innerHeight - padding) {
+            stepTop = window.innerHeight - stepRect.height - padding;
+        }
+        if (stepTop < padding) {
+            stepTop = padding;
+        }
+
+        // Apply calculated positions (using px and adding window.scrollY for scroll-aware positioning)
+        tutorialStep.style.top = `${stepTop + window.scrollY}px`;
+        tutorialStep.style.left = `${stepLeft}px`;
+
+        // Position the pointer
+        tutorialPointer.style.display = 'block';
+        tutorialPointer.style.top = `${pointerTop}px`;
+        tutorialPointer.style.left = `${pointerLeft}px`;
+
+    }, 300); // Give 300ms for smooth scroll to potentially finish before positioning
+  }
+
+  // Event Listeners for tutorial controls
+  nextTutorialBtn.addEventListener('click', () => {
+    currentStep++;
+    if (currentStep < tutorialSteps.length) {
+      updateTutorialStep();
+    } else {
+      hideTutorial();
+    }
+  });
+
+  finishTutorialBtn.addEventListener('click', () => {
+    hideTutorial();
+  });
+
+  skipTutorialBtn.addEventListener('click', () => {
+    hideTutorial();
+  });
+
+  // Re-position tutorial on window resize to ensure it stays correctly placed
+  window.addEventListener('resize', () => {
+      if (tutorialOverlay.classList.contains('active')) {
+          updateTutorialStep(); // Re-calculate position for current step
+      }
   });
 </script>
 
