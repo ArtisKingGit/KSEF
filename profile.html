@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Dawamu School Bookshop</title>
+    <title>My Profile - Dawamu School Bookshop</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="bookshop logo.png" type="image/svg+xml">
     <style>
@@ -22,7 +22,12 @@
             font-family: 'Roboto', sans-serif;
             background-image: url('af3e75fbd20540d06bca1a3481a68719.jpg');
             background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Keeps background fixed during scroll */
             color: #e0e0e0;
+            display: flex;
+            flex-direction: column; /* For footer to stick to bottom */
+            min-height: 100vh;
         }
 
         header {
@@ -31,6 +36,7 @@
             padding: 20px 0;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 100; /* Ensure header is above other content */
         }
 
         header h1 {
@@ -81,63 +87,172 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
         }
 
-        .container {
-            min-height: 100vh;
-            padding-bottom: 20px;
+        /* --- Profile Layout --- */
+        .main-profile-area {
+            display: flex;
+            flex-grow: 1; /* Allows it to take up remaining vertical space */
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto; /* Centers the main content */
+            gap: 20px;
+            align-items: flex-start; /* Aligns items to the top */
         }
 
-        section.about {
+        .profile-sidebar {
+            background: rgba(50, 50, 50, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            flex-shrink: 0; /* Prevents shrinking */
+            min-width: 200px;
+        }
+
+        .profile-sidebar ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .profile-sidebar .sidebar-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            border: none;
+            padding: 12px 15px;
+            font-size: 1rem;
+            text-align: left;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .profile-sidebar .sidebar-btn:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .profile-sidebar .sidebar-btn.active {
+            background-color: #007bff; /* Highlight active button */
+            color: white;
+        }
+
+        .profile-content-wrapper {
+            flex-grow: 1; /* Allows it to take up remaining horizontal space */
             background: rgba(50, 50, 50, 0.9);
             padding: 40px;
-            text-align: center;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
-            margin: 20px;
         }
 
-        section.about h2 {
+        .profile-section {
+            display: none; /* Hidden by default */
+            text-align: center;
+        }
+
+        .profile-section.active {
+            display: block; /* Show active section */
+        }
+
+        .profile-section h2 {
             color: #ededed;
             font-size: 2rem;
             margin-bottom: 20px;
         }
 
-        section.about p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
-
-        .team {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .team-member {
+        .team-member { /* Now used for "My Profile" content */
             background: rgba(100, 100, 100, 0.8);
             border-radius: 15px;
             padding: 20px;
-            width: 420px;
+            max-width: 420px; /* Max width for content within section */
+            margin: 0 auto; /* Center it */
             text-align: center;
             backdrop-filter: blur(10px);
             transition: transform 0.3s;
-        }
-
-        .team-member:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Lighter shadow */
         }
 
         .team-member img {
-            width: 100px;
+            width: 120px; /* Slightly larger avatar */
+            height: 120px;
             border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff; /* Highlight avatar */
             transition: transform 0.3s;
+            margin-bottom: 15px;
         }
 
         .team-member img:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
+        }
+
+        /* Styles for username input/edit */
+        .username-edit-section, .profile-picture-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            /* No border-top here as it's part of a section */
+            text-align: center;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .username-edit-section input[type="text"],
+        .profile-picture-section input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #333;
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+
+        /* Custom styling for file input */
+        .profile-picture-section input[type="file"] {
+            background-color: #444;
+            cursor: pointer;
+        }
+        .profile-picture-section input[type="file"]::-webkit-file-upload-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+        .profile-picture-section input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #0056b3;
+        }
+
+        .username-edit-section button,
+        .profile-picture-section button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .username-edit-section button:hover,
+        .profile-picture-section button:hover {
+            background-color: #0056b3;
+        }
+
+        #imagePreview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+            margin: 20px auto;
+            display: block; /* Center the image */
         }
 
         footer {
@@ -146,7 +261,34 @@
             text-align: center;
             padding: 10px;
             width: 100%;
-            margin-top: auto;
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
+
+        @media (max-width: 768px) {
+            .main-profile-area {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+                margin: 10px auto;
+            }
+            .profile-sidebar {
+                width: 100%;
+                min-width: unset;
+                margin-bottom: 20px;
+            }
+            .profile-sidebar ul {
+                flex-direction: row; /* Horizontal menu on small screens */
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .profile-sidebar .sidebar-btn {
+                flex-grow: 1; /* Buttons take up available space */
+                text-align: center;
+            }
+            .profile-content-wrapper {
+                width: 100%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -163,75 +305,232 @@
             </ul>
         </nav>
     </header>
-    <div class="container">
-        <section class="about">
-            <h2>Profile</h2>
-            <div class="team">
+
+    <div class="main-profile-area">
+        <nav class="profile-sidebar">
+            <ul>
+                <li><button class="sidebar-btn active" data-target="myProfileSection">My Profile</button></li>
+                <li><button class="sidebar-btn" data-target="changeUsernameSection">Change Username</button></li>
+                <li><button class="sidebar-btn" data-target="changePictureSection">Change Profile Picture</button></li>
+            </ul>
+        </nav>
+
+        <div class="profile-content-wrapper">
+            <section id="myProfileSection" class="profile-section active">
+                <h2>My Profile</h2>
                 <div class="team-member" id="profileCard">
                     <img id="userPhoto" src="https://via.placeholder.com/150" alt="User Photo">
                     <h3 id="userName">Loading...</h3>
                     <p id="userEmail"></p>
                     <p id="userUID"></p>
-                    <button onclick="logout()" class="go-back-btn">Logout</button>
+                    <button onclick="logout()" class="go-back-btn" style="margin-top: 20px;">Logout</button>
                 </div>
-            </div>
-        </section>
+            </section>
 
+            <section id="changeUsernameSection" class="profile-section">
+                <h2>Change Username</h2>
+                <div class="username-edit-section">
+                    <input type="text" id="usernameInput" placeholder="Enter your new display name">
+                    <button id="updateUsernameBtn">Set/Update Username</button>
+                </div>
+            </section>
+
+            <section id="changePictureSection" class="profile-section">
+                <h2>Change Profile Picture</h2>
+                <div class="profile-picture-section">
+                    <img id="imagePreview" src="https://via.placeholder.com/150/EEEEEE/888888?text=Preview" alt="Image Preview">
+                    <input type="file" id="profilePictureInput" accept="image/*">
+                    <button id="uploadPictureBtn">Upload Profile Picture</button>
+                </div>
+            </section>
+        </div>
     </div>
+
     <footer>
         <p>&copy; 2025 Dawamu School Bookshop. All rights reserved.</p>
     </footer>
+
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
     <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-    import { signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
-      authDomain: "register-f5448.firebaseapp.com",
-      projectId: "register-f5448",
-      storageBucket: "register-f5448.appspot.com",
-      messagingSenderId: "321470396528",
-      appId: "1:321470396528:web:a82520483006d1a56e9cb5",
-      measurementId: "G-4Z3S1GJS6G"
-    };
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
+            authDomain: "register-f5448.firebaseapp.com",
+            projectId: "register-f5448",
+            storageBucket: "register-f5448.appspot.com", // Make sure this is correctly set up in your Firebase project
+            messagingSenderId: "321470396528",
+            appId: "1:321470396528:web:a82520483006d1a56e9cb5",
+            measurementId: "G-4Z3S1GJS6G"
+        };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const storage = getStorage(app); // Initialize Firebase Storage
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user || (!user.emailVerified && user.providerData[0].providerId !== 'google.com')) {
-        alert("You must be logged in to view your profile.");
-        window.location.href = "login.html";
-        return;
-      }
+        // Get elements from the DOM
+        const userNameElement = document.getElementById("userName");
+        const userEmailElement = document.getElementById("userEmail");
+        const userUIDElement = document.getElementById("userUID");
+        const userPhotoElement = document.getElementById("userPhoto");
+        const usernameInput = document.getElementById("usernameInput");
+        const updateUsernameBtn = document.getElementById("updateUsernameBtn");
+        const profilePictureInput = document.getElementById("profilePictureInput");
+        const imagePreview = document.getElementById("imagePreview");
+        const uploadPictureBtn = document.getElementById("uploadPictureBtn");
 
-      // Populate profile
-      document.getElementById("userName").innerText = user.displayName || "No display name";
-      document.getElementById("userEmail").innerText = "Email: " + user.email;
-      document.getElementById("userUID").innerText = "User ID: " + user.uid;
-      if (user.photoURL) {
-        document.getElementById("userPhoto").src = user.photoURL;
-      }
-    });
-    // Logout function
-    window.logout = function() {
-    signOut(auth)
-        .then(() => {
-        alert("Successfully logged out.");
-        window.location.href = "login.html";
-        })
-        .catch((error) => {
-        console.error("Logout error:", error);
-        alert("An error occurred during logout.");
+        const sidebarBtns = document.querySelectorAll(".sidebar-btn");
+        const profileSections = document.querySelectorAll(".profile-section");
+
+        // Function to switch visible sections
+        function switchProfileSection(targetId) {
+            profileSections.forEach(section => {
+                section.classList.remove("active");
+            });
+            sidebarBtns.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            document.getElementById(targetId).classList.add("active");
+            document.querySelector(`.sidebar-btn[data-target="${targetId}"]`).classList.add("active");
+        }
+
+        // Add event listeners for sidebar buttons
+        sidebarBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const targetId = btn.dataset.target;
+                switchProfileSection(targetId);
+            });
         });
-    }
-</script>
 
+        // Firebase Auth State Listener
+        onAuthStateChanged(auth, (user) => {
+            if (!user || (!user.emailVerified && user.providerData[0].providerId !== 'google.com')) {
+                alert("You must be logged in to view your profile.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Populate profile details
+            userEmailElement.innerText = "Email: " + user.email;
+            userUIDElement.innerText = "User ID: " + user.uid;
+
+            // Handle Display Name
+            if (user.displayName) {
+                userNameElement.innerText = user.displayName;
+                usernameInput.value = user.displayName; // Pre-fill input
+                updateUsernameBtn.textContent = 'Update Username';
+            } else {
+                userNameElement.innerText = "No display name set";
+                usernameInput.value = ''; // Clear input
+                updateUsernameBtn.textContent = 'Set Username';
+            }
+
+            // Handle Profile Photo
+            if (user.photoURL) {
+                userPhotoElement.src = user.photoURL;
+                imagePreview.src = user.photoURL; // Also update preview in the picture section
+            } else {
+                const defaultPhotoURL = "https://via.placeholder.com/150/EEEEEE/888888?text=User";
+                userPhotoElement.src = defaultPhotoURL;
+                imagePreview.src = defaultPhotoURL;
+            }
+        });
+
+        // --- Username Update Functionality ---
+        updateUsernameBtn.addEventListener('click', async () => {
+            const newDisplayName = usernameInput.value.trim();
+            if (newDisplayName && auth.currentUser) {
+                try {
+                    await updateProfile(auth.currentUser, {
+                        displayName: newDisplayName
+                    });
+                    userNameElement.innerText = newDisplayName; // Update UI immediately
+                    alert("Username updated successfully!");
+                    updateUsernameBtn.textContent = 'Update Username'; // Ensure button text is "Update"
+                } catch (error) {
+                    console.error("Error updating username:", error);
+                    alert("Failed to update username: " + error.message);
+                }
+            } else {
+                alert("Please enter a valid username.");
+            }
+        });
+
+        // --- Profile Picture Update Functionality ---
+
+        // Image preview when file is selected
+        profilePictureInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.src = "https://via.placeholder.com/150/EEEEEE/888888?text=Preview"; // Reset to default
+            }
+        });
+
+        // Upload picture to Firebase Storage
+        uploadPictureBtn.addEventListener('click', async () => {
+            const file = profilePictureInput.files[0];
+            const user = auth.currentUser;
+
+            if (!user) {
+                alert("You must be logged in to upload a profile picture.");
+                return;
+            }
+            if (!file) {
+                alert("Please select an image file to upload.");
+                return;
+            }
+
+            try {
+                // Create a storage reference: users/<UID>/profile_picture.jpg
+                const storageRef = ref(storage, `users/${user.uid}/profile_picture.jpg`);
+
+                // Upload the file
+                const snapshot = await uploadBytes(storageRef, file);
+                console.log('Uploaded a blob or file!', snapshot);
+
+                // Get the download URL
+                const photoURL = await getDownloadURL(snapshot.ref);
+
+                // Update user profile with the new photo URL
+                await updateProfile(user, {
+                    photoURL: photoURL
+                });
+
+                userPhotoElement.src = photoURL; // Update main profile picture
+                alert("Profile picture updated successfully!");
+            } catch (error) {
+                console.error("Error uploading profile picture:", error);
+                alert("Failed to upload profile picture: " + error.message);
+            }
+        });
+
+        // --- Logout function ---
+        window.logout = function() {
+            signOut(auth)
+                .then(() => {
+                    alert("Successfully logged out.");
+                    window.location.href = "login.html";
+                })
+                .catch((error) => {
+                    console.error("Logout error:", error);
+                    alert("An error occurred during logout.");
+                });
+        }
+    </script>
 </body>
 </html>

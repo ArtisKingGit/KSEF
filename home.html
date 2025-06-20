@@ -44,6 +44,17 @@
       to { opacity: 1; }
     }
 
+    /* Keyframes for slideshow crossfade */
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     /* Base state for elements that will animate on scroll */
     .animate-on-scroll {
       opacity: 0;
@@ -196,17 +207,35 @@
     .search-bar button:hover {
       background-color: var(--accent-gold-hover);
     }
+
+    /* --- Banner Slideshow Styles --- */
     #banner {
-      background: url('library.jpg') center/cover no-repeat;
-      background-color: #222;
-      height: 70vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      color: #fff;
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        color: #fff;
+        overflow: hidden; /* Important for containing sliding images */
     }
+
+    .banner-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0; /* Hidden by default */
+        transition: opacity 1.5s ease-in-out; /* Smooth crossfade */
+    }
+
+    .banner-slide.active {
+        opacity: 1;
+    }
+
     #banner::after {
       content: "";
       position: absolute;
@@ -215,10 +244,11 @@
       left: 0;
       right: 0;
       background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+      z-index: 1; /* Keep overlay above images but below content */
     }
     #banner .banner-content {
       position: relative;
-      z-index: 1;
+      z-index: 2; /* Ensure content is above overlay */
       padding: 20px;
     }
     /* Page load animation for banner content */
@@ -250,6 +280,32 @@
       background-color: var(--accent-gold-hover);
       transform: scale(1.05);
     }
+
+    /* Slideshow navigation dots */
+    .slideshow-dots {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2; /* Above overlay */
+        display: flex;
+        gap: 10px;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .dot.active, .dot:hover {
+        background-color: var(--accent-gold);
+        transform: scale(1.2);
+    }
+
 
     #featured-books {
       background-color: var(--bg-dark);
@@ -472,17 +528,17 @@
         <div class="logo" id="logo-tutorial-target">Dawamu Bookshop</div>
         <nav>
           <a href="#" id="home-nav-tutorial-target">Home</a>
-          <a href='/shop' id="shop-nav-tutorial-target">Shop</a>
-          <a href='/about'>About Us</a>
-          <a href='/contactus'>Contact</a>
-          <a href='/premium'>Membership</a>
-          <a href='/dashboard'>Dashboard</a>
+          <a href='dashboard.html'>Dashboard</a>
+          <a href='shop.html' id="shop-nav-tutorial-target">Shop</a>
+          <a href='about.html'>About Us</a>
+          <a href='contactus.html'>Contact</a>
+          <a href='premium.html'>Membership</a>
           <button id="logoutBtn">Logout</button>
         </nav>
         <div class="header-icons">
-          <a href='/profile' id="profile-icon-tutorial-target"><i class="fas fa-user"></i></a>
-          <a href='/contactus'><i class="fas fa-heart"></i></a>
-          <a href='/shop'><i class="fas fa-shopping-cart"></i></a>
+          <a href='profile.html' id="profile-icon-tutorial-target"><i class="fas fa-user"></i></a>
+          <a href='contactus.html'><i class="fas fa-heart"></i></a>
+          <a href='shop.html'><i class="fas fa-shopping-cart"></i></a>
         </div>
       </div>
       <div class="search-bar" id="search-bar-tutorial-target">
@@ -493,12 +549,26 @@
   </header>
 
   <section id="banner">
+    <div class="banner-slide" style="background-image: url('library.jpg');"></div>
+    <div class="banner-slide" style="background-image: url('dawamuthingy.jpg');"></div>
+    <div class="banner-slide" style="background-image: url('dawamuthingy1.jpg');"></div>
+    <div class="banner-slide" style="background-image: url('dawamuthingy2.jpg');"></div>
+    <div class="banner-slide" style="background-image: url('');"></div>
+    
     <div class="banner-content container">
       <div class="welcome-section">
           <div id="userProfile">Loading user...</div>
       </div>
       <p>Immerse yourself in a world where technology meets literature.</p>
-      <a href='/shop' id="explore-btn-tutorial-target">Explore Now</a>
+      <a href='shop.html' id="explore-btn-tutorial-target">Explore Now</a>
+    </div>
+
+    <div class="slideshow-dots">
+      <span class="dot active" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+      <span class="dot" onclick="currentSlide(5)"></span>
     </div>
   </section>
 
@@ -511,7 +581,7 @@
             <div class="book-info">
               <h3>Sciences Full notes Form 1 - Form 4</h3>
               <p>Revision E-book for Sciences for all Forms.</p>
-              <a href='/ebooks/sciences'>Read Book</a>
+              <a href='/ebooks/sciences.html'>Read Book</a>
             </div>
           </div>
           <div class="book-item animate-on-scroll fade-in-up">
@@ -519,7 +589,7 @@
             <div class="book-info">
               <h3>Computer Studies Full notes Form 1 - Form 4</h3>
               <p>Revision E-book for Computer Studies for all Forms.</p>
-              <a href='/ebooks/computerstudies'>Read Book</a>
+              <a href='/ebooks/computerstudies.html'>Read Book</a>
             </div>
           </div>
           <div class="book-item animate-on-scroll fade-in-up">
@@ -527,7 +597,7 @@
             <div class="book-info">
               <h3>Business Studies Full notes Form 1 - Form 4</h3>
               <p>Revision E-book for Business Studies for all Forms.</p>
-              <a href='/ebooks/businessstudies'>Read Book</a>
+              <a href='/ebooks/businessstudies.html'>Read Book</a>
             </div>
           </div>
           <div class="book-item animate-on-scroll fade-in-up">
@@ -535,7 +605,7 @@
             <div class="book-info">
               <h3>Agriculture Full notes Form 1 - Form 4</h3>
               <p>Revision E-book for Agriculture for all Forms.</p>
-              <a href='/ebooks/agriculture'>Read Book</a>
+              <a href='/ebooks/agriculture.html'>Read Book</a>
             </div>
           </div>
           <div class="book-item animate-on-scroll fade-in-up">
@@ -543,7 +613,7 @@
             <div class="book-info">
               <h3>Humanities (History and CRE) Full notes Form 1 - Form 4</h3>
               <p>Revision E-book for Humanities for all Forms.</p>
-              <a href='/ebooks/humanities'>Read Book</a>
+              <a href='/ebooks/humanities.html'>Read Book</a>
             </div>
           </div>
           <div class="book-item animate-on-scroll fade-in-up">
@@ -551,7 +621,7 @@
             <div class="book-info">
               <h3>IRE Full notes Form 1 - Form 4</h3>
               <p>Revision E-book for IRE for all Forms.</p>
-              <a href='/ebooks/ire'>Read Book</a>
+              <a href='/ebooks/ire.html'>Read Book</a>
             </div>
           </div>
           <div class="book-item animate-on-scroll fade-in-up">
@@ -559,7 +629,7 @@
             <div class="book-info">
               <h3>Geography Full notes Form 1 - Form 4</h3>
               <p>Revision E-book for Geography for all Forms.</p>
-              <a href='/ebooks/geography'>Read Book</a>
+              <a href='/ebooks/geography.html'>Read Book</a>
             </div>
           </div>
           <div class="book-item animate-on-scroll fade-in-up">
@@ -567,7 +637,7 @@
             <div class="book-info">
               <h3>English Full notes Form 1 - Form 4 notes</h3>
               <p>Revision E-books for English for all Forms.</p>
-              <a href='/ebooks/english'>Read Book</a>
+              <a href='/ebooks/english.html'>Read Book</a>
             </div>
           </div>
         </div>
@@ -729,43 +799,43 @@
   const tutorialSteps = [
     {
       title: "Welcome to Dawamu Bookshop!",
-      content: "Let's take a quick tour to help you get started.",
+      content: "Let's take a quick tour to help you get familiar with our features.",
       target: null, // No specific target for the first step (intro)
       placement: 'center' // Center of the screen
     },
     {
-      title: "Our Logo",
-      content: "This is our brand new logo. Click it to return to the homepage anytime!",
+      title: "Dawamu Bookshop Logo",
+      content: "This is our distinctive logo. You can click it anytime to return to this homepage!",
       target: 'logo-tutorial-target',
       placement: 'bottom-left'
     },
     {
-      title: "Navigation Bar",
-      content: "Quickly access different sections of the site like Shop, About Us, and your Dashboard.",
-      target: 'home-nav-tutorial-target', // Points to the first nav item, but encompasses the nav
+      title: "Main Navigation",
+      content: "Navigate seamlessly through our site using these links. Quickly access the **Dashboard** for your personalized space, explore new titles in the **Shop**, or learn more **About Us**. Don't forget to check out our **Membership** benefits!",
+      target: 'home-nav-tutorial-target', // This still targets the 'Home' link, acting as a general pointer to the whole nav bar.
       placement: 'bottom'
     },
     {
-      title: "Profile & Cart",
-      content: "Manage your profile or view your shopping cart here.",
+      title: "User & Cart Actions",
+      content: "Here, you can manage your **Profile**, view your saved items, or check your **Shopping Cart** to complete your purchases.",
       target: 'profile-icon-tutorial-target',
       placement: 'bottom-right'
     },
     {
       title: "Search for Books",
-      content: "Looking for something specific? Use our powerful search bar!",
+      content: "Looking for a specific e-book? Use our powerful search bar to quickly find what you need by title or description!",
       target: 'search-bar-tutorial-target',
       placement: 'bottom'
     },
     {
       title: "Explore E-Books",
-      content: "Click this button to dive right into our collection of digital books.",
+      content: "Ready to dive into our collection? Click this 'Explore Now' button to immediately browse all available digital books.",
       target: 'explore-btn-tutorial-target',
       placement: 'top'
     },
     {
       title: "Featured E-Books",
-      content: "Scroll down to browse through our popular e-book categories and find your next read.",
+      content: "Scroll down to discover our carefully curated selection of popular e-books. Find new reads across various subjects like Sciences, Computer Studies, and more.",
       target: 'featured-books-tutorial-target',
       placement: 'bottom'
     }
@@ -942,7 +1012,48 @@
           updateTutorialStep(); // Re-calculate position for current step
       }
   });
-</script>
 
+  // --- Slideshow JavaScript ---
+  let slideIndex = 0; // Start with the first slide (index 0)
+  let slideshowTimeout; // To store the timeout for auto-advance
+
+  function showSlides() {
+    let slides = document.getElementsByClassName("banner-slide");
+    let dots = document.getElementsByClassName("dot");
+
+    // Hide all slides
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove('active');
+    }
+
+    // Remove active class from all dots
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.remove('active');
+    }
+
+    // Advance slide index
+    slideIndex++;
+    if (slideIndex > slides.length) { slideIndex = 1 } // Loop back to the first slide
+
+    // Show the current slide and activate the corresponding dot
+    slides[slideIndex - 1].classList.add('active');
+    dots[slideIndex - 1].classList.add('active');
+
+    // Clear any existing timeout and set a new one for auto-advance
+    clearTimeout(slideshowTimeout);
+    slideshowTimeout = setTimeout(showSlides, 5000); // Change image every 5 seconds (5000ms)
+  }
+
+  // Function to change slide manually via dots
+  function currentSlide(n) {
+    slideIndex = n - 1; // Adjust for 0-based indexing
+    showSlides(); // Call showSlides to display the selected slide and restart timer
+  }
+
+  // Initial call to start the slideshow when the page loads
+  document.addEventListener("DOMContentLoaded", () => {
+      showSlides(); // Start the slideshow on page load
+  });
+</script>
 </body>
 </html>

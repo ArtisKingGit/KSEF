@@ -1,130 +1,265 @@
+/* --- Global & Root Variables --- */
+:root {
+    --color-dark-bg: #1C1C1C; /* Dark charcoal */
+    --color-card-bg: #2A2A2A; /* Slightly lighter card background */
+    --color-text-light: #E0E0E0; /* Light text for contrast */
+    --color-primary-accent: #DAA520; /* Goldenrod/Deep Gold for accents */
+    --color-primary-hover: #C69315; /* Darker gold on hover */
+    --color-button-bg: #24bb2b; /* Muted blue for action buttons */
+    --color-button-hover: #0e5d10; /* Darker blue on hover */
+    --color-border-dark: #333;
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.4);
+    --shadow-heavy: rgba(0, 0, 0, 0.6);
+
+    --font-heading: 'Merriweather', serif;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+/* --- Base Body & Wrapper Styles --- */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    background-color: rgb(8, 64, 29);
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: var(--font-body);
+    color: var(--color-text-light);
     min-height: 100vh;
+    display: flex;
     flex-direction: column;
-    padding: 5px;
+    overflow-x: hidden; /* Prevents horizontal scroll */
+    background-color: var(--color-dark-bg); /* Fallback */
 }
 
-.card-container {
+.site-wrapper {
+    /* Apply background image to a wrapper for better control over overlays */
+    background: url('af3e75fbd20540d06bca1a3481a68719.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
     display: flex;
-    gap: 20px;
-    padding: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    position: relative; /* For the pseudo-element overlay */
 }
 
-.card {
-    background-color: #0d6e00;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    width: 100%;
-    max-width: 300px;
-    transition: transform 0.2s ease;
+/* Overlay for better text readability on background image */
+.site-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* Dark translucent overlay */
+    backdrop-filter: blur(3px); /* Subtle blur for depth */
+    z-index: -1; /* Behind content */
 }
 
-.card:hover {
-    transform: translateY(-10px);
-}
-
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-
-.social-icons {
-    margin: 15px 0;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.social-icons i {
-    background: #0f7939;
-    color: #fff;
-    padding: 10px;
-    border-radius: 50%;
-    font-size: 14px;
-}
-
-.btn {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px 20px;
-    border: 2px solid #006417;
-    border-radius: 20px;
-    background: transparent;
-    background-color: #027426;
-    color: #000000;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    transform: translateY(-10px);
-    background: #000000;
-    color: #fffdfd;
-}
-
-.follow {
-    margin-bottom: 10px;
-}
-
+/* --- Header Styles --- */
 header {
-    background: rgba(5, 10, 3, 0.8);
+    background: linear-gradient(to bottom, rgba(28, 28, 28, 0.95), rgba(28, 28, 28, 0.8)); /* Subtle gradient */
     backdrop-filter: blur(10px);
-    padding: 10px;
+    padding: 20px 0;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 20px var(--shadow-medium);
+    position: sticky;
+    top: 0;
     width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid var(--color-border-dark);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 header h1 {
-    margin-bottom: 5px;
-    font-size: 2rem;
+    font-family: var(--font-heading);
+    font-size: 2.8rem; /* Larger, more impactful title */
+    color: var(--color-primary-accent);
+    margin: 0;
+    flex-grow: 1;
+    text-align: left;
+    text-shadow: 2px 2px 5px var(--shadow-heavy); /* Subtle text shadow */
+}
+
+.page-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--color-text-light);
+    margin-top: 10px;
+    text-align: center;
+    width: 100%; /* Ensure it's centered below header-content */
+    padding-top: 10px; /* Space from header-content */
+    border-top: 1px dashed var(--color-border-dark); /* Subtle separator */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .go-back-btn {
-    background: linear-gradient(90deg, #444, #666);
-    color: #e0e0e0;
+    background: var(--color-button-bg);
+    color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 12px 30px; /* Slightly larger button */
+    font-size: 1.05rem;
     cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px; /* More modern rounded corners */
+    box-shadow: 0 4px 10px var(--shadow-light);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    flex-shrink: 0;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 600px) {
-    body {
-        padding: 10px;
-    }
+.go-back-btn:hover {
+    background-color: var(--color-button-hover);
+    transform: translateY(-3px); /* More pronounced lift */
+    box-shadow: 0 6px 15px var(--shadow-medium);
+}
 
-    .card-container {
+/* --- Main Content Grid --- */
+.grade-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px; /* Slightly more space between cards */
+    padding: 50px 20px; /* More vertical padding */
+    max-width: 1200px;
+    margin: 20px auto;
+    flex-grow: 1;
+}
+
+.grade-card {
+    background-color: var(--color-card-bg);
+    border-radius: 15px; /* Softer rounded corners */
+    overflow: hidden;
+    box-shadow: 0 10px 30px var(--shadow-medium); /* Deeper initial shadow */
+    transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smoother transitions */
+    text-decoration: none;
+    color: var(--color-text-light);
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For image overlay */
+}
+
+.grade-card:hover {
+    transform: translateY(-12px) scale(1.03); /* More pronounced lift and slight scale */
+    box-shadow: 0 18px 40px var(--shadow-heavy); /* Even deeper shadow on hover */
+}
+
+/* Image Wrapper with Overlay Effect */
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 70%; /* Aspect ratio 7:10 (height is 70% of width) */
+    overflow: hidden;
+    height: 100px;
+}
+
+.card-image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease; /* Smooth zoom on hover */
+}
+
+.grade-card:hover .card-image-wrapper img {
+    transform: scale(1.1); /* Subtle zoom on hover */
+}
+
+/* Info Section */
+.card-info {
+    padding: 25px; /* More padding */
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(to top, rgba(42, 42, 42, 0.95), rgba(42, 42, 42, 0.85)); /* Subtle gradient */
+}
+
+.card-info h2 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem; /* Larger grade title */
+    margin-top: 0;
+    margin-bottom: 25px; /* More space above button */
+    color: var(--color-primary-accent);
+    text-shadow: 1px 1px 3px var(--shadow-light);
+}
+
+.browse-btn {
+    display: inline-block;
+    padding: 14px 30px; /* Larger button for better tap target */
+    border: none;
+    border-radius: 30px; /* Pill shape */
+    background-color: var(--color-button-bg);
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600; /* Bolder text */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: auto; /* Auto width based on content */
+    align-self: center; /* Center button within flex column */
+}
+
+.browse-btn:hover {
+    background-color: var(--color-button-hover);
+    transform: translateY(-4px); /* More pronounced lift */
+    box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .header-content {
         flex-direction: column;
-        align-items: center;
+        text-align: center;
     }
-
-    .card {
-        width: 90%;
-    }
-
     header h1 {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+    .page-title {
+        font-size: 1.5rem;
+    }
+    .go-back-btn {
+        width: 80%; /* Wider button on small screens */
+        max-width: 250px;
+    }
+    .grade-selection-grid {
+        grid-template-columns: 1fr; /* Single column on small screens */
+        padding: 30px 15px;
+    }
+    .grade-card {
+        max-width: 400px; /* Limit card width */
+        margin: 0 auto; /* Center individual cards */
+    }
+    .card-info h2 {
         font-size: 1.8rem;
     }
+    .browse-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
 
-    .btn {
-        padding: 8px 16px;
-        font-size: 14px;
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    .page-title {
+        font-size: 1.2rem;
+    }
+    .card-image-wrapper {
+        padding-top: 80%; /* Adjust aspect ratio for narrower screens if desired */
+    }
+    .card-info h2 {
+        font-size: 1.6rem;
     }
 }

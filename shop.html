@@ -6,53 +6,80 @@
     <title>Books - Dawamu School Bookshop</title>
     <link rel="stylesheet" href="shop2.css">
     <link rel="icon" href="bookshop logo.png" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="site-wrapper">
         <header>
-            <h1>Choose Your Class/Grade</h1>
-            <button onclick="goBack()" class="go-back-btn">Go Back</button>
+            <div class="header-content">
+                <h1>Dawamu Bookshop</h1>
+                <button onclick="goBack()" class="go-back-btn">Go Back</button>
+            </div>
+            <h2 class="page-title">Choose Your Class/Grade</h2>
         </header>
-    <div class="card-container">
-        
-        <div class="card">
-            <img src="Grade-7.jpg" alt="Harry Potter and the Goblet of Fire(2005)" class="profile-img">
-            <h2>Grade 7</h2>
-           <a href="shop/grade7.html"><button class="btn follow">Browse</button></a>
-        </div>
 
-        <div class="card">
-            <img src="Grade-8.jpg" alt="Harry Potter and the Goblet of Fire(2005)" class="profile-img">
-            <h2>Grade 8</h2>
-           <a href="shop/grade8.html"><button class="btn follow">Browse</button></a>
-        </div>
+        <main class="grade-selection-grid">
+            <a href="shop/grade7.html" class="grade-card">
+                <div class="card-image-wrapper">
+                    <img src="Grade-7.jpg" alt="Grade 7 Books">
+                </div>
+                <div class="card-info">
+                    <h2>Grade 7</h2>
+                    <button class="browse-btn">Browse Books</button>
+                </div>
+            </a>
 
-        <div class="card">
-            <img src="images (1).png" alt="Harry Potter and the Goblet of Fire(2005)" class="profile-img">
-            <h2>Grade 9</h2>
-           <a href="shop/grade9.html"><button class="btn follow">Browse</button></a>
-        </div>
+            <a href="shop/grade8.html" class="grade-card">
+                <div class="card-image-wrapper">
+                    <img src="Grade-8.jpg" alt="Grade 8 Books">
+                </div>
+                <div class="card-info">
+                    <h2>Grade 8</h2>
+                    <button class="browse-btn">Browse Books</button>
+                </div>
+            </a>
 
-        <div class="card">
-            <img src="bookshop logo.png" alt="Harry Potter and the Goblet of Fire(2005)" class="profile-img">
-            <h2>Form 2</h2>
-           <a href="shop/form2.html"><button class="btn follow">Browse</button></a>
-        </div>
+            <a href="shop/grade9.html" class="grade-card">
+                <div class="card-image-wrapper">
+                    <img src="images (1).png" alt="Grade 9 Books">
+                </div>
+                <div class="card-info">
+                    <h2>Grade 9</h2>
+                    <button class="browse-btn">Browse Books</button>
+                </div>
+            </a>
 
-        <div class="card">
-            <img src="bookshop logo.png" alt="Harry Potter and the Goblet of Fire(2005)" class="profile-img">
-            <h2>Form 3</h2>
-           <a href="shop/form3.html"><button class="btn follow">Browse</button></a>
-        </div>
+            <a href="shop/form2.html" class="grade-card">
+                <div class="card-image-wrapper">
+                    <img src="bookshop logo.svg" alt="Form 2 Books">
+                </div>
+                <div class="card-info">
+                    <h2>Form 2</h2>
+                    <button class="browse-btn">Browse Books</button>
+                </div>
+            </a>
 
-        <div class="card">
-            <img src="bookshop logo.png" alt="Harry Potter and the Goblet of Fire(2005)" class="profile-img">
-            <h2>Form 4</h2>
-           <a href="shop/form4.html"><button class="btn follow">Browse</button></a>
-        </div>
+            <a href="shop/form3.html" class="grade-card">
+                <div class="card-image-wrapper">
+                    <img src="bookshop logo.svg" alt="Form 3 Books">
+                </div>
+                <div class="card-info">
+                    <h2>Form 3</h2>
+                    <button class="browse-btn">Browse Books</button>
+                </div>
+            </a>
 
-    
-    </div>
-    <script>
+            <a href="shop/form4.html" class="grade-card">
+                <div class="card-image-wrapper">
+                    <img src="bookshop logo.svg" alt="Form 4 Books">
+                </div>
+                <div class="card-info">
+                    <h2>Form 4</h2>
+                    <button class="browse-btn">Browse Books</button>
+                </div>
+            </a>
+        </main>
+    </div> <script>
         function goBack() {
             window.history.back();
         }
