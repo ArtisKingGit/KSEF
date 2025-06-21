@@ -3,83 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books - Dawamu School Bookshop</title>
-    <link rel="stylesheet" href="shop2.css">
+    <title>Books - Dawamu Bookshop</title>
     <link rel="icon" href="bookshop logo.png" type="image/svg+xml">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- Final GOLD & BLACK Theme --- */
+        :root {
+            --bg-dark: #1A1A1A;
+            --bg-light: #2B2B2B;
+            --text-main: #EAEAEA;
+            --text-muted: #A0A0A0;
+            --accent-color: #C0A062;
+            --accent-color-hover: #D4AF37;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Roboto', sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap');
+
+        body {
+            font-family: var(--font-sans), sans-serif;
+            margin: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            padding: 20px;
+        }
+        header {
+            background-color: var(--bg-dark);
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--text-main);
+        }
+        .go-back-btn {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background-color 0.3s, color 0.3s;
+            position: absolute;
+            left: 20px;
+        }
+        .go-back-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-dark);
+        }
+        .card-container {
+            display: flex;
+            gap: 30px;
+            padding: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .card {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 280px;
+            border: 1px solid #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+        .card-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 4px solid var(--accent-color);
+            object-fit: cover;
+        }
+        .card h2 {
+            font-family: var(--font-serif);
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            margin: 5px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            background: var(--accent-color);
+            color: var(--bg-dark);
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn:hover {
+            background-color: var(--accent-color-hover);
+            transform: scale(1.05);
+        }
+        @media screen and (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding-bottom: 80px;
+            }
+             .go-back-btn {
+                position: relative;
+                left: auto;
+                top: 20px;
+            }
+        }
+        @media screen and (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="site-wrapper">
-        <header>
-            <div class="header-content">
-                <h1>Dawamu Bookshop</h1>
-                <button onclick="goBack()" class="go-back-btn">Go Back</button>
-            </div>
-            <h2 class="page-title">Choose Your Class/Grade</h2>
-        </header>
-
-        <main class="grade-selection-grid">
-            <a href="shop/grade7.html" class="grade-card">
-                <div class="card-image-wrapper">
-                    <img src="Grade-7.jpg" alt="Grade 7 Books">
-                </div>
-                <div class="card-info">
-                    <h2>Grade 7</h2>
-                    <button class="browse-btn">Browse Books</button>
-                </div>
-            </a>
-
-            <a href="shop/grade8.html" class="grade-card">
-                <div class="card-image-wrapper">
-                    <img src="Grade-8.jpg" alt="Grade 8 Books">
-                </div>
-                <div class="card-info">
-                    <h2>Grade 8</h2>
-                    <button class="browse-btn">Browse Books</button>
-                </div>
-            </a>
-
-            <a href="shop/grade9.html" class="grade-card">
-                <div class="card-image-wrapper">
-                    <img src="images (1).png" alt="Grade 9 Books">
-                </div>
-                <div class="card-info">
-                    <h2>Grade 9</h2>
-                    <button class="browse-btn">Browse Books</button>
-                </div>
-            </a>
-
-            <a href="shop/form2.html" class="grade-card">
-                <div class="card-image-wrapper">
-                    <img src="bookshop logo.svg" alt="Form 2 Books">
-                </div>
-                <div class="card-info">
-                    <h2>Form 2</h2>
-                    <button class="browse-btn">Browse Books</button>
-                </div>
-            </a>
-
-            <a href="shop/form3.html" class="grade-card">
-                <div class="card-image-wrapper">
-                    <img src="bookshop logo.svg" alt="Form 3 Books">
-                </div>
-                <div class="card-info">
-                    <h2>Form 3</h2>
-                    <button class="browse-btn">Browse Books</button>
-                </div>
-            </a>
-
-            <a href="shop/form4.html" class="grade-card">
-                <div class="card-image-wrapper">
-                    <img src="bookshop logo.svg" alt="Form 4 Books">
-                </div>
-                <div class="card-info">
-                    <h2>Form 4</h2>
-                    <button class="browse-btn">Browse Books</button>
-                </div>
-            </a>
-        </main>
-    </div> <script>
+    <header>
+        <h1>Choose Your Class/Grade</h1>
+        <button onclick="goBack()" class="go-back-btn">Go Back</button>
+    </header>
+    <div class="card-container">
+        <div class="card">
+            <img src="Grade-7.jpg" alt="Books for Grade 7" class="card-img">
+            <h2>Grade 7</h2>
+            <a href="shop/grade7.html"><button class="btn">Browse</button></a>
+        </div>
+        <div class="card">
+            <img src="Grade-8.jpg" alt="Books for Grade 8" class="card-img">
+            <h2>Grade 8</h2>
+            <a href="shop/grade8.html"><button class="btn">Browse</button></a>
+        </div>
+        <div class="card">
+            <img src="images (1).png" alt="Books for Grade 9" class="card-img">
+            <h2>Grade 9</h2>
+            <a href="shop/grade9.html"><button class="btn">Browse</button></a>
+        </div>
+        <div class="card">
+            <img src="bookshop logo.png" alt="Books for Form 2" class="card-img">
+            <h2>Form 2</h2>
+            <a href="shop/form2.html"><button class="btn">Browse</button></a>
+        </div>
+        <div class="card">
+            <img src="bookshop logo.png" alt="Books for Form 3" class="card-img">
+            <h2>Form 3</h2>
+            <a href="shop/form3.html"><button class="btn">Browse</button></a>
+        </div>
+        <div class="card">
+            <img src="bookshop logo.png" alt="Books for Form 4" class="card-img">
+            <h2>Form 4</h2>
+            <a href="shop/form4.html"><button class="btn">Browse</button></a>
+        </div>
+    </div>
+    <script>
         function goBack() {
             window.history.back();
         }
