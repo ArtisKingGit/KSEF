@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="bookshop logo.png" type="image/svg+xml">
     <style>
+        /* ... (Your existing CSS here) ... */
         * {
             margin: 0;
             padding: 0;
@@ -365,7 +366,7 @@
             apiKey: "AIzaSyB58Kkz8NqFBC3ZKeq-ehs35RJ5uCcb2TM",
             authDomain: "register-f5448.firebaseapp.com",
             projectId: "register-f5448",
-            storageBucket: "register-f5448.appspot.com", // Make sure this is correctly set up in your Firebase project
+            storageBucket: "register-f5448.appspot.com",
             messagingSenderId: "321470396528",
             appId: "1:321470396528:web:a82520483006d1a56e9cb5",
             measurementId: "G-4Z3S1GJS6G"
@@ -414,10 +415,15 @@
         // Firebase Auth State Listener
         onAuthStateChanged(auth, (user) => {
             if (!user || (!user.emailVerified && user.providerData[0].providerId !== 'google.com')) {
-                alert("You must be logged in to view your profile.");
+                // Removed the alert here to prevent multiple alerts if not logged in.
+                // The redirection handles it.
                 window.location.href = "login.html";
                 return;
             }
+
+            // For debugging:
+            console.log("Current user:", user);
+
 
             // Populate profile details
             userEmailElement.innerText = "Email: " + user.email;
@@ -497,11 +503,12 @@
 
             try {
                 // Create a storage reference: users/<UID>/profile_picture.jpg
+                // Ensure this path aligns with your Firebase Storage Security Rules
                 const storageRef = ref(storage, `users/${user.uid}/profile_picture.jpg`);
 
                 // Upload the file
                 const snapshot = await uploadBytes(storageRef, file);
-                console.log('Uploaded a blob or file!', snapshot);
+                console.log('Uploaded a blob or file!', snapshot); // Log success
 
                 // Get the download URL
                 const photoURL = await getDownloadURL(snapshot.ref);
@@ -512,9 +519,10 @@
                 });
 
                 userPhotoElement.src = photoURL; // Update main profile picture
+                imagePreview.src = photoURL; // Update preview in the picture section as well
                 alert("Profile picture updated successfully!");
             } catch (error) {
-                console.error("Error uploading profile picture:", error);
+                console.error("Error uploading profile picture:", error); // Log the actual error
                 alert("Failed to upload profile picture: " + error.message);
             }
         });
